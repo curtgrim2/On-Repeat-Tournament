@@ -1,0 +1,22 @@
+body{
+    background-color: rgb(179, 179, 179);
+}
+
+#startup{
+    border:black 1px solid;
+    background-color: aliceblue;
+    width:50%;
+    margin:0 auto 0 auto;
+    text-align: center;
+}
+
+.numofusersbutton{
+    color:black;
+    display:inline-block;
+    cursor:pointer;
+}
+
+#showusernum{
+    display:inline-block;
+    color:black;
+}

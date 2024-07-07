@@ -1,0 +1,52 @@
+<!DOCTYPE>
+<html>   
+    <head>
+        <link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        
+        
+        <title></title>
+    </head>
+    <body>
+
+        <div id="startup">
+          <form method="post" action="{{ url_for("startgame")}}" style ="text-align:center;" >
+                <div id = "slide1"> 
+                    <div>How many users are participating? </div>
+                <!---<input input id ="decrease" class="numofusersbutton" type="button" value = "-" onclick="changenumofusers('sub')"> -->
+                 <input type ="number" min=1 name = "numofusers" id="showusernum"/>
+                 <!--<div name = "numofusers" id="showusernum"></div> -->
+                <!-- <input input id ="increase" class="numofusersbutton" type="button" value = "+" onclick="changenumofusers('add')"> -->
+                 <div>What is the maximum number of songs per person? </div> 
+                 <div>MUST BE AN EVEN NUMBER</div>              
+                 <input id="songsperuser" type ="text" name="songspereach"><!--<input type="radio">-->
+                     <br/>
+                 <!--<input type = "button" value="START GAME" onclick="startgame()"/>-->
+                 <div id="next1" onclick="toslide2(showusernum)">Next</div>
+                </div>
+
+
+
+                <div id = "slide2">
+                    Please enter each name of every player:
+                    <div id="enternames">
+                        
+                    </div>
+                    
+                        <button type="submit">START GAME</button>
+                    
+                    
+                    <!--<div onclick="sendtoFlask()">SUBMIT</div>  -->
+                   
+                </div>
+
+                
+         </form>    
+        </div>
+
+
+        
+
+        
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script></script>
+    </body>
+</html>

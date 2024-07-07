@@ -1,0 +1,112 @@
+<!DOCTYPE>
+<html>
+    <body>
+
+       <ul id="eachname"> 
+        {% for x in range(totalusers)%}      
+        <li>  {{allnames[x]}} </li>
+        
+    {% endfor %}
+
+
+
+
+</ul>
+
+        <script type="text/javascript">
+            
+            var testusernum = 3;
+            var num =0;
+            var everyuserssong = new Map();
+
+            var totalusers = '{{totalusers}}';
+            var songsperuser = Number('{{songspereach}}');
+
+           /*
+            var testnames = '{{allnames | list}}';           
+            console.log( '{{allnames}}');
+            console.log(typeof '{{allnames | tojson}}')
+            
+            */
+            const ul_ = document.querySelector('#eachname');
+            const all_li = ul_.querySelectorAll('li');
+            const testnames = Array.from(all_li);
+            console.log(testnames[0].innerHTML);
+            
+            for(x=0; x<totalusers;x++){
+            //testnames[x]='{{allnames[x]}}';
+            //console.log('{{allnames[x]}}');
+            
+                }
+
+            console.log('Total number of users: ' +totalusers);
+            console.log('Total number of songs: ' + songsperuser);
+
+            var maxamountofsongs = 3;
+            var user1songs = ["User 1 Song 1","User 1 Song 2"];//,"User 1 Song 3","User 1 Song 4"];
+            var user2songs = ["User 2 Song 1","User 2 Song 2"];//,"User 2 Song 3", "User 2 Song 4"];
+            var user3songs = ["User 3 Song 1","User  3 Song 2"];//,"User 3 Song 3", "User 3 Song 4"];
+
+            var allusers = [user1songs,user2songs,user3songs];
+            var y=0;
+            for(iterate=0; iterate<testusernum; iterate++){
+                
+               // while(y<2){
+                    everyuserssong.set(testnames[iterate],allusers[iterate]);
+                   // y++;
+              //  }
+                y=0;               
+            }
+
+            var userKeys = Array.from(everyuserssong.keys());
+
+            console.log(everyuserssong);
+
+            var eliminated;
+            var winners=[];
+            var counter=0;
+            var numofsongsleft=maxamountofsongs;
+
+            var totalrounds = 3;
+
+            for(var currentround=0; currentround<totalrounds;currentround++){
+               /* for(){
+
+                }*/
+            }
+
+/*for(var theround=1; theround<5; theround++){
+    if(winners==0){
+        console.log();
+    }
+    else{
+
+    }
+    for (var x = 0; x < maxamountofsongs * maxamountofsongs; x++) {
+                // Filter out arrays that are empty
+                 allusers = allusers.filter(arr => arr.length > 0);
+                if (allusers.length < 2) {
+                    console.log("Not enough songs left to continue the tournament.");
+                    break;
+                }
+                var randomuser = Math.floor(Math.random() * allusers.length);
+                var randomuser2;
+                do {
+                    randomuser2 = Math.floor(Math.random() * allusers.length);
+                } while (randomuser2 === randomuser);
+
+                console.log(allusers[randomuser][0] + " vs " + allusers[randomuser2][0]);
+
+                // The second one loses here
+                var eliminated = allusers[randomuser2].shift(); // Remove the first element
+               winners.push(allusers[randomuser][0]);
+                console.log("Eliminated: " + eliminated);
+                counter++;         
+        }
+}
+        console.log("Tournament Over");
+        console.log(winners);
+*/
+        </script>
+    </body>
+</html>
