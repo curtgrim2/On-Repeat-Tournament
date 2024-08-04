@@ -9,7 +9,7 @@
     <body>
 
         <div id="startup">
-          <form method="post" action="{{ url_for("startgame")}}" style ="text-align:center;" >
+          <form method="post" action="{{ url_for("startgame")}}" style ="margin:25% auto;" >
                 <div id = "slide1"> 
                     <div>How many users are participating? </div>
                 <!---<input input id ="decrease" class="numofusersbutton" type="button" value = "-" onclick="changenumofusers('sub')"> -->
@@ -20,6 +20,14 @@
                  <div>MUST BE AN EVEN NUMBER</div>              
                  <input id="songsperuser" type ="text" name="songspereach"><!--<input type="radio">-->
                      <br/>
+                   <!-- <select>
+                        <option>1 on 1</option>
+                        <option>Final Four</option>
+                        <option>Elite Eight</option>
+                        <option>Sweet Sixteen</option>
+                        <option>Dirty 32</option>
+                        <option>Sexy 64</option>                       
+                     </select>--> 
                  <!--<input type = "button" value="START GAME" onclick="startgame()"/>-->
                  <div id="next1" onclick="toslide2(showusernum)">Next</div>
                 </div>
@@ -30,22 +38,22 @@
                     Please enter each name of every player:
                     <div id="enternames">
                         
-                    </div>
-                    
-                        <button type="submit">START GAME</button>
-                    
-                    
+                    </div>                   
+                                          
                     <!--<div onclick="sendtoFlask()">SUBMIT</div>  -->
-                   
+                    <div id="next1" onclick="toslide3(showusernum,enternames)">Next</div>
                 </div>
 
-                
+                <div id="slide3">
+
+                    <div id="s3"></div>
+
+                    <button type="submit">START GAME</button> 
+                </div>
+
+               
          </form>    
         </div>
-
-
-        
-
         
         <script src="{{ url_for('static', filename='js/script.js') }}"></script></script>
     </body>
