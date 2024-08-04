@@ -22,10 +22,15 @@ def startgame():
     if request.method == "POST":
         personnum=0
         allthenames =[]
+        
         while f'name{personnum}' in request.form:
             allthenames.append(request.form[f'name{personnum}'])       
             personnum += 1
+        print(request.form.get(f'namenum{1}')) # `namenum${x}`
         print(allthenames)
+        totalsongs = int(request.form.get("songspereach")) * int(request.form.get("numofusers"))
+        #for x in totalsongs:
+        print(totalsongs)
         #session['allnames'] = allthenames
         return render_template('testtournament.html',totalusers = int(request.form.get("numofusers")),songspereach=request.form.get("songspereach"),allnames=allthenames)
         #session.get('allnames',[])
