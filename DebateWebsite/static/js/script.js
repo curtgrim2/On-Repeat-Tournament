@@ -1,5 +1,3 @@
-
-
 var inc = document.getElementById("increase");
 var dec = document.getElementById("decrease");
 let numofusers = document.getElementById("showusernum");
@@ -11,6 +9,8 @@ var gamespecs = document.getElementById("startup");
 var slide2 = document.getElementById("slide2");
 slide2.style.display = "none";
 var slide1 = document.getElementById("slide1");
+var slide3 = document.getElementById("slide3");
+slide3.style.display ="none";
 
 function toslide2(showusernum){
     console.log(showusernum.value);
@@ -23,10 +23,66 @@ function toslide2(showusernum){
         node.type = "text";
        // node.name = "allnames";
        node.name = `name${x}`;
+       node.id=`nameid${x}`;
         node.className = "allnames2";
         node.placeholder="Enter name here";
         document.getElementById("enternames").appendChild(node);
     } 
+}
+
+function toslide3(showusernum,enternames){ /*For Youtube URLs */
+    slide1.style.display = "none";
+    slide2.style.display ="none";
+    slide3.style.display ="block";
+ /*For each name, take the number of songs and ask them to insert Youtube URL into each textbox */
+      for( x=0; x<showusernum.value; x++){
+       var newdiv = document.createElement("div");
+       newdiv.id = `namenumid${x}`;
+       newdiv.style.backgroundColor = "grey";
+       newdiv.style.display="block";
+       newdiv.style.margin="10px";
+       newdiv.style.width="100%";
+       newdiv.style.height="100%";
+       document.getElementById("s3").appendChild(newdiv);
+       
+       newdiv.innerHTML = document.getElementById(`nameid${x}`).value;
+       console.log(document.getElementById(`nameid${x}`).value);
+
+       for(y=0; y<songsperuser.value; y++){
+        var utubeURLs  = document.createElement("input");
+        utubeURLs.type = "text";
+        utubeURLs.name = `namenum${x}`;
+        utubeURLs.placeholder="Enter the URL";
+        document.getElementById(`namenumid${x}`).appendChild(utubeURLs); 
+                            
+       }
+    }   
+}
+
+
+var currentpage = 1;
+var totalpages =3;
+var startingpage = document.getElementById("startup");
+function prev(){
+    if(currentpage==1){
+        //Don't do anything
+    }
+    else{
+        currentpage-=1;
+    }
+}
+function next(){
+    if((currentpage+1)>totalpages){
+        //Go to router.py
+    }
+    else{
+        currentpage+=1;
+    }
+}
+
+
+function formOrganizer(){
+
 }
 
 /*
