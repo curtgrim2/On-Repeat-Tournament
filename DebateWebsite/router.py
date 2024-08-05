@@ -22,18 +22,23 @@ def startgame():
     if request.method == "POST":
         personnum=0
         allthenames =[]
-        
+        allurls = []
         while f'name{personnum}' in request.form:
             allthenames.append(request.form[f'name{personnum}'])       
-            personnum += 1
-        print(request.form.get(f'namenum{1}')) # `namenum${x}`
+            personnum += 1       
         print(allthenames)
         totalsongs = int(request.form.get("songspereach")) * int(request.form.get("numofusers"))
         #for x in totalsongs:
         print(totalsongs)
-        #session['allnames'] = allthenames
-        return render_template('testtournament.html',totalusers = int(request.form.get("numofusers")),songspereach=request.form.get("songspereach"),allnames=allthenames)
-        #session.get('allnames',[])
+        for x in range(totalsongs):
+            allurls.append(request.form.get(f'namenum{x}'))
+            print(request.form.get(f'namenum{x}')) # `namenum${x}`
+            x+=1
+        '''We probably don't need to create a new dat structure to split the songs up; we can just note how many songs per 
+        user and then assign them by the order of the names (f.e., If John is the first name that is entered and there is 4 songs per user, the first 4 songs will be 
+        acknowledged as John's)'''
+        return render_template('testtournament.html',totalusers = int(request.form.get("numofusers")),songspereach=request.form.get("songspereach"),allnames=allthenames,utubeurls=allurls)
+        
         
         
 '''def startgame():
