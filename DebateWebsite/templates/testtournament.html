@@ -41,23 +41,21 @@
             var testusernum = 3;
             var num =0;
             var everyuserssong = new Map();
-
-            var totalusers = '{{totalusers}}';
+            console.log('{{utubeurls | tojson}}');
+            var totalusers = Number('{{totalusers}}');
             var songsperuser = Number('{{songspereach}}');
 
-           /*
-            var testnames = '{{allnames | list}}';           
-            console.log( '{{allnames}}');
-            console.log(typeof '{{allnames | tojson}}')
-            
-            */
+            var utubeurls = JSON.parse('{{ utubeurls | tojson | safe }}');
+            var usernames = JSON.parse('{{allnames | tojson | safe}}');
+
+
             const ul_ = document.querySelector('#eachname');
             const all_li = ul_.querySelectorAll('li');
             const testnames = Array.from(all_li);
             console.log(testnames[num].innerHTML);
             
             for(x=0; x<totalusers;x++){
-
+               
             
                 }
 
@@ -68,9 +66,21 @@
             var user1songs = ["User 1 Song 1","User 1 Song 2"];//,"User 1 Song 3","User 1 Song 4"];
             var user2songs = ["User 2 Song 1","User 2 Song 2"];//,"User 2 Song 3", "User 2 Song 4"];
             var user3songs = ["User 3 Song 1","User  3 Song 2"];//,"User 3 Song 3", "User 3 Song 4"];
+            var user4songs = [];
+            var user5songs = [];
+            var user6songs = [];
 
-            var allusers = [user1songs,user2songs,user3songs];
-            var y=0;
+            var allusers = [user1songs,user2songs,user3songs,user4songs,user5songs,user6songs];
+
+
+            //Setting the amount of users that are playing the game (Maximum of 6)
+            var setlength = allusers.length;
+            for(x=totalusers;x<setlength;x++){
+                allusers.pop();
+                console.log("POP");
+            }
+
+        /*    var y=0;
             for(iterate=0; iterate<testusernum; iterate++){
                 
                // while(y<2){
@@ -79,6 +89,7 @@
               //  }
                 y=0;               
             }
+                */
 
             var userKeys = Array.from(everyuserssong.keys());
 
@@ -88,7 +99,6 @@
             var winners=[];
             var counter=0;
             var numofsongsleft=maxamountofsongs;
-
             var totalrounds = 3;
 
             for(var currentround=0; currentround<totalrounds;currentround++){
