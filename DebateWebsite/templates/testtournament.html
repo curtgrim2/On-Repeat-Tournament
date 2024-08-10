@@ -41,7 +41,7 @@
             var testusernum = 3;
             var num =0;
             //var everyuserssong = new Map();
-            console.log('{{utubeurls | tojson}}');
+            //console.log('{{utubeurls | tojson}}');
             var totalusers = Number('{{totalusers}}');
             var songsperuser = Number('{{songspereach}}');
 
@@ -54,10 +54,6 @@
             const testnames = Array.from(all_li);
             console.log(testnames[num].innerHTML);
             
-            for(x=0; x<totalusers;x++){
-               
-            
-                }
 
             console.log('Total number of users: ' +totalusers);
             console.log('Total number of songs: ' + songsperuser);
@@ -90,7 +86,7 @@
                 }
             }
 
-            console.log(allusers);
+           
 
         /*    var y=0;
             for(iterate=0; iterate<testusernum; iterate++){
@@ -118,6 +114,7 @@
             //Start of Round of 64
 
             var allusers2 = allusers;
+            console.log(allusers2);
            
             for(x=8; x>=1;x=x/2){ //6 rounds in Round of 64  // for(x=0;x<6;x+
 
@@ -143,11 +140,8 @@
                 }
 
                 
-                //console.log(allusers2[randomarr2]);
                 console.log(allusers2[randomarr][0] + " vs " + allusers2[randomarr2][0]);
-                //console.log(allusers2[randomarr2]);
                 var eliminated = allusers2[randomarr2].shift(); // Remove the first element
-               // console.log(allusers2[randomarr][0]);
                winners.push(allusers2[randomarr][0]);
                 console.log("Eliminated: " + eliminated + ", Winner: " +  allusers2[randomarr][0]);
             }
