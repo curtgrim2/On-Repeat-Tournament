@@ -34,6 +34,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
     slide1.style.display = "none";
     slide2.style.display ="none";
     slide3.style.display ="block";
+    eacheverysong=0;
  /*For each name, take the number of songs and ask them to insert Youtube URL into each textbox */
       for( x=0; x<showusernum.value; x++){
        var newdiv = document.createElement("div");
@@ -46,13 +47,14 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
        document.getElementById("s3").appendChild(newdiv);
        
        newdiv.innerHTML = document.getElementById(`nameid${x}`).value;
-       console.log(document.getElementById(`nameid${x}`).value);
+       console.log(document.getElementById(`nameid${x}`).value + " checking in");
 
        for(y=0; y<songsperuser.value; y++){
         var utubeURLs  = document.createElement("input");
         utubeURLs.type = "text";
-        utubeURLs.name = `namenum${x}`;
+        utubeURLs.name = `namenum${eacheverysong}`;
         utubeURLs.placeholder="Enter the URL";
+        console.log(`namenum${eacheverysong++}`);
         document.getElementById(`namenumid${x}`).appendChild(utubeURLs); 
                             
        }
