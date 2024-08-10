@@ -40,7 +40,7 @@
             
             var testusernum = 3;
             var num =0;
-            var everyuserssong = new Map();
+            //var everyuserssong = new Map();
             console.log('{{utubeurls | tojson}}');
             var totalusers = Number('{{totalusers}}');
             var songsperuser = Number('{{songspereach}}');
@@ -84,7 +84,7 @@
             for(x=0;x<allusers.length;x++){ //Each array
                 var usersongnum=0; 
                 while(usersongnum<songsperuser){
-                    console.log(utubeurls[songiter]);
+                    //console.log(utubeurls[songiter]);
                     allusers[x][usersongnum]= utubeurls[songiter++];
                     usersongnum++;
                 }
@@ -103,9 +103,9 @@
             }
                 */
 
-            var userKeys = Array.from(everyuserssong.keys());
+            //var userKeys = Array.from(everyuserssong.keys());
 
-            console.log(everyuserssong);
+            //console.log(everyuserssong);
 
             var eliminated;
             var winners=[];
@@ -113,48 +113,48 @@
             var numofsongsleft=totalusers*songsperuser;
             var totalrounds = 3;
 
-            for(var currentround=0; currentround<totalrounds;currentround++){
-               /* for(){
 
-                }*/
+
+            //Start of Round of 64
+
+            var allusers2 = allusers;
+           
+            for(x=8; x>=1;x=x/2){ //6 rounds in Round of 64  // for(x=0;x<6;x+
+
+                console.log("Round of " + x);
+                
+                
+                for(y=0; y<numofsongsleft;y+=2){
+                   
+
+                    allusers2 = allusers2.filter(arr => arr.length > 0);
+                    console.log(allusers2);
+                if (allusers2.length < 2) {
+                    console.log("Not enough people left to continue the tournament.");
+                    break;
+                }
+
+            var randomarr = Math.floor(Math.random()*allusers2.length);
+            var randomarr2 = Math.floor(Math.random()*allusers2.length);
+
+            while(randomarr2 == randomarr ){ //Makes sure the same user isn't going against themselves //&& randomarr!=-1 && randomarr2 !=-1
+                randomarr = Math.floor(Math.random()*allusers2.length);
+                randomarr2 = Math.floor(Math.random()*allusers2.length);
+                }
+
+                
+                //console.log(allusers2[randomarr2]);
+                console.log(allusers2[randomarr][0] + " vs " + allusers2[randomarr2][0]);
+                //console.log(allusers2[randomarr2]);
+                var eliminated = allusers2[randomarr2].shift(); // Remove the first element
+               // console.log(allusers2[randomarr][0]);
+               winners.push(allusers2[randomarr][0]);
+                console.log("Eliminated: " + eliminated + ", Winner: " +  allusers2[randomarr][0]);
             }
+                numofsongsleft=numofsongsleft/2;
 
-
-            var temparr = allusers;//var temparr = [user1songs,user2songs,user3songs];            
-            songsleft = maxamountofsongs;
-
-            for( x = 0; x<maxamountofsongs - 0; x++){
-               /* for(y=0; y<arrofarrs.length; y++){
-                    
-                }*/
-            //var randomindex = Math.floor(Math.random()*maxamountofsongs);
-
-            var arrofarrs = temparr;
-
-            var randomarr = Math.floor(Math.random()*arrofarrs.length-1);
-            var randomarr2 = Math.floor(Math.random()*arrofarrs.length-1);
-            
-            while(randomarr2 == randomarr){ //Makes sure the same user is going against themselves
-             randomarr = Math.floor(Math.random()*arrofarrs.length-1);
-             randomarr2 = Math.floor(Math.random()*arrofarrs.length-1);
-            }
-
-            //console.log(arrofarrs[randomarr][0] + " vs " + arrofarrs[randomarr2][0]); //Fix this
-            counter++;
-
-            //The second one loses here
-
-            //console.log(arrofarrs[randomarr][randomindex] + " vs " + arrofarrs[randomarr2][randomindex]);
-
-            //var eliminated = arrofarrs[randomarr2][randomindex];
-            //console.log(arrofarrs[randomarr2].splice(randomindex,1));       
-            
-           /* console.log(randomindex);
-            console.log("Removing " +arrofarrs[randomarr2][randomindex] + " from " + arrofarrs[randomarr2]);
-
-             numofsongsleft = arrofarrs[randomarr2].length;
-            eliminated = arrofarrs[randomarr2].splice(randomindex,1); */         
         }
+       
         console.log("Tournament Over");
         console.log(winners);
 
