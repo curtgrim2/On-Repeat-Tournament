@@ -62,10 +62,9 @@
             console.log('Total number of users: ' +totalusers);
             console.log('Total number of songs: ' + songsperuser);
 
-            var maxamountofsongs = 3;
-            var user1songs = ["User 1 Song 1","User 1 Song 2"];//,"User 1 Song 3","User 1 Song 4"];
-            var user2songs = ["User 2 Song 1","User 2 Song 2"];//,"User 2 Song 3", "User 2 Song 4"];
-            var user3songs = ["User 3 Song 1","User  3 Song 2"];//,"User 3 Song 3", "User 3 Song 4"];
+            var user1songs = [];//,"User 1 Song 1","User 1 Song "];
+            var user2songs = [];//,"User 2 Song 3", "User 2 Song 4"];
+            var user3songs = [];//,"User 3 Song 3", "User 3 Song 4"];
             var user4songs = [];
             var user5songs = [];
             var user6songs = [];
@@ -77,8 +76,21 @@
             var setlength = allusers.length;
             for(x=totalusers;x<setlength;x++){
                 allusers.pop();
-                console.log("POP");
             }
+
+
+            //Placing all the users songs into the arrays
+            var songiter = 0;
+            for(x=0;x<allusers.length;x++){ //Each array
+                var usersongnum=0; 
+                while(usersongnum<songsperuser){
+                    console.log(utubeurls[songiter]);
+                    allusers[x][usersongnum]= utubeurls[songiter++];
+                    usersongnum++;
+                }
+            }
+
+            console.log(allusers);
 
         /*    var y=0;
             for(iterate=0; iterate<testusernum; iterate++){
@@ -98,7 +110,7 @@
             var eliminated;
             var winners=[];
             var counter=0;
-            var numofsongsleft=maxamountofsongs;
+            var numofsongsleft=totalusers*songsperuser;
             var totalrounds = 3;
 
             for(var currentround=0; currentround<totalrounds;currentround++){
@@ -106,6 +118,51 @@
 
                 }*/
             }
+
+
+            var temparr = allusers;//var temparr = [user1songs,user2songs,user3songs];            
+            songsleft = maxamountofsongs;
+
+            for( x = 0; x<maxamountofsongs - 0; x++){
+               /* for(y=0; y<arrofarrs.length; y++){
+                    
+                }*/
+            //var randomindex = Math.floor(Math.random()*maxamountofsongs);
+
+            var arrofarrs = temparr;
+
+            var randomarr = Math.floor(Math.random()*arrofarrs.length-1);
+            var randomarr2 = Math.floor(Math.random()*arrofarrs.length-1);
+            
+            while(randomarr2 == randomarr){ //Makes sure the same user is going against themselves
+             randomarr = Math.floor(Math.random()*arrofarrs.length-1);
+             randomarr2 = Math.floor(Math.random()*arrofarrs.length-1);
+            }
+
+            //console.log(arrofarrs[randomarr][0] + " vs " + arrofarrs[randomarr2][0]); //Fix this
+            counter++;
+
+            //The second one loses here
+
+            //console.log(arrofarrs[randomarr][randomindex] + " vs " + arrofarrs[randomarr2][randomindex]);
+
+            //var eliminated = arrofarrs[randomarr2][randomindex];
+            //console.log(arrofarrs[randomarr2].splice(randomindex,1));       
+            
+           /* console.log(randomindex);
+            console.log("Removing " +arrofarrs[randomarr2][randomindex] + " from " + arrofarrs[randomarr2]);
+
+             numofsongsleft = arrofarrs[randomarr2].length;
+            eliminated = arrofarrs[randomarr2].splice(randomindex,1); */         
+        }
+        console.log("Tournament Over");
+        console.log(winners);
+
+
+
+
+
+
 
 
 
