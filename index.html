@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube API Example</title>
+</head>
+<body>
+    <div id="videoData"></div>
+
+    <script>
+        const apiKey = 'AIzaSyBc9Y9VMDPAaILM7erb5kwBhJ_B8knnKQk'; // Replace with your YouTube API key
+        const videoId = '4ZHDoO4xvI0'; // Example YouTube video ID
+
+        async function getVideoData() {
+            const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet,contentDetails,statistics&key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                const data = await response.json();
+                console.log(data);
+                displayVideoData(data);
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
+        }
+
+        function displayVideoData(data) {
+            const videoElement = document.getElementById('videoData');
+            const videoInfo = data.items[0].snippet;
+            const videoEmbedUrl = `https://www.youtube.com/embed/${videoId}`;
+
+            videoElement.innerHTML = `
+                <h2>${videoInfo.title}</h2>
+                <p>${videoInfo.description}</p>
+                <iframe width="560" height="315" src="${videoEmbedUrl}"
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+                        encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                </iframe>
+                <p><strong>Views:</strong> ${data.items[0].statistics.viewCount}</p>
+            `;
+        }
+
+        getVideoData(); // Call the function to fetch and display video data
+    </script>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4ZHDoO4xvI0" frameborder="0" gesture="media" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</body>
+</html>
