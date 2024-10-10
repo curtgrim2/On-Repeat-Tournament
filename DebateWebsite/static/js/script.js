@@ -34,6 +34,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
     slide1.style.display = "none";
     slide2.style.display ="none";
     slide3.style.display ="block";
+    //document.getElementById("startup").style.display = "none";
     eacheverysong=0;
  /*For each name, take the number of songs and ask them to insert Youtube URL into each textbox */
       for( x=0; x<showusernum.value; x++){
@@ -42,8 +43,8 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
        newdiv.style.backgroundColor = "grey";
        newdiv.style.display="block";
        newdiv.style.margin="10px";
-       newdiv.style.width="100%";
-       newdiv.style.height="100%";
+       newdiv.style.width="50%";
+       newdiv.style.height="30%";
        document.getElementById("s3").appendChild(newdiv);
        
        newdiv.innerHTML = document.getElementById(`nameid${x}`).value;
@@ -87,37 +88,6 @@ function formOrganizer(){
 
 }
 
-/*
-function sendtoFlask(){
-    
-    var allnames = document.querySelectorAll('.allnames');
-    var nameslist = [];
-
-    allnames.forEach(function (input){
-        nameslist.push(input.value);
-        console.log(input.value);
-    });
-
-
-    fetch('/startgame',{
-        method: 'POST',
-        headers: {
-            'Content-Type':'application/json'
-        },
-        body: JSON.stringify({allnames: nameslist})
-    })
-    .then(response=> response.json())
-    .then(data=> {
-        console.log('Success',data);
-    })
-    .catch((error)=>{
-        console.log('Error',error);
-    }) 
-
-}
-*/
-
-
 
 function changenumofusers(addorsubtract){
     if(addorsubtract=="add"){ //Let's determine a max
@@ -135,5 +105,12 @@ function changenumofusers(addorsubtract){
             }      
     }
 }
+
+
+
+//Start of gametime.html's script
+
+
+
 
 
