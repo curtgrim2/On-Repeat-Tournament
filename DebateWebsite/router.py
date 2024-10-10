@@ -11,7 +11,7 @@ app.config['SESSION_TYPE'] = 'filesystem'  # Store session data on the server's 
 @app.route("/")
 def home():
     #return render_template('testtournament.html')
-    return render_template('gametime.html')
+    return render_template('gameprep.html')
 
 
 #@app.route('/',methods=["GET","POST"])
@@ -37,9 +37,13 @@ def startgame():
         '''We probably don't need to create a new dat structure to split the songs up; we can just note how many songs per 
         user and then assign them by the order of the names (f.e., If John is the first name that is entered and there is 4 songs per user, the first 4 songs will be 
         acknowledged as John's)'''
-        return render_template('testtournament.html',totalusers = int(request.form.get("numofusers")),songspereach=request.form.get("songspereach"),allnames=allthenames,utubeurls=allurls)
-        
-        
+        return render_template('gametime.html',totalusers = int(request.form.get("numofusers")),songspereach=request.form.get("songspereach"),allnames=allthenames,utubeurls=allurls)
+ 
+@app.route('/seeresults',methods=['GET','POST'])       
+def showresults():
+    print("Lets see the results")
+
+    return render_template('resultspage.html')    
         
 '''def startgame():
     try:
