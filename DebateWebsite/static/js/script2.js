@@ -36,24 +36,38 @@ var testusernum = 3;
             var songiter = 0;
             
             var users_name=[];
+            var users_namessongs=[]
+            var totalsongs = allusers.length
+            console.log();
             for(x=0;x<allusers.length;x++){ //Each array
                 var usersongnum=0; 
                 while(usersongnum<songsperuser){
                     //console.log(utubeurls[songiter]);
                     allusers[x][usersongnum]= utubeurls[songiter++];
                     users_name[x]=testnames[x].innerHTML; //Will use to display the name underneath video
+
+
+                   // users_name[x][usersongnum]=allusers[x][usersongnum];               
+                   /*allusers[x][usersongnum][0]=users_name[x];
+                   console.log(allusers[x][usersongnum][0]);*/
+                   
                     usersongnum++;
                 }
             }
 
+            
           //console.log(users_name[0] + " vs " + users_name[1]);  //console.log(allusers[0][0] + "vs" + allusers[1][0]); //How we will display the names per the last comment
 
-            console.log( allusers[0]);
+          //console.log(allusers[0][usersongnum][0]);
+          //console.log( allusers[x][usersongnum]);
+
+            console.log( allusers);
 
             var eliminated;
             var winners=[];
             var counter=0;
             var numofsongsleft=totalusers*songsperuser;
+            const totalsongs2 = numofsongsleft;
             var totalrounds = 3;
             var currround = 8; //Needs to be 64 on final versionS
 
@@ -66,7 +80,7 @@ var testusernum = 3;
 
            
 
-
+            document.getElementById("displayround").innerHTML = "Round of " + currround;
 
             //Initial First Matchup
 
@@ -97,24 +111,21 @@ var testusernum = 3;
 
 
             function thewinneris(theanswer){
-
                 //console.log(allusers2[usersongs2]);
                 thelogic(theanswer);
-
             }
 
 
 
             function thelogic(theanswer){
                 counter=counter+2; //Keeping track of how many songs we went through in the round
-
-                document.getElementById("displayround").innerHTML = "Round of " + currround;
+            
                 console.log(allusers2);
             console.log("Counter:" + counter + ", Current Round:" +currround);
                 if(counter<=currround) { //Going through each round
-                    console.log("Left number:"+ usersongs1 + "Right number:"+ usersongs2);
+                    //console.log("Left number:"+ usersongs1 + " Right number:"+ usersongs2);
                 if(theanswer == "left"){
-                    console.log(allusers2[usersongs1].toString());
+                    console.log(allusers2[usersongs1]);
                     var eliminated = allusers2[usersongs2].shift(); // Remove the first element
                     var tempwinner = allusers2[usersongs1][0];
                     winners.push(allusers2[usersongs1].shift());
@@ -125,7 +136,7 @@ var testusernum = 3;
                 console.log(winners);
                 }
                 else if (theanswer == "right"){
-                    console.log(allusers2[usersongs2].toString());
+                    console.log(allusers2[usersongs2]);
                     var eliminated = allusers2[usersongs1].shift(); // Remove the first element
                     var tempwinner = allusers2[usersongs2][0];
                     winners.push(allusers2[usersongs2].shift());
@@ -141,31 +152,9 @@ var testusernum = 3;
                     document.getElementById("displayround").innerHTML = "Round of " + currround;
                    // console.log("Number of songs remaining is " + numofsongsleft);                                                      
                        
-                    allusers2 = allusers2.filter(arr => arr.length > 0);
-                   // console.log(allusers2);
+                    //allusers2 = allusers2.filter(arr => arr.length > 0);
 
-             /*   if (allusers2.length < 2) {
-                    console.log("Not enough people left to continue the tournament.");
-                    console.log(allusers2);
-
-                   //window.location.href= "/seeresults";  
-                      
-               /*    fetch('/seeresults', {
-                    method: 'POST',  // Use GET if you want
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }                   
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-                
-                } */
-    
+                    
              usersongs1 = Math.floor(Math.random()*allusers2.length);
              usersongs2 = Math.floor(Math.random()*allusers2.length);
     
@@ -182,10 +171,9 @@ var testusernum = 3;
     
                 
                 console.log(allusers2[usersongs1][0] + " vs " + allusers2[usersongs2][0]);
-                console.log("Left number:"+ usersongs1 + "Right number:"+ usersongs2);
+                //console.log("Left number:"+ usersongs1 + " Right number:"+ usersongs2);
 
 
-              //console.log("Counter:" + counter + ", Current Round:" +currround);
                //if(counter!=currround) { //Going through each round
                 var leftvidID=createvideoID(allusers2[usersongs1][0]);
                 var rightvidID=createvideoID(allusers2[usersongs2][0]);
@@ -201,63 +189,104 @@ var testusernum = 3;
 
             else{
                 console.log("To the next round?");
-                allusers2=winners;
                 numofsongsleft=numofsongsleft/2;
-                counter=2;
+                //counter=2;
                 currround = currround/2;
-                //console.log("Round of " + currround);
                 document.getElementById("displayround").innerHTML = "Round of " + currround;
-                console.log("Counter:" + counter + ", Current Round:" +currround);
-                allusers2 = winners;
-                console.log("Adding the winners to the next evaluated crop(alusers2)");
+                //console.log("Counter:" + counter + ", Current Round:" +currround);
+                
+
+                var finduser=0;
+                var findsong=0;
+                var iteratehelp=0;
+                var newusersindex=0;
+                var theuser =0;
+                newusernames=[];
+
+                    for(x=0;x<winners.length;x++){ //Each array
+                        //finduser=0;
+                        theuser=0;
+                        findsong=0;
+                        //allusers2[x]=winners[x];
+                        //allusers[x][usersongnum]= utubeurls[songiter++];
+
+
+                         while(findsong <totalsongs2){ //while(findsong<songsperuser){ /Assign winning song to winning user
+                            if(winners[x]==utubeurls[findsong]){// if(winners[x]==allusers[finduser][findsong]){
+                                
+                                //console.log( winners[x] + " , " + utubeurls[findsong]);
+                                //console.log(users_name[theuser]);
+                                newusernames[newusersindex++]=users_name[theuser];
+                                console.log(allusers2);
+                                allusers2[theuser].push(winners[x]);
+
+                            }
+                        
+                            findsong++;
+                            if(findsong==songsperuser){ //For initial reapplication, evry (songperuser) is dedicated to a person
+                                theuser++;
+                                
+                            }
+                           }   
+                           
+                           
+                    }
+
+                    winners=[]; //Need to store/record old winners before clearing this out (long term)
+                    counter=0;
+                    console.log(winners);
+
+                //users_name=newusernames // I did this intentional in case I need to keep the old user name winners in the future
+                console.log(newusernames);
+                console.log("Adding the winners to the next evaluated crop(allusers2)");
                 console.log(allusers2);
 
 
+               // allusers2[0] = allusers2[0].filter(arr => arr.length > 0);
+                //allusers2[1] = allusers2[1].filter(arr => arr.length > 0);
+                console.log(allusers2);
+               /* if(allusers2<2){
+                    console.log("THERE CAN BE ONLY ONE");
+                    
+                }*/
 
                 if(currround<2){ //Overall rounds checker; Once we past the one on one (last tournament) the game ends
                     console.log("TOURNAMENT FINISHED");
                     console.log(winners);
+                    //Will need more to prevent the overall action loop from starting; Redirect page here?
+                }
+                else{
+
+                    console.log("Reapply winners");
+                        usersongs1 = Math.floor(Math.random()*allusers2.length);
+                        usersongs2 = Math.floor(Math.random()*allusers2.length);
+    
+            while(usersongs2 == usersongs1 ){ 
+                usersongs1 = Math.floor(Math.random()*allusers2.length);
+                usersongs2 = Math.floor(Math.random()*allusers2.length);
+                }
+
+               
+                console.log(allusers2[usersongs1][0] + " vs " + allusers2[usersongs2][0]);
+
+                var leftvidID=createvideoID(allusers2[usersongs1][0]);
+                var rightvidID=createvideoID(allusers2[usersongs2][0]);
+               
+                document.getElementById("leftvid").src = "//www.youtube.com/embed/" + leftvidID;
+                document.getElementById("rightvid").src = "//www.youtube.com/embed/" + rightvidID;
+                getVideoDetails("left",leftvidID);
+                getVideoDetails("right",rightvidID);
+                document.getElementById("leftname").innerHTML = users_name[usersongs1];
+                document.getElementById("rightname").innerHTML = users_name[usersongs2];
+
                 }
             }
     
                //Where the first if statement used to be
-      
-
-
-                //counter=counter+2; //Keeping track of how many songs we went through in the round
-             /*   if(counter==numofsongsleft){
-                    numofsongsleft=numofsongsleft/2;
-                    counter=0;
-                    currround = currround/2;
-                    allusers2 = winners;
-                    if(currround<2){ //Overall rounds checker; Once we past the one on one (last tournament) the game ends
-                        console.log("TOURNAMENT FINISHED");
-                        console.log(winners);
-                    }
-                }  */   
 
                 
                 }
-               /* else{
-                    console.log("To the next round?");
-                    allusers2=winners;
-                    numofsongsleft=numofsongsleft/2;
-                    counter=2;
-                    currround = currround/2;
-                    //console.log("Round of " + currround);
-                    document.getElementById("displayround").innerHTML = "Round of " + currround;
-                    console.log("Counter:" + counter + ", Current Round:" +currround);
-                    allusers2 = winners;
-                    console.log("Adding the winners to the next evaluated crop(alusers2)");
-                    console.log(allusers2);
-
-
-
-                    if(currround<2){ //Overall rounds checker; Once we past the one on one (last tournament) the game ends
-                        console.log("TOURNAMENT FINISHED");
-                        console.log(winners);
-                    }
-                }*/
+              
             }
 
 
@@ -295,13 +324,13 @@ var testusernum = 3;
 
           function getVideoDetails2(whichside,data){
             if(whichside=="left"){
-                document.getElementById("leftvideotitle").innerHTML= data.items[0].snippet.title;
+                document.getElementById("leftbutt").innerHTML= data.items[0].snippet.title;
 
             }
             
             
             else{
-                document.getElementById("rightvideotitle").innerHTML= data.items[0].snippet.title;
+                document.getElementById("rightbutt").innerHTML= data.items[0].snippet.title;
 
             }
           }
