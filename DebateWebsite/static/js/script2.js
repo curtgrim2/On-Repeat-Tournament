@@ -36,6 +36,7 @@ var testusernum = 3;
             var songiter = 0;
             
             var users_name=[];
+            var orderusernames=[];
             var users_namessongs=[]
             var totalsongs = allusers.length
             console.log();
@@ -62,6 +63,8 @@ var testusernum = 3;
           //console.log( allusers[x][usersongnum]);
 
             console.log( allusers);
+            console.log(users_name);
+            orderusernames=users_name;
 
             var eliminated;
             var winners=[];
@@ -107,6 +110,7 @@ var testusernum = 3;
                 document.getElementById("rightvid").src = "//www.youtube.com/embed/" + rightvidID;
                 getVideoDetails("left",leftvidID);
                 getVideoDetails("right",rightvidID);
+                console.log("usersongs1:" + usersongs1 + "usersongs2" + usersongs2);
                 document.getElementById("leftname").innerHTML = users_name[usersongs1];
                 document.getElementById("rightname").innerHTML = users_name[usersongs2];
 
@@ -144,9 +148,14 @@ var testusernum = 3;
                     allusers2[usersongs1].splice(songselector1,1); /*winners.push(allusers2[usersongs1][songselector1].shift()); */
                     allusers2[usersongs2].splice(songselector2,1);
 
+                   /* users_name.splice(usersongs2,1);
+                    users_name.splice(usersongs1,1); */
+
                 console.log( "Winner: " +  tempwinner + ", Eliminated: " + eliminated); //console.log("Eliminated: " + eliminated + ", Winner: " +  allusers2[usersongs1][0]);
                 console.log(winners);
-                console.log(allusers);
+                console.log("AllUsers");
+                console.log(allusers2);
+                //console.log(allusers);
                 }
                 else if (theanswer == "right"){
                     console.log("RIGHT");
@@ -162,12 +171,17 @@ var testusernum = 3;
                     //winners.push(allusers2[usersongs2].splice(winnersindex,1));
                     //winners.push(allusers2[usersongs2].splice(songselector2,1));
 
+                  /*  users_name.splice(usersongs1,1);
+                    users_name.splice(usersongs2,1); */
+                    //document.getElementById("rightname").innerHTML = users_name[usersongs2];
+
+
 
                 console.log("Eliminated: " + eliminated + ", Winner: " +  tempwinner);
                 console.log("The winners are display below:");
                 console.log(winners);
                 console.log("AllUsers");
-                console.log(allusers);
+                console.log(allusers2);
                     }
 
                 if(currround!=counter){
@@ -180,7 +194,6 @@ var testusernum = 3;
              usersongs1 = Math.floor(Math.random()*allusers2.length);
              usersongs2 = Math.floor(Math.random()*allusers2.length);
     
-             console.log("Not yet 1");
             while(usersongs2 == usersongs1 ){ //Makes sure the same user isn't going against themselves //&& usersongs1!=-1 && usersongs2 !=-1
                 
                 if(allusers2.length<2){
@@ -195,7 +208,6 @@ var testusernum = 3;
                 //console.log("Went past loop");
                 var useifonly1=0;              
                 //else{
-                    console.log("Not yet 2");
                 for(x=0;x<allusers2.length;x++){
                     if(allusers2[x].length==0 ){ //if(allusers2<2){
                        // console.log("THERE CAN BE ONLY ONE");
@@ -203,13 +215,7 @@ var testusernum = 3;
                         //console.log("usersongs1:" + usersongs1 +"; usersongs2:" + usersongs2 + "; allusers2.length: " + allusers2.length);                     
                     }
                     else{
-                        /*while(usersongs2 == usersongs1 ){
-                            usersongs1 = Math.floor(Math.random()*allusers2[x].length);
-                            usersongs2 = Math.floor(Math.random()*allusers2[x].length);
-                        }
 
-                        console.log("OnlyArrayLeft Length:" + allusers2[x].length);
-                        */
                         useifonly1=x; 
                     }
                 } 
@@ -245,7 +251,6 @@ var testusernum = 3;
              songselector1=Math.floor(Math.random()*allusers2[0].length);
              songselector2=Math.floor(Math.random() * allusers2[0].length);
 
-             console.log("Not yet 3");
                 while(songselector1==songselector2){
                      songselector1=Math.floor(Math.random()*allusers2[0].length)
                      songselector2=Math.floor(Math.random() * allusers2[0].length);
@@ -272,14 +277,6 @@ var testusernum = 3;
                 var leftvidID=createvideoID(String(allusers2[usersongs1][songselector1]));
                 var rightvidID=createvideoID(String(allusers2[usersongs2][songselector2]));
 
-
-
-
-
-
-
-
-
                
                 document.getElementById("leftvid").src = "//www.youtube.com/embed/" + leftvidID;
                 document.getElementById("rightvid").src = "//www.youtube.com/embed/" + rightvidID;
@@ -287,6 +284,9 @@ var testusernum = 3;
                 getVideoDetails("right",rightvidID);
                 /*document.getElementById("leftname").innerHTML = newusernames[usersongs1];
                 document.getElementById("rightname").innerHTML = newusernames[usersongs2];*/
+                
+                console.log(users_name);
+                console.log("usersongs1:" + usersongs1 + "; usersongs2 " + usersongs2);
                 document.getElementById("leftname").innerHTML = users_name[usersongs1];
                 document.getElementById("rightname").innerHTML = users_name[usersongs2];
     
@@ -307,7 +307,7 @@ var testusernum = 3;
                 var winnersindex=0;
                 var newusersindex=0;
                 var theuser =0;
-                newusernames=[];
+                var newusernames=[];
 
                     for(x=0;x<winners.length;x++){ //Each array
                         //finduser=0;
@@ -316,49 +316,56 @@ var testusernum = 3;
                         //allusers2[x]=winners[x];
                         //allusers[x][usersongnum]= utubeurls[songiter++];
 
-                        console.log("Not yet 4");
                         var blah=0;
                         blah++;
-                        console.log("findsong:"+findsong + "; totalsongs2:"+ totalsongs2);
                          while(findsong <totalsongs2){ //while(findsong<songsperuser){ /Assign winning song to winning user
-                            if(blah>=1){
-                                console.log("Should be looking at " + winners[x] +" out of " + winners.length);
-                            }
                             if(winners[x]==utubeurls[findsong]){// if(winners[x]==allusers[finduser][findsong]){
                                 
-                               /* if(blah>=1){
-                                    console.log("Should be adding " + utubeurls[findsong]);
-                                }*/
-                               
-                                //console.log( winners[x] + " , " + utubeurls[findsong]);
-                                //console.log(users_name[theuser]);
-                                newusernames[newusersindex++]=users_name[theuser];
+                                if(allusers2.length==1){
+                                    allusers2[0].push(winners[x]);
+                                    //newusernames[users_name[theuser]]=users_name[theuser];
+                                    newusernames.push(users_name[theuser]);
+                                    console.log("Only one array?");
+                                    console.log("Winners Name:" + users_name[theuser] + "----- Winners Song:" + winners[x]);
+                                console.log("Song Order on the list: " + findsong);
+                                console.log("theuser Num:" + theuser + " Winner iter:" + x);
+                                console.log(newusernames);
+                                }
+                               else{
                                 console.log("AllUsers");
                                 console.log(allusers2);
+                                console.log("Winners Name:" + users_name[theuser] + "----- Winners Song:" + winners[x]);
+                                console.log("Song Order on the list: " + findsong);
                                 console.log("theuser Num:" + theuser + " Winner iter:" + x);
+                                allusers2[theuser].push(winners[x]);
+                                //newusernames[newusersindex++]=users_name[theuser];
+                                newusernames.push(users_name[theuser]);
                                 console.log(winners);
-                                
+                               }
                             }                       
                             findsong++;
-                            if(allusers2==1){
+                            /*if(allusers2==1){
                                 allusers2[0].push(winners[x]);
+                                console.log("Only one array?");
+                            }*/
+                            /*else*/ if(findsong==songsperuser){ //For initial reapplication, evry (songperuser) is dedicated to a person
+                                //Meaning go onto next user according to in utubeurls
+                                
+                                console.log("User number: " + theuser);
+                                theuser++;                               
+                                console.log(allusers2);
+                               // console.log("Does this trigger?");
                             }
-                            else if(findsong==songsperuser){ //For initial reapplication, evry (songperuser) is dedicated to a person
-                                allusers2[theuser].push(winners[x]);
-                                theuser++;
-                                console.log("Does this trigger?");
-                            }
-                           }   
-                           
-                           
+                           }                                                      
                     }
 
+                    //songsperuser=songsperuser/2;
                     winners=[]; //Need to store/record old winners before clearing this out (long term)
                     counter=0;
                     console.log(winners);
 
-                users_name=newusernames 
-                console.log(newusernames);
+                //users_name=newusernames  //Change this?
+                
                 console.log("Adding the winners to the next evaluated crop(allusers2)");
                 console.log("AllUsers " + allusers2.length);
                 console.log(allusers2);
@@ -421,6 +428,14 @@ var testusernum = 3;
                 
            // }
 
+           if(allusers2.length==1){
+            console.log("This is TRUEEEEEEEEE");
+            users_name=newusernames;
+        }
+        users_name=newusernames;
+        console.log(newusernames);
+        console.log(users_name);
+
            if(allusers2.length>1){
             //Normal Activities
 
@@ -446,6 +461,8 @@ var testusernum = 3;
             console.log(useifonly1);
             console.log("AllUsers");
             console.log(allusers2);
+
+           
             console.log(allusers2[0]);
            // var songselector1=Math.floor(Math.random()*all_users2[useifonly1].length);
 
@@ -478,6 +495,7 @@ var testusernum = 3;
                 document.getElementById("rightvid").src = "//www.youtube.com/embed/" + rightvidID;
                 getVideoDetails("left",leftvidID);
                 getVideoDetails("right",rightvidID);
+                console.log("usersongs1:" + usersongs1 + "usersongs2" + usersongs2);
                 document.getElementById("leftname").innerHTML = users_name[usersongs1];
                 document.getElementById("rightname").innerHTML = users_name[usersongs2];
 
