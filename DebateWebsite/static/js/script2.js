@@ -48,7 +48,7 @@ var testusernum = 3;
                     //console.log(utubeurls[songiter]);
                     allusers[x][usersongnum]= utubeurls[songiter++];
                     users_name[x]=testnames[x].innerHTML; //Will use to display the name underneath video
-
+                    orderusernames[x]=testnames[x].innerHTML;
 
                    // users_name[x][usersongnum]=allusers[x][usersongnum];               
                    /*allusers[x][usersongnum][0]=users_name[x];
@@ -64,10 +64,12 @@ var testusernum = 3;
           //console.log(allusers[0][usersongnum][0]);
           //console.log( allusers[x][usersongnum]);
 
-            users_name.sort();
+            //users_name.sort();
             console.log( allusers);
             console.log(users_name);
-            orderusernames=users_name;
+            //const orderusernames=users_name;
+            console.log(orderusernames);
+
 
             var eliminated;
             var winners=[];
@@ -158,6 +160,9 @@ var testusernum = 3;
                    /* users_name.splice(usersongs2,1);
                     users_name.splice(usersongs1,1); */
 
+
+                    //allusers2 = allusers2.filter(arr => arr.length > 0);
+
                 console.log( "Winner: " +  tempwinner + ", Eliminated: " + eliminated); //console.log("Eliminated: " + eliminated + ", Winner: " +  allusers2[usersongs1][0]);
                 console.log(winners);
                 console.log("AllUsers");
@@ -184,6 +189,7 @@ var testusernum = 3;
                     users_name.splice(usersongs2,1); */
                     //document.getElementById("rightname").innerHTML = users_name[usersongs2];
 
+                    //allusers2 = allusers2.filter(arr => arr.length > 0);
 
 
                 console.log("Eliminated: " + eliminated + ", Winner: " +  tempwinner);
@@ -198,7 +204,9 @@ var testusernum = 3;
                    // console.log("Number of songs remaining is " + numofsongsleft);                                                      
                        
                     //allusers2 = allusers2.filter(arr => arr.length > 0);
-
+                    console.log("AllUsers");
+                    console.log(allusers2);
+                    console.log("Check length: " +allusers2.length);
                     
              usersongs1 = Math.floor(Math.random()*allusers2.length);
              usersongs2 = Math.floor(Math.random()*allusers2.length);
@@ -215,12 +223,15 @@ var testusernum = 3;
                 }
 
                 //console.log("Went past loop");
-                var useifonly1=0;              
+               var useifonly1=0;              
                 //else{
+                //CENTRAL POINT
                 for(x=0;x<allusers2.length;x++){
                     if(allusers2[x].length==0 ){ //if(allusers2<2){
-                       // console.log("THERE CAN BE ONLY ONE");
-                        allusers2.splice(x,1);                       
+                        console.log("User "+users_name[x]+" has been eliminated");                       
+                        users_name.splice(x,1);
+                        //allusers2.splice(x,1);
+                        //allusers2[x][0]=null;                       
                         //console.log("usersongs1:" + usersongs1 +"; usersongs2:" + usersongs2 + "; allusers2.length: " + allusers2.length);                     
                     }
                     else{
@@ -233,15 +244,46 @@ var testusernum = 3;
 
            if(allusers2.length>1){
             //Normal Activities
+            allusers2 = allusers2.filter(arr => arr.length > 0)
             console.log("AllUsers");
             console.log(allusers2);
-           console.log(usersongs1 +"," + usersongs2);
+            console.log(allusers2.length);
+
+
+            usersongs1 = Math.floor(Math.random()*allusers2.length);
+            usersongs2 = Math.floor(Math.random()*allusers2.length);
+            while(usersongs2 == usersongs1 ){ //Makes sure the same user isn't going against themselves //&& usersongs1!=-1 && usersongs2 !=-1
+                
+                if(allusers2.length<2){
+                    console.log("ONLY ONE LEFT");
+                    break;
+                }
+                
+                usersongs1 = Math.floor(Math.random()*allusers2.length);
+                usersongs2 = Math.floor(Math.random()*allusers2.length);
+                //console.log("usersongs1:" + usersongs1 +"; ,usersongs2:" + usersongs2);
+                }
+           console.log("usersongs1:" + usersongs1 +"; ,usersongs2:" + usersongs2);
+           console.log(allusers2[usersongs1]);
+           console.log(allusers2[usersongs2]);
            console.log(allusers2[usersongs1].length);
             var songselector1=Math.floor(Math.random()*allusers2[usersongs1].length)
              var songselector2=Math.floor(Math.random() * allusers2[usersongs2].length);
+                
+             if(allusers2.length<2){
+                while(songselector1==songselector2){
+                    var songselector1=Math.floor(Math.random()*allusers2[usersongs1].length)
+                    var songselector2=Math.floor(Math.random() * allusers2[usersongs2].length);
 
-             setSong1(songselector1);
-            setSong2(songselector2);
+                    
+                }
+
+                setSong1(songselector1);
+                setSong2(songselector2);
+            }
+             
+
+             
 
            // while(songselector1==songselector2){
                // var songselector1=Math.floor(Math.random()*allusers2[usersongs1].length)
@@ -325,13 +367,28 @@ var testusernum = 3;
                 var iteratehelp=0;
                 var winnersindex=0;
                 var newusersindex=0;
-                var theuser =0;
+                var theuser = 0;
+                var findsonghelp=0;
+                //users_name=orderusernames;
+                console.log(users_name);
                 var newusernames=[];
                 var winners2 =[];
+
+                console.log("Songs per user: " + songsperuser);
+
+
+                    for(x=0;x<winners.length;x++){
+                        allusers2[x]=[];
+                    }
+
+                    console.log(allusers2);
+
 
                     for(x=0;x<winners.length;x++){ //Each array
                         theuser=0;
                         findsong=0;
+
+                        
 
 
                         var blah=0;
@@ -339,7 +396,7 @@ var testusernum = 3;
                          while(findsong <totalsongs2){ //while(findsong<songsperuser){ /Assign winning song to winning user
                             if(winners[x]==utubeurls[findsong]){// if(winners[x]==allusers[finduser][findsong]){
                                 
-                                if(allusers2.length==1){
+                                if(allusers2.length<=1){
                                     allusers2[0].push(winners[x]);
                                     newusernames.push(orderusernames[theuser]);
                                     //newusernames.push(orderusernames[theuser]);
@@ -359,9 +416,18 @@ var testusernum = 3;
                                 //console.log("Winners Name:" + users_name[theuser] + "----- Winners Song:" + winners[x]);      
                                 console.log("Song Order on the list: " + findsong);
                                 console.log("theuser Num:" + theuser + " Winner iter:" + x);
+                                console.log(winners[x]);
+                                if (!Array.isArray(allusers2[theuser])) {
+                                    allusers2[theuser] = []; // Initialize as an empty array if it isn’t
+                                }
                                 allusers2[theuser].push(winners[x]);
-                                //newusernames[newusersindex++]=users_name[theuser];
+                              /*  try{
+                                    allusers2[theuser].push(winners[x]); //newusernames[newusersindex++]=users_name[theuser];
 
+                                    }
+                                    catch{
+                                        allusers2[theuser]=winners[x];
+                                    }*/
                                 if(newusernames.includes(orderusernames[theuser])){
                                     
                                 }
@@ -373,13 +439,13 @@ var testusernum = 3;
                                }
                             }                       
                             findsong++;
-
-                            if(findsong==songsperuser){ //For initial reapplication, evry (songperuser) is dedicated to a person
+                            findsonghelp++;
+                            if(findsonghelp==songsperuser){ //For initial reapplication, evry (songperuser) is dedicated to a person
                                 //Meaning go onto next user according to in utubeurls
-                                
-                                console.log("User number: " + theuser);
-                                theuser++;                               
-                                console.log(allusers2);
+                                console.log("findsonghelp: "+findsonghelp);                       
+                                theuser++;
+                                findsonghelp=0;   
+                                console.log("Switch to User number: " + theuser + "; findsong: "+ findsong);                            
                                // console.log("Does this trigger?");
                             }
                            }                                                      
@@ -392,6 +458,7 @@ var testusernum = 3;
 
                 //users_name=newusernames  //Change this?
                 
+                allusers2 = allusers2.filter(item => !(Array.isArray(item) && item.length === 0));
                 console.log("Adding the winners to the next evaluated crop(allusers2)");
                 console.log("AllUsers " + allusers2.length);
                 console.log(allusers2);
@@ -425,7 +492,8 @@ var testusernum = 3;
 
                 var useifonly1=0;              
                 //else{
-                
+                console.log("ALL USERS");
+                console.log(allusers2);
                 for(x=0;x<allusers2.length;x++){
                     if(allusers2[x].length==0 ){ //if(allusers2<2){
                        // console.log("THERE CAN BE ONLY ONE");
