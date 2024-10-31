@@ -1,6 +1,12 @@
 body{
-    background-color:maroon; /*darkgray*/
-    color:gold;
+   /* min-width:960px;*/
+    background-color:rgb(113, 113, 113);/*maroon;*/ /*darkgray*/
+    color:white;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+form{
+    margin:5% auto;
 }
 
 #displayround{
@@ -10,17 +16,21 @@ body{
 #next1{
     width:10%;
     text-align:center;
-    border:1px white solid;
+    background-color: lightgray;
+    color:black;
 }
 #next1:hover{
     cursor:pointer;
+    background-color: green;
+    color:gold;
 }
 
 #slide1,#slide2{
-   /* border:black 1px solid; */
+    border:white 50px double;
     background-color:black ;/*rgb(232, 232, 232);*/
-    border:1px white solid;
+    /*border:5px rgb(107, 106, 106) double;*/
     width:50%;
+    min-height:50%;
     margin:0 auto 0 auto;
     text-align: center;
 }
@@ -38,28 +48,60 @@ body{
 #slide3{
     width: 100%;
     height:100%;
-    
+    margin:0 auto 0 auto;
+   
+
 }
+#s3{
+    display: block;
+    width:75%;
+}
+
 
 .thevideos{
     display: inline-block;
 }
+#leftvid1{
+    position: absolute;
+    left:10;
+}
+
+#vs{
+    display: inline-block;
+    position: absolute;
+    right:50%;
+    top:50%;
+}
+
+#rightvid1{
+    position: absolute;
+    right:10;
+}
 
 .winnerbutton{
-    background-color: lightgray;
-    color: black;
-    border-radius: 50px;
+    background-color: black;
+    color: white;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
     text-align:center;
-    width:40%;
-    height:40px;
+    width:100%;
+    padding-top:20px;
+    height:50px;
+    margin:0 auto 0 auto;
     
 }
+
+
 .winnerbutton:hover{
     cursor:pointer;
-    color:white;
-    background-color: green;
+    color:black;
+    background-color: lightgray;
 }
 
 .namedisplay{
     text-align: center;
+    text-decoration: underline;
+    
+
 }
+
