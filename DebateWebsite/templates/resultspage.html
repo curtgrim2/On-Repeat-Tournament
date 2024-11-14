@@ -1,0 +1,84 @@
+<!DOCTYPE>
+<html>
+
+<body>
+    <div>RESULTS</div>
+    <div id="results">
+
+    </div>
+</body>
+
+<!--We should have this page display tiers of the songs (and long term it can be ordered by the points garnered)-->
+<!--We should save the results in the database via image BUT have a column dedicated to the winner and it's url (and maybe total points)-->
+<!--How will we save drafts?-->
+<!--Should add another section for in slide3 for notes/time start and stop-->
+<script>
+    const apiKey = 'AIzaSyBc9Y9VMDPAaILM7erb5kwBhJ_B8knnKQk';
+
+    
+     listoftiers = JSON.parse({{ listoftiers | tojson | safe }});
+     console.log(listoftiers);
+
+     for(x=listoftiers.length-1; x>=0; x--){ //     for(x=0; listoftiers.length-1>=x; x++){
+       // var newtier = document.createElement("div");
+        var tierlength = listoftiers[x].length-1;
+        console.log(tierlength + 1);
+        /*tierlength.id=`Tier_${x}`;
+        document.getElementById("results").appendChild(newtier);*/
+        var y=0;
+        while(y<=tierlength){ //while(tierlength>=0){
+            var thetierssongs = document.createElement("iframe");
+            thetierssongs.src = listoftiers[x][y];
+            console.log("Tier "+ x +"; Song " + (y+1));
+            //console.log( listoftiers[x][tierlength]);
+
+            var url =listoftiers[x][y];
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/; 
+            var vid_id = url.match(regExp);
+            var tieritem = Promise.resolve(videoDetails(vid_id));
+
+            tieritem.then(function(result){
+                //console.log(result);
+                var newtieritem = document.createElement("li");
+            newtieritem.innerHTML = result;
+            document.getElementById("results").appendChild(newtieritem);
+            });
+
+          /*  var newtieritem = document.createElement("li");
+            newtieritem.innerHTML = tieritem;
+            document.getElementById("results").appendChild(newtieritem); */
+
+           // document.getElementById(`Tier_${x}`).appendChild(thetierssongs);
+           y++;
+           // --tierlength;
+        }
+
+
+        //
+        //newtier.innerHTML = 
+     }
+
+     async function videoDetails(vid_id){
+
+        const apiCall = `https://www.googleapis.com/youtube/v3/videos?id=${vid_id}&part=snippet,contentDetails,statistics&key=${apiKey}`;
+
+        try{
+
+            var response = await fetch(apiCall);
+            if(!response.ok){
+                throw new Error("Network status isn't okay " + response.statusText);
+            }
+            const video = await response.json();
+            return video.items[0].snippet.title;//console.log(video.items[0].snippet.title);
+            /*var newtieritem = document.createElement("li");
+            newtieritem.innerHTML = video.items[0].snippet.title;
+            document.getElementById("results").appendChild(newtieritem);*/
+
+        }
+        catch(error){
+            console.error("Fetch error:",error);
+        }
+
+     }
+</script>
+</html>
