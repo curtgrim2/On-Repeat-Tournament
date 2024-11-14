@@ -23,27 +23,35 @@ def startgame():
         personnum=0
         allthenames =[]
         allurls = []
-        while f'name{personnum}' in request.form:
-            allthenames.append(request.form[f'name{personnum}'])       
+        while f'name{personnum}' in request.form: #name{personnum} are the users unique identifiers 
+            allthenames.append(request.form[f'name{personnum}'])      #We're getting the variables in the form withrequest.form 
             personnum += 1       
         print(allthenames)
         totalsongs = int(request.form.get("songspereach")) * int(request.form.get("numofusers"))
-        #for x in totalsongs:
+
         print(totalsongs)
         for x in range(totalsongs):
-            allurls.append(request.form.get(f'namenum{x}'))
-            print(request.form.get(f'namenum{x}')) # `namenum${x}`
+            allurls.append(request.form.get(f'namenum{x}')) #Pushing each song URL from 
+            print(request.form.get(f'namenum{x}')) 
             x+=1
-        '''We probably don't need to create a new dat structure to split the songs up; we can just note how many songs per 
-        user and then assign them by the order of the names (f.e., If John is the first name that is entered and there is 4 songs per user, the first 4 songs will be 
-        acknowledged as John's)'''
         return render_template('gametime.html',totalusers = int(request.form.get("numofusers")),songspereach=request.form.get("songspereach"),allnames=allthenames,utubeurls=allurls)
  
-@app.route('/seeresults',methods=['GET','POST'])       
+@app.route('/showresults',methods=['GET','POST'])       
 def showresults():
-    print("Lets see the results")
+    print("Going to results page")
+    print(request.form.get('winnertiers'))
+    eachtier = request.form.get('winnertiers')
+    
+    '''for x in request.form.get('winnertiers'):
+        print(x)'''
+    return render_template('resultspage.html',listoftiers=eachtier)   
 
-    return render_template('resultspage.html')    
+
+@app.route('/savethisdraft',methods=['GET','POST'])
+def savethisdraft():
+    print(request.form.get('tiers'))
+    print("SAVE THIS DRAFT")
+ 
         
 '''def startgame():
     try:
