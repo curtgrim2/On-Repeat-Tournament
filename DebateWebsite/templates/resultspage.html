@@ -3,10 +3,10 @@
     <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}"/>
 
 <body>
-    <div>RESULTS</div>
-    <ol id="results">
+    <div style="text-align:center;">RESULTS</div>
+    <div id="results">
 
-    </ol>
+    </div>
 </body>
 
 <!--We should have this page display tiers of the songs (and long term it can be ordered by the points garnered)-->
@@ -18,75 +18,44 @@
 
     
      listoftiers = JSON.parse({{ listoftiers | tojson | safe }});
+     namesintiers = JSON.parse({{namesintiers | tojson | safe}})
      console.log(listoftiers);
+     console.log(namesintiers);
+     var height4tiers = 100/listoftiers.length;
+
+     for(x=1; x<=listoftiers.length; x++){ // for(x=0; listoftiers.length-1>=x; x++){
+        var createtier = document.createElement("div");
+        createtier.style.border = "black 1px solid";
+        createtier.id=`Tier_${x}`;
+        if(x==1){
+            createtier.style.backgroundColor="maroon";
+        }
+        createtier.style.height = height4tiers +"%";
+        createtier.style.width = "66%";
+        document.getElementById("results").appendChild(createtier);
+
+     }
 
      videoDetails(listoftiers);
-
-     for(x=listoftiers.length-1; x>=0; x--){ //     for(x=0; listoftiers.length-1>=x; x++){
-       // var newtier = document.createElement("div");
-        var tierlength = listoftiers[x].length-1;
-        //console.log(tierlength + 1);
-        /*tierlength.id=`Tier_${x}`;
-        document.getElementById("results").appendChild(newtier);*/
-        var y=0;
-        while(y<=tierlength){ //while(tierlength>=0){
-            var thetierssongs = document.createElement("iframe");
-            thetierssongs.src = listoftiers[x][y];
-            
-            /*console.log("Tier "+ x +"; Song " + (y+1));
-            console.log( listoftiers[x][y]);*/
-
-            var url =listoftiers[x][y];
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/; 
-            var vid_id = url.match(regExp);
-            
-            
-            //var tieritem = Promise.resolve(videoDetails(vid_id));
-           
-
-           /* tieritem.then(function(result){
-                console.log(result);
-                var newtieritem = document.createElement("li");
-            newtieritem.innerHTML = result;
-            document.getElementById("results").appendChild(newtieritem);
-            });*/
-
-          /*  var newtieritem = document.createElement("li");
-            newtieritem.innerHTML = tieritem;
-            document.getElementById("results").appendChild(newtieritem); */
-
-           // document.getElementById(`Tier_${x}`).appendChild(thetierssongs);
-           y++;
-           // --tierlength;
-        }
-
-
-        //
-        //newtier.innerHTML = 
-     }
 
      async function videoDetails(listoftiers) {
                //console.log(vid_id[2]);
                console.log(listoftiers);
-
+               var tiernumber=1;
 
         for(let x=listoftiers.length-1; x>=0; --x){ //Must declare x via let or variable
-
             if (listoftiers[x]) {
-                 console.log("Tier at index: "+ x);
+                 //console.log("Tier at index: "+ x);
             } 
             else {
                  console.log("No such tier at index: " + x);
                 continue; // Skip this iteration
              }
         var tierlength = listoftiers[x].length;
-        console.log(x);
         var y=0;
-        console.log("while " + y + "<" + tierlength);
         if (listoftiers && listoftiers[x] && listoftiers[x][y]) {
 
             while(y<tierlength){
-            console.log(y + " with the tierlength being " + Number(listoftiers.length-1));
 
     
         var url =listoftiers[x][y];
@@ -104,15 +73,31 @@
             const video = await response.json();
             console.log(video.items[0].snippet.title);
 
-            var newtieritem = document.createElement("li");
-            newtieritem.innerHTML = video.items[0].snippet.title;
-            document.getElementById("results").appendChild(newtieritem);
+            var newtieritem = document.createElement("div");
 
+            
+            if(tierlength==1){
+                var tiertitle = document.createElement("div");
+                tiertitle.innerHTML ="AND THE WINNER IS...";
+                document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
+
+                newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
+                newtieritem.style.color ="gold";
+                document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
+
+            }
+            else if(y==0){
+                var tiertitle = document.createElement("div");
+                tiertitle.innerHTML = "Tier "+ tiernumber;
+                document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
+
+                newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
+                document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
+
+            }
+            
+            
    // return video.items[0].snippet.title;
-
-    /*var newtieritem = document.createElement("li");
-    newtieritem.innerHTML = video.items[0].snippet.title;
-    document.getElementById("results").appendChild(newtieritem);*/
 
     }
         catch(error){
@@ -125,6 +110,7 @@
 else {
 console.error("Variable is not defined or is not an array:", variable);
 }
+tiernumber++;
 }
 }
 
