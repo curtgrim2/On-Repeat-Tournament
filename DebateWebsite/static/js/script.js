@@ -18,12 +18,12 @@ function toslide2(showusernum){
     slide2.style.display ="block";
     
 
-    for(x=0; x<showusernum.value; x++){
+    for(x=0; x<showusernum.value; x++){ 
         var node  = document.createElement("input");
         node.type = "text";
        // node.name = "allnames";
        node.name = `name${x}`;
-       node.id=`nameid${x}`;
+       node.id=`nameid${x}`; //Dynamically hard coding unique names and id(Not used) for each user
         node.className = "allnames2";
         node.placeholder="Enter name here";
         document.getElementById("enternames").appendChild(node);
@@ -36,8 +36,9 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
     slide3.style.display ="block";
     //document.getElementById("startup").style.display = "none";
     eacheverysong=0;
+
  /*For each name, take the number of songs and ask them to insert Youtube URL into each textbox */
-      for( x=0; x<showusernum.value; x++){
+      for( x=0; x<showusernum.value; x++){ //For loop for each user
        var newdiv = document.createElement("div");
        newdiv.id = `namenumid${x}`;
        newdiv.style.backgroundColor = "grey";
@@ -49,11 +50,13 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
        
        newdiv.innerHTML = document.getElementById(`nameid${x}`).value;
        console.log(document.getElementById(`nameid${x}`).value + " checking in");
+      /* document.getElementById("s3").appendChild(document.createElement('br'));
+       console.log("SPACE"); */
 
-       for(y=0; y<songsperuser.value; y++){
+       for(y=0; y<songsperuser.value; y++){ //Each user gets a certain amount of songs. Here we display them.
         var utubeURLs  = document.createElement("input");
         utubeURLs.type = "text";
-        utubeURLs.name = `namenum${eacheverysong}`;
+        utubeURLs.name = `namenum${eacheverysong}`; //Ids ALL songs; Used in Python router
         utubeURLs.placeholder="Enter the URL";
         console.log(`namenum${eacheverysong++}`);
         document.getElementById(`namenumid${x}`).appendChild(utubeURLs); 
@@ -84,10 +87,6 @@ function next(){
 }
 
 
-function formOrganizer(){
-
-}
-
 
 function changenumofusers(addorsubtract){
     if(addorsubtract=="add"){ //Let's determine a max
@@ -106,9 +105,26 @@ function changenumofusers(addorsubtract){
     }
 }
 
+async function savethisdraft(){
 
+    //Key area
 
-//Start of gametime.html's script
+    document.getElementById("isthesavebuttonclicked").value="clicked"; //This triggers first before getting sent to python router
+    
+    
+    /*const response = await fetch ("/router/savethisdraft",{
+        method:"POST",
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify({input:"input"})
+
+    });
+    const data = await response.json();
+    console.log("We did it?");
+    console.log(data);*/
+}
+
 
 
 
