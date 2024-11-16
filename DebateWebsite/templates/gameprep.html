@@ -1,6 +1,7 @@
 <!DOCTYPE>
 <html>   
     <head>
+        <link rel="shortcut icon" href=""> <!--For the favicon error?-->
         <link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         
         
@@ -9,7 +10,7 @@
     <body>
 
         <div id="startup">
-          <form method="post" action="{{ url_for("startgame")}}" style ="margin:25% auto;" >
+          <form method="post" action="{{ url_for("startgame")}}" >
                 <div id = "slide1"> 
                     <div>How many users are participating? </div>
                 <!---<input input id ="decrease" class="numofusersbutton" type="button" value = "-" onclick="changenumofusers('sub')"> -->
@@ -50,11 +51,14 @@
                 <div id="slide3">
 
                     <div id="s3"></div>
-
+  
+                    <button type="submit"  id="savedraft" onclick="savethisdraft()">SAVE DRAFT</button> 
+                    <!--<div id="savedraft" onclick="savethisdraft()">SAVE DRAFT</div> -->
                     <button type="submit">START GAME</button> 
                 </div>
 
-               
+               <input type="hidden" id="draftsave" />
+               <input type="hidden" value="notclicked" name="checkdraftbut" id="isthesavebuttonclicked" />
          </form>    
         </div>
         
