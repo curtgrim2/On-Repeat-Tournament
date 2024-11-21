@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,jsonify,session
+from flask import Flask,render_template,request,jsonify,session,redirect
 import pyodbc
 
 #It all starts here...
@@ -16,10 +16,42 @@ dbsetup = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};"
 cursor = dbsetup.cursor()
 #cursor.execute('')
 
+names1=[]
+url1=[]
+notes1=[]
+entrynum1=[]
+songsperuser1=[]
+numofusers1=[]
+
+
+'''cursor.execute("SELECT * FROM saveddrafts")
+for row in cursor:
+        names1.append(row[1])
+        url1.append(row[2])
+        notes1.append(row[3])
+        entrynum1.append(row[4])
+        songsperuser1.append(row[5])
+        numofusers1.append(row[6])'''
+
 @app.route("/")
 def home():
-    #return render_template('testtournament.html')
-    return render_template('gameprep.html')
+    names1=[]
+    url1=[]
+    notes1=[]
+    entrynum1=[]
+    songsperuser1=[]
+    numofusers1=[]
+    cursor.execute("SELECT * FROM saveddrafts")
+    for row in cursor:
+        names1.append(row[1])
+        url1.append(row[2])
+        notes1.append(row[3])
+        entrynum1.append(row[4])
+        songsperuser1.append(row[5])
+        numofusers1.append(row[6])
+        
+    print(names1)
+    return render_template('gameprep.html',draftnames=names1,drafturls=url1,songsperuser=songsperuser1,numofusers=numofusers1)
 
 
 #@app.route('/',methods=["GET","POST"])
@@ -31,21 +63,22 @@ def startgame():
     personnum=0
     allthenames =[]
     allurls = []
-    
+
     while f'name{personnum}' in request.form: #name{personnum} are the users unique identifiers 
             allthenames.append(request.form[f'name{personnum}'])      #We're getting the variables in the form withrequest.form 
             personnum += 1       
-        #print(allthenames)
+            #print(allthenames)
             totalsongs = int(request.form.get("songspereach")) * int(request.form.get("numofusers"))
-
-        #print(totalsongs)
             for x in range(totalsongs):
                 allurls.append(request.form.get(f'namenum{x}')) #Pushing each song URL from 
-                #print(request.form.get(f'namenum{x}')) 
                 x+=1
     
-    if request.form.get("checkdraftbut")=="notclicked":#if request.method == "POST":            
+    if request.form.get("checkdraftbut")=="notclicked":#if request.method == "POST":    
+        '''print('RESULTS SHOULD BE HERE')        
         print(request.form.get("checkdraftbut"))
+        print(allthenames)
+        print(allurls)'''
+        #return "TEST"
         return render_template('gametime.html',totalusers = int(request.form.get("numofusers")),songspereach=request.form.get("songspereach"),allnames=allthenames,utubeurls=allurls)
     else:
         iterthrsongs=0
@@ -53,18 +86,26 @@ def startgame():
         print(allurls)
         print(allthenames)
         print(totalsongs)
+        
+        
+        cursor = dbsetup.cursor()
+
+        cursor.execute("DELETE FROM saveddrafts;")
+        cursor.commit()
         for x in range(len(allthenames)):
             songsperuser =totalsongs//len(allthenames) # Double /:To prevent float TypeError
             #print(songsperuser)
             for y in range(songsperuser):
-                cursor.execute("""INSERT INTO saveddrafts(Name,SongURL,Notes,EntryNum)VALUES(?, ?, ?, ?)""",(allthenames[x],allurls[iterthrsongs],"",int(iterthrsongs+1)))
+                cursor.execute("""INSERT INTO saveddrafts(Name,SongURL,Notes,EntryNum,SongsperUser,NumofUsers)VALUES(?, ?, ?, ?, ?, ?)""",(allthenames[x], allurls[iterthrsongs], "",int(iterthrsongs+1), songsperuser, len(allthenames)))
                 #print("Name:" + allthenames[x] + "; Song URL:" + allurls[iterthrsongs] + " - " + str(iterthrsongs))
                 iterthrsongs+=1
                 
-        cursor.commit()
+        cursor.commit()    
         cursor.close()
-
-        return 'DRAFT SAVED'
+        return redirect('/')
+        #return 'DRAFT SAVED'
+        #return render_template('gameprep.html',draftnames=names1,drafturls=url1,songsperuser=songsperuser1,numofusers=numofusers1)
+        #return render_template('gameprep.html')#return 'DRAFT SAVED'
         
             
             
@@ -86,10 +127,7 @@ def showresults():
     return render_template('resultspage.html',listoftiers=eachtier,namesintiers=request.form.get('winnernames'))   
 
 
-@app.route('/savethisdraft',methods=['GET','POST'])
-def savethisdraft():
-    print(request.form.get('tiers'))
-    print("SAVE THIS DRAFT")
+
  
         
 '''def startgame():
