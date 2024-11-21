@@ -12,6 +12,10 @@ var slide1 = document.getElementById("slide1");
 var slide3 = document.getElementById("slide3");
 slide3.style.display ="none";
 
+var olddrafts = document.getElementById("olddrafts") ;
+
+
+
 function toslide2(showusernum){
     console.log(showusernum.value);
     slide1.style.display = "none";
@@ -34,6 +38,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
     slide1.style.display = "none";
     slide2.style.display ="none";
     slide3.style.display ="block";
+    olddrafts.style.display="none";
     //document.getElementById("startup").style.display = "none";
     eacheverysong=0;
 
@@ -42,6 +47,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
        var newdiv = document.createElement("div");
        newdiv.id = `namenumid${x}`;
        newdiv.style.backgroundColor = "grey";
+       //newdiv.style.minWidth="400px";
        newdiv.style.display="block";
        newdiv.style.margin="10px";
        newdiv.style.width="50%";
@@ -58,6 +64,8 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         utubeURLs.type = "text";
         utubeURLs.name = `namenum${eacheverysong}`; //Ids ALL songs; Used in Python router
         utubeURLs.placeholder="Enter the URL";
+        utubeURLs.style.display ="block";
+        utubeURLs.style.width="90%";
         console.log(`namenum${eacheverysong++}`);
         document.getElementById(`namenumid${x}`).appendChild(utubeURLs); 
                             
@@ -105,24 +113,86 @@ function changenumofusers(addorsubtract){
     }
 }
 
-async function savethisdraft(){
+function inputdraft(){
 
-    //Key area
+
+    var gothrnames=0;
+
+    for(x=0; x<draftnumofusers[0]; x++){ 
+        var node  = document.createElement("input");
+        node.type = "text";
+        console.log("HELLO");
+       node.name = `name${x}`;
+       node.id=`nameid${x}`; //Dynamically hard coding unique names and id(Not used) for each user
+        node.className = "allnames2";
+        node.placeholder="Enter name here";
+        //if(x%draftsongsperuser==0){
+        console.log(draftsongsperuser);
+            node.value = draftnames[gothrnames];
+            console.log(gothrnames);
+            gothrnames+=draftsongsperuser[0];
+        //}
+        document.getElementById("enternames").appendChild(node);
+    } 
+
+
+
+    
+    document.getElementById("showusernum").value=draftnumofusers[0];
+    document.getElementById("songsperuser").value=draftsongsperuser[0];
+    console.log(document.getElementById("showusernum").value);
+
+    console.log(draftnames);
+    slide1.style.display = "none";
+    slide2.style.display ="none";
+    slide3.style.display ="block";
+    olddrafts.style.display="none";
+    eacheverysong=0;
+    console.log(draftnumofusers[0]);
+
+    var iterhelp=0;
+
+      for( x=0; x<draftnumofusers[0]; x++){ 
+       var newdiv = document.createElement("div");
+       newdiv.id = `namenumid${x}`;
+       newdiv.style.backgroundColor = "grey";
+       newdiv.style.display="block";
+       newdiv.style.margin="10px";
+       newdiv.style.width="50%";
+       newdiv.style.height="30%";
+
+       document.getElementById("s3").appendChild(newdiv);
+       
+       if(iterhelp%draftsongsperuser[0]==0){
+        newdiv.innerHTML=draftnames[iterhelp];
+       }
+       console.log(draftsongsperuser[0]);
+
+       for(y=0; y<draftsongsperuser[0]; y++){ 
+       // console.log(drafturls[iterhelp]);
+        var utubeURLs  = document.createElement("input");
+        utubeURLs.type = "text";
+        utubeURLs.name = `namenum${eacheverysong}`; 
+        utubeURLs.placeholder="Enter the URL";
+        utubeURLs.style.display ="block";
+        utubeURLs.style.width="90%";
+
+        utubeURLs.value = drafturls[iterhelp++];
+        console.log(utubeURLs.value);
+
+        console.log(`namenum${eacheverysong++}`);
+        document.getElementById(`namenumid${x}`).appendChild(utubeURLs); 
+                            
+       }
+    } 
+
+}
+
+async function savethisdraft(){
 
     document.getElementById("isthesavebuttonclicked").value="clicked"; //This triggers first before getting sent to python router
     
-    
-    /*const response = await fetch ("/router/savethisdraft",{
-        method:"POST",
-        headers:{
-            'Content-Type':'application/json'
-        },
-        body:JSON.stringify({input:"input"})
 
-    });
-    const data = await response.json();
-    console.log("We did it?");
-    console.log(data);*/
 }
 
 
