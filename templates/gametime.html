@@ -1,0 +1,51 @@
+<!DOCTYPE>
+<html>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <body>
+
+        <form method="post" action="{{url_for("showresults")}}">
+        <div id="displayround"></div>
+
+        <div  class="thevideos" id="leftvid1" style ="width:45%;height:25%;">
+            <iframe id="leftvid" width="100%" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; ; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen> </iframe> <!-- src="https://www.youtube.com/embed/zm6gHJ3SQIM"--><!--https://www.youtube.com/embed/EpV_WbjyY00-->
+            <!--<iframe id="leftvid" src="https://www.youtube.com/embed/2CW0qL_fIdU" width="560" height="315" title="A YouTube video" frameborder="0" allowfullscreen></iframe>   -->         
+            <div id="leftbutt" class="winnerbutton" onclick="thewinneris('left')">Left Video is the Winner</div>
+            <!--<div id="leftvideotitle"></div>-->
+            <div id="leftname" class="namedisplay"></div>
+        </div>
+
+                    <span id="vs">VS</span>
+
+        <div class="thevideos" id="rightvid1" style ="width:45%;height:25%;">
+            <iframe id="rightvid" width="100%" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; ; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <!--            <iframe id="rightvid" width="100%" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>-->
+            <div id="rightbutt" class="winnerbutton" onclick="thewinneris('right')">Right Video is the Winner</div>
+            <!--<div id="rightvideotitle"></div>-->
+            <div id="rightname" class="namedisplay"></div>            
+        </div>
+
+        <button type="submit" id="toresultspage">SEE RESULTS</button>
+
+        <input type="hidden" id="tiers" name="winnertiers">
+        <input type="hidden" id="allnames" name="winnernames">
+    </form>   
+     
+     <!---->  <ul id="eachname"> 
+        {% for x in range(totalusers)%}      
+        <li style="display: none;">  {{allnames[x]}} </li>
+        
+    {% endfor %}
+
+</ul>
+<script type="text/javascript">
+    var totalusers = JSON.parse('{{ totalusers | tojson | safe }}');
+    songsperuser=JSON.parse('{{ songspereach | tojson | safe }}');;
+    allnames=JSON.parse('{{ allnames | tojson | safe }}');
+    utubeurls=JSON.parse('{{ utubeurls | tojson | safe }}');
+
+</script>
+
+<script src="{{ url_for('static', filename='js/script2.js') }}"></script> 
+
+    </body>
+</html>

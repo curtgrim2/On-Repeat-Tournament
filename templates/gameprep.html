@@ -1,0 +1,88 @@
+<!DOCTYPE>
+<html>   
+    <head>
+        <link rel="shortcut icon" href=""> <!--For the favicon error?-->
+        <link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        
+        
+        <title></title>
+    </head>
+    <body>
+
+        <div id="startup">
+          <form method="post" action="{{ url_for("startgame")}}" >
+                <div id = "slide1"> 
+                    <br/>
+                    <div>How many users are participating? </div>
+                <!---<input input id ="decrease" class="numofusersbutton" type="button" value = "-" onclick="changenumofusers('sub')"> -->
+                 <input type ="number" min=1 max=6 name = "numofusers" id="showusernum"/>
+                 <!--<div name = "numofusers" id="showusernum"></div> -->
+                <!-- <input input id ="increase" class="numofusersbutton" type="button" value = "+" onclick="changenumofusers('add')"> -->
+                 <div>What is the maximum number of songs per person? </div> 
+                 <div>(MUST BE AN EVEN NUMBER)</div>              
+                 <input id="songsperuser" type ="text" name="songspereach"><!--<input type="radio">-->
+                     <br/>
+                   <!-- <select>
+                        <option value=1>1 on 1</option>
+                        <option value="2">Final Four</option>
+                        <option value="">Elite Eight</option>
+                        <option>Sweet Sixteen</option>
+                        <option>Dirty 32</option>
+                        <option>Sexy 64</option>                       
+                     </select> -->
+                 <!--<input type = "button" value="START GAME" onclick="startgame()"/>-->
+                 <br/>
+                 <div class="next1" onclick="toslide2(showusernum)">Next</div>
+                </div>
+
+
+
+                <div id = "slide2">
+                    <br/>
+                    Please enter each name of every player:
+                    <div id="enternames">
+                        <br/>
+                    </div>                   
+                                          
+                    <!--<div onclick="sendtoFlask()">SUBMIT</div>  -->
+                    <br/>
+                    <div class="next1" onclick="toslide3(showusernum,enternames)">Next</div>
+                </div>
+
+
+                <!--URL Submissions-->
+
+                <div id="slide3">
+
+                    <div id="s3">
+
+                    </div>
+                    
+                    <div style="text-align: center;background-color: black;height:10%;">
+                        <button type="submit"  id="savedraft" onclick="savethisdraft()">SAVE DRAFT</button> 
+                        <button type="submit">START GAME</button> </div>
+                    
+                </div>
+
+                <div id="olddrafts" onclick="inputdraft()"></div>
+
+               <input type="hidden" id="draftsave" />
+               <input type="hidden" value="notclicked" name="checkdraftbut" id="isthesavebuttonclicked" />
+         </form>    
+        </div>
+        
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script></script>
+        <script>
+            draftnames=[];
+             draftnames = JSON.parse('{{draftnames | tojson | safe}}');
+            console.log(draftnames);
+            var drafturls= JSON.parse('{{drafturls | tojson | safe}}');
+            var draftsongsperuser=JSON.parse('{{songsperuser | tojson | safe}}');
+            var draftnumofusers=JSON.parse('{{numofusers | tojson | safe}}');
+
+            if(draftnames != null || draftnames != "" ){
+                document.getElementById("olddrafts").innerHTML="OLD DRAFT AVAILABLE";
+            }
+        </script>
+    </body>
+</html>
