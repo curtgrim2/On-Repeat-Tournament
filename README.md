@@ -10,7 +10,10 @@
 - Can you make the video stop and start at certain places?
 
 ### TASKS
-- NEW (Optional) TASK - Save who is top 4 and make a new column that checks for this in the database
+-  Add a flip a coin system?
+-  Save who is top 4 and make a new table that checks for this in the database
+- Make a table that saves past 12 winners (for the year)
+- Have tiers display where songs lose at
 - Don't allow odd number of total songs OR blanks on required fields
 
   
