@@ -18,7 +18,7 @@
 
     
      listoftiers = JSON.parse({{ listoftiers | tojson | safe }});
-     namesintiers = JSON.parse({{namesintiers | tojson | safe}})
+     namesintiers = JSON.parse({{namesintiers | tojson | safe}});
      console.log(listoftiers);
      console.log(namesintiers);
      var height4tiers = 100/listoftiers.length;
@@ -80,13 +80,13 @@
                 var tiertitle = document.createElement("div");
                 tiertitle.innerHTML ="AND THE WINNER IS...";
                 document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
-
-                newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
+                console.log(namesintiers[0]);
+                newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[0][0] +"]"; //namesintiers[x][y] 
                 newtieritem.style.color ="gold";
                 document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
 
             }
-            else if(y==0){
+            else if(y==0){ //Start of a new tier (Not Winning tier)
                 var tiertitle = document.createElement("div");
                 tiertitle.innerHTML = "Tier "+ tiernumber;
                 document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
@@ -94,6 +94,10 @@
                 newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
                 document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
 
+            }
+            else{ //Inside existing tier
+                newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
+                document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
             }
             
             
