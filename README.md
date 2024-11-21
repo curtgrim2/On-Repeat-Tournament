@@ -11,6 +11,7 @@
 
 ### TASKS
 -  Add a flip a coin system?
+-  Screen shot tier option
 -  Save who is top 4 and make a new table that checks for this in the database
 - Make a table that saves past 12 winners (for the year)
 - Have tiers display where songs lose at
