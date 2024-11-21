@@ -1,5 +1,5 @@
+const apiKey =  'AIzaSyBc9Y9VMDPAaILM7erb5kwBhJ_B8knnKQk'
 
-const apiKey = 'AIzaSyBc9Y9VMDPAaILM7erb5kwBhJ_B8knnKQk';
 var testusernum = 3;
             var num =0;
             //var everyuserssong = new Map();
@@ -443,8 +443,26 @@ var testusernum = 3;
 
 
                 if(currround<2){ //Overall rounds checker; Once we past the one on one (last tournament) the game ends
-                    console.log("TOURNAMENT FINISHED");
+                    //console.log("TOURNAMENT FINISHED");
                     console.log(winners);
+                    document.getElementById("leftvid").style.display="none";
+                    document.getElementById("rightvid").style.display="none";
+                    document.getElementById("toresultspage").style.display="block";
+                    document.getElementById("leftbutt").style.display="none";
+                    document.getElementById("rightbutt").style.display="none";
+                    document.getElementById("leftname").style.display="none";
+                    document.getElementById("rightname").style.display="none";
+
+                    //document.getElementById("vs").style.display="none";
+                    document.getElementById("displayround").innerHTML="1 OF 1";
+                    document.getElementById("vs").innerHTML="TOURNAMENT FINISHED";
+
+
+
+
+
+
+
                    /* allnames[tiercounter]=orderusernames2;
                     console.log(allnames);
                     document.getElementById("allnames").value = JSON.stringify(allnames);*/
