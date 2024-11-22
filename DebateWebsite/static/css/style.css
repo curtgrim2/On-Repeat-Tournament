@@ -137,3 +137,26 @@ form{
 
 }
 
+#errorbox{
+    position:fixed;
+    bottom:0;
+    left:0;
+    color:black;
+    font-weight: bolder;
+    background-color: red;
+    width:35%;
+    padding: 4% 0 4% 0;
+    text-align: center;
+    display:none;
+}
+
+
+#coinflip_contain{
+    position:relative;
+    z-index:2;
+    margin: 0 auto 0 auto;
+    background-color: darkblue;
+    width:70%;
+    height: 70%;
+}
+
