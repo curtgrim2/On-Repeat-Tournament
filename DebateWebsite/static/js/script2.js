@@ -614,3 +614,22 @@ var testusernum = 3;
 
             }
           }
+
+          function clickfortie(){
+            document.getElementById("coinflip_contain").style.display="block";
+          }
+
+          
+          var showtheflip = document.getElementById("showtheflip"); 
+          function coinflip(){
+            var theflip = Math.floor(Math.random()*2);
+
+            if(theflip==0){
+                showtheflip.innerHTML = "Heads";
+            }
+            else{
+                showtheflip.innerHTML = "Tails";
+
+            }
+
+          }
