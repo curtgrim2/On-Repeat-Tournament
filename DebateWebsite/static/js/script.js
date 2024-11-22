@@ -1,6 +1,7 @@
 var inc = document.getElementById("increase");
 var dec = document.getElementById("decrease");
 let numofusers = document.getElementById("showusernum");
+var error = document.getElementById("errorbox")
 /*changingvalue = 2;
 numofusers.innerHTML=changingvalue;*/
 
@@ -14,12 +15,45 @@ slide3.style.display ="none";
 
 var olddrafts = document.getElementById("olddrafts") ;
 
-
+var totalsongs;
 
 function toslide2(showusernum){
+    var songperuser = document.getElementById("songsperuser").value
+    totalsongs =   parseInt(document.getElementById("songsperuser").value) * parseInt(showusernum.value);
+     if(songperuser == "" || showusernum.value  ==""){
+        error.style.display = "block";
+        error.innerHTML = "Values cannot be empty!";
+   }
+
+   else if(totalsongs%2!==0){
+    error.style.display = "block";
+    error.innerHTML = "TOTAL AMOUNT OF SONGS MUST BE EVEN";
+
+    if(showusernum.value %2!=0){
+        error.innerHTML = "Make songs per user an even number";
+    }
+   }
+
+   else if(showusernum.value>6){
+    error.style.display = "block";
+    error.innerHTML = "TOO MANY USERS - Maximum of 6";
+   }
+
+   else if(showusernum.value < 0){
+    error.style.display = "block";
+    error.innerHTML = "Must have at least 1 user";
+   }
+
+   
+  
+   else {
+    
+
     console.log(showusernum.value);
     slide1.style.display = "none";
     slide2.style.display ="block";
+    error.style.display = "none";
+
     
 
     for(x=0; x<showusernum.value; x++){ 
@@ -32,6 +66,7 @@ function toslide2(showusernum){
         node.placeholder="Enter name here";
         document.getElementById("enternames").appendChild(node);
     } 
+}
 }
 
 function toslide3(showusernum,enternames){ /*For Youtube URLs */
@@ -55,7 +90,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
        document.getElementById("s3").appendChild(newdiv);
        
        newdiv.innerHTML = document.getElementById(`nameid${x}`).value;
-       console.log(document.getElementById(`nameid${x}`).value + " checking in");
+       //console.log(document.getElementById(`nameid${x}`).value + " checking in");
       /* document.getElementById("s3").appendChild(document.createElement('br'));
        console.log("SPACE"); */
 
@@ -117,6 +152,7 @@ function inputdraft(){
 
 
     var gothrnames=0;
+    totalsongs = parseInt(draftnumofusers) * parseInt(draftsongsperuser);
 
     for(x=0; x<draftnumofusers[0]; x++){ 
         var node  = document.createElement("input");
@@ -173,12 +209,13 @@ function inputdraft(){
         var utubeURLs  = document.createElement("input");
         utubeURLs.type = "text";
         utubeURLs.name = `namenum${eacheverysong}`; 
+        utubeURLs.id = `namenum${eacheverysong}`; 
         utubeURLs.placeholder="Enter the URL";
         utubeURLs.style.display ="block";
         utubeURLs.style.width="90%";
 
         utubeURLs.value = drafturls[iterhelp++];
-        console.log(utubeURLs.value);
+       // console.log(utubeURLs.value);
 
         console.log(`namenum${eacheverysong++}`);
         document.getElementById(`namenumid${x}`).appendChild(utubeURLs); 
@@ -188,7 +225,56 @@ function inputdraft(){
 
 }
 
-async function savethisdraft(){
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form"); // Select the form
+    form.addEventListener("submit", function (event) {
+
+        var totalempty = 0; // Reset totalempty for this submission
+
+        for (var x = 0; x < totalsongs; x++) {
+            const inputElement = document.getElementsByName(`namenum${x}`)[0]; // Select the input element by name
+
+            if (inputElement) {
+                const inputValue = inputElement.value; // Get the value of the input
+                console.log(`Input value for namenum${x}:`, inputValue);
+
+                if (inputValue === "") {
+                    totalempty++;
+                    console.log(`namenum${x} is empty.`);
+                    event.preventDefault(); // Prevent default form submission behavior
+
+                }
+            } else {
+                console.warn(`Input element with name="namenum${x}" not found.`);
+            }
+        }
+        
+         error.style.display = "block";
+        error.innerHTML = `No empty URL boxes. There are ${totalempty} empty boxes`; 
+    });
+});
+
+
+function urlscantbeempty(){
+
+  
+    
+
+/*    var totalempty=0;
+console.log(totalsongs);
+for(var x=0; x<totalsongs; x++){  
+    console.log(document.getElementsByName(`namenum${x}`));
+    if(document.getElementsByName(`namenum${x}`).value==""){
+        totalempty++;
+    }
+    error.innerHTML =  "No empty URL boxes. There are " + totalempty + " empty boxes";
+    console.log("No empty URL boxes. There are " + totalempty + " empty boxes");
+    return false;
+}
+return true*/
+}
+
+async function savethisdraft(){ //Don't think this needs to be double spaced
 
     document.getElementById("isthesavebuttonclicked").value="clicked"; //This triggers first before getting sent to python router
     
