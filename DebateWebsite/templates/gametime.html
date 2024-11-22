@@ -24,11 +24,18 @@
             <div id="rightname" class="namedisplay"></div>            
         </div>
 
+        <div id="clickfortie" onclick="clickfortie()">COIN FLIP</div>
         <button type="submit" id="toresultspage">SEE RESULTS</button>
 
         <input type="hidden" id="tiers" name="winnertiers">
         <input type="hidden" id="allnames" name="winnernames">
     </form>   
+
+
+    <div id="coinflip_contain">
+        <div id="showthecoinflip"></div>
+        <div onclick="coinflip()">FLIP COIN</div>
+    </div>
      
      <!---->  <ul id="eachname"> 
         {% for x in range(totalusers)%}      
