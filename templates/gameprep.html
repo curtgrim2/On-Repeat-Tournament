@@ -10,13 +10,13 @@
     <body>
 
         <div id="startup">
-          <form method="post" action="{{ url_for("startgame")}}" >
+          <form method="post" action="{{ url_for("startgame")}}" > 
+            <!-- <form method="post" action="{{ url_for("startgame")}}" onsubmit="event.preventDefault(); urlscantbeempty()">    -->
                 <div id = "slide1"> 
                     <br/>
                     <div>How many users are participating? </div>
                 <!---<input input id ="decrease" class="numofusersbutton" type="button" value = "-" onclick="changenumofusers('sub')"> -->
                  <input type ="number" min=1 max=6 name = "numofusers" id="showusernum"/>
-                 <!--<div name = "numofusers" id="showusernum"></div> -->
                 <!-- <input input id ="increase" class="numofusersbutton" type="button" value = "+" onclick="changenumofusers('add')"> -->
                  <div>What is the maximum number of songs per person? </div> 
                  <div>(MUST BE AN EVEN NUMBER)</div>              
@@ -63,6 +63,8 @@
                         <button type="submit">START GAME</button> </div>
                     
                 </div>
+
+                <div id="errorbox"></div>
 
                 <div id="olddrafts" onclick="inputdraft()"></div>
 
