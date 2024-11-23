@@ -50,7 +50,7 @@ def home():
         songsperuser1.append(row[5])
         numofusers1.append(row[6])
         
-    print(names1)
+    #print(names1)
     return render_template('gameprep.html',draftnames=names1,drafturls=url1,songsperuser=songsperuser1,numofusers=numofusers1)
 
 
@@ -63,21 +63,25 @@ def startgame():
     personnum=0
     allthenames =[]
     allurls = []
+    
+    print(request.form.get(f'namenum{1}'))
 
     while f'name{personnum}' in request.form: #name{personnum} are the users unique identifiers 
             allthenames.append(request.form[f'name{personnum}'])      #We're getting the variables in the form withrequest.form 
+            #print(allthenames[personnum])
             personnum += 1       
-            #print(allthenames)
             totalsongs = int(request.form.get("songspereach")) * int(request.form.get("numofusers"))
-            for x in range(totalsongs):
-                allurls.append(request.form.get(f'namenum{x}')) #Pushing each song URL from 
-                x+=1
-    
+    for x in range(totalsongs):
+        allurls.append(request.form.get(f'namenum{x}')) #Pushing each song URL from 
+        print(allurls[x])
+        x+=1
+    print(totalsongs)
     if request.form.get("checkdraftbut")=="notclicked":#if request.method == "POST":    
         '''print('RESULTS SHOULD BE HERE')        
         print(request.form.get("checkdraftbut"))
         print(allthenames)
         print(allurls)'''
+        #print(allurls)
         #return "TEST"
         return render_template('gametime.html',totalusers = int(request.form.get("numofusers")),songspereach=request.form.get("songspereach"),allnames=allthenames,utubeurls=allurls)
     else:

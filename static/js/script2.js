@@ -617,19 +617,45 @@ var testusernum = 3;
 
           function clickfortie(){
             document.getElementById("coinflip_contain").style.display="block";
+            coinflip();
           }
 
           
-          var showtheflip = document.getElementById("showtheflip"); 
+          var showtheflip = document.getElementById("showthecoinflip"); 
+
           function coinflip(){
+            var flipresult="";
             var theflip = Math.floor(Math.random()*2);
 
             if(theflip==0){
                 showtheflip.innerHTML = "Heads";
+                //flipresult="Heads";
+
             }
             else{
                 showtheflip.innerHTML = "Tails";
+                //flipresult="Tails";
 
             }
 
+            var flipattemptresult = document.createElement("div");
+            flipattemptresult.innerHTML=showtheflip.innerHTML;
+            flipattemptresult.style.backgroundColor="white";
+            flipattemptresult.style.color="black";
+            flipattemptresult.style.padding="1%";
+            flipattemptresult.style.display="inline-block";
+            flipattemptresult.style.borderRight="1px black solid";
+            document.getElementById("trackflips").appendChild(flipattemptresult);
+
+          }
+
+          function closecoinflip(){
+            var closecoinflip = document.getElementById("coinflip_contain");
+            closecoinflip.style.display="none";
+            var trackflips = document.getElementById("trackflips");
+            var clearthese = trackflips.querySelectorAll("div");
+
+            clearthese.forEach(clearthese=>{
+                trackflips.removeChild(clearthese);
+            });
           }

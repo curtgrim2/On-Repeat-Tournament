@@ -200,9 +200,9 @@ function inputdraft(){
        document.getElementById("s3").appendChild(newdiv);
        
        if(iterhelp%draftsongsperuser[0]==0){
-        newdiv.innerHTML=draftnames[iterhelp];
+        newdiv.innerHTML=draftnames[iterhelp];//Name of the user
        }
-       console.log(draftsongsperuser[0]);
+       //console.log(iterhelp);
 
        for(y=0; y<draftsongsperuser[0]; y++){ 
        // console.log(drafturls[iterhelp]);
@@ -215,15 +215,19 @@ function inputdraft(){
         utubeURLs.style.width="90%";
 
         utubeURLs.value = drafturls[iterhelp++];
-       // console.log(utubeURLs.value);
+        //console.log(utubeURLs.value);
 
-        console.log(`namenum${eacheverysong++}`);
-        document.getElementById(`namenumid${x}`).appendChild(utubeURLs); 
+        //console.log(`namenum${eacheverysong++}`);
+        document.getElementById(`namenumid${x}`).appendChild(utubeURLs);
+        console.log(document.getElementById(`namenum${eacheverysong++}`));
                             
        }
     } 
 
 }
+
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form"); // Select the form
