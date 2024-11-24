@@ -452,6 +452,7 @@ var testusernum = 3;
                     document.getElementById("rightbutt").style.display="none";
                     document.getElementById("leftname").style.display="none";
                     document.getElementById("rightname").style.display="none";
+                    document.getElementById("clickfortie").style.display="none";
 
                     //document.getElementById("vs").style.display="none";
                     document.getElementById("displayround").innerHTML="1 OF 1";

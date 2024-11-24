@@ -38,6 +38,9 @@
 
      videoDetails(listoftiers);
 
+     
+
+     
      async function videoDetails(listoftiers) {
                //console.log(vid_id[2]);
                console.log(listoftiers);
@@ -76,12 +79,14 @@
             var newtieritem = document.createElement("div");
 
             
-            if(tierlength==1){
+            if(tierlength==1){//Winning tier
                 var tiertitle = document.createElement("div");
                 tiertitle.innerHTML ="AND THE WINNER IS...";
                 document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
                 console.log(namesintiers[0]);
-                newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[0][0] +"]"; //namesintiers[x][y] 
+                newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[0][0] +"]";
+                //newtieritem.id=video.items[0].snippet.title;
+                newtieritem.className="SongsDiv"; 
                 newtieritem.style.color ="gold";
                 document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
 
@@ -92,11 +97,16 @@
                 document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
 
                 newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
+                //newtieritem.id=video.items[0].snippet.title;
+                newtieritem.className="SongsDiv";
+
                 document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
 
             }
             else{ //Inside existing tier
                 newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
+                //newtieritem.id=video.items[0].snippet.title;
+                newtieritem.className="SongsDiv";
                 document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
             }
             
@@ -116,6 +126,62 @@ console.error("Variable is not defined or is not an array:", variable);
 }
 tiernumber++;
 }
+
+
+//Removing repeats
+tiernumber=1;
+//work4tier=
+var songdivs = document.getElementsByClassName("SongDiv");
+
+
+//console.log(listoftiers.length);
+for(var x=listoftiers.length-1; x>=0;x--){//for(var x=0; x<listoftiers.length;x++){//Covers total amount of songs
+    var test = document.getElementById(`Tier_${tiernumber++}`);
+    console.log(test);
+    console.log(listoftiers[x].length);
+    var work4tier=1;
+    for(var y=0; y<listoftiers[x].length;y++){//for(var y=listoftiers[x].length; y>0;y--){//for(var y=0; y<listoftiers[x].length;y++){ //Iterates for evvery song in tier
+    //console.log("Num of songs in tier:",listoftiers[x].length);
+    var test2 = test.querySelectorAll("div");
+    var entiredoc = document.getElementById("results").querySelectorAll("div");
+    
+   /* console.log(test2[work4tier]);
+    console.log(test2[work4tier++].innerHTML);*/
+    var iter=0;
+    var keep1st=0;
+    var tt = test2[work4tier].innerText;//    var tt = test2[work4tier].innerHTML;
+    //console.log(entiredoc[iter].innerText);
+    console.log("Start while loop");
+    while(iter<entiredoc.length){
+
+        //console.log(entiredoc[iter].innerText,"vs",tt);
+        if(entiredoc[iter].innerText.includes(tt)){ //if(entiredoc[iter].innerText.indexOf(tt)>-1){
+            //console.log(tt);
+            if(keep1st==0){ 
+                console.log("KEEP");
+            }
+            else{
+                console.log("Delete");
+            }
+            keep1st++
+        }
+        iter++;
+    }
+    work4tier++;
+    
+    }
+
+}
+
+//console.log(entiredoc.length);
+
+
+
+
+
+
+
+
 }
 
 </script>
