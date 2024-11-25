@@ -134,27 +134,24 @@ var tiernumber2=1;
 var songdivs = document.getElementsByClassName("SongsDiv");
 var songdivindex=0
 const songdivlength =songdivs.length;
-//console.log(listoftiers.length);
 for(var x=0; x<songdivs.length;x++){//for(var x=listoftiers.length-1; x>=0;x--){//Covers total amount of songs
     //console.log(`Looking for ID: Tier_${tiernumber2}`);
     var test = document.getElementById(`Tier_${(tiernumber2)}`);
     tiernumber2++;
-    var everydiv = document.querySelectorAll("div");
-    //console.log(songdivs[4].innerText); 
-    //console.log(everydiv[0].innerHTML);
-    //console.log(songdivs.length);
+
+    //var everydiv = document.querySelectorAll("div");
+    var everydiv = document.getElementsByClassName("SongsDiv");
 var iter=0;
 var firstapperance=0;
 console.log(songdivs);
 console.log("Check for",songdivs[x].innerText);
 while(iter<songdivlength){
    // console.log(everydiv[iter].innerText,"VERSUS",songdivs[x].innerText);
-   //console.log("Actual songdivs.length:",songdivs.length);
    console.log("(x)",x, "gets song",songdivs[x].innerText);
 if(everydiv[iter].innerText.includes(songdivs[x].innerText)){
-    if(firstapperance<=2){
-        console.log("PArdon",everydiv[iter].innerText);
-        //console.log("PArdon");
+    if(firstapperance<1){
+        console.log("PArdon");
+        console.log(everydiv[iter].innerHTML);
         firstapperance++;
     }
     else{
