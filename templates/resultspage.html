@@ -74,7 +74,7 @@
           throw new Error("Network status isn't okay " + response.statusText);
             }
             const video = await response.json();
-            console.log(video.items[0].snippet.title);
+            //console.log(video.items[0].snippet.title);
 
             var newtieritem = document.createElement("div");
 
@@ -129,48 +129,45 @@ tiernumber++;
 
 
 //Removing repeats
-tiernumber=1;
+var tiernumber2=1;
 //work4tier=
-var songdivs = document.getElementsByClassName("SongDiv");
-
-
+var songdivs = document.getElementsByClassName("SongsDiv");
+var songdivindex=0
+const songdivlength =songdivs.length;
 //console.log(listoftiers.length);
-for(var x=listoftiers.length-1; x>=0;x--){//for(var x=0; x<listoftiers.length;x++){//Covers total amount of songs
-    var test = document.getElementById(`Tier_${tiernumber++}`);
-    console.log(test);
-    console.log(listoftiers[x].length);
-    var work4tier=1;
-    for(var y=0; y<listoftiers[x].length;y++){//for(var y=listoftiers[x].length; y>0;y--){//for(var y=0; y<listoftiers[x].length;y++){ //Iterates for evvery song in tier
-    //console.log("Num of songs in tier:",listoftiers[x].length);
-    var test2 = test.querySelectorAll("div");
-    var entiredoc = document.getElementById("results").querySelectorAll("div");
-    
-   /* console.log(test2[work4tier]);
-    console.log(test2[work4tier++].innerHTML);*/
-    var iter=0;
-    var keep1st=0;
-    var tt = test2[work4tier].innerText;//    var tt = test2[work4tier].innerHTML;
-    //console.log(entiredoc[iter].innerText);
-    console.log("Start while loop");
-    while(iter<entiredoc.length){
-
-        //console.log(entiredoc[iter].innerText,"vs",tt);
-        if(entiredoc[iter].innerText.includes(tt)){ //if(entiredoc[iter].innerText.indexOf(tt)>-1){
-            //console.log(tt);
-            if(keep1st==0){ 
-                console.log("KEEP");
-            }
-            else{
-                console.log("Delete");
-            }
-            keep1st++
-        }
-        iter++;
+for(var x=0; x<songdivs.length;x++){//for(var x=listoftiers.length-1; x>=0;x--){//Covers total amount of songs
+    //console.log(`Looking for ID: Tier_${tiernumber2}`);
+    var test = document.getElementById(`Tier_${(tiernumber2)}`);
+    tiernumber2++;
+    var everydiv = document.querySelectorAll("div");
+    //console.log(songdivs[4].innerText); 
+    //console.log(everydiv[0].innerHTML);
+    //console.log(songdivs.length);
+var iter=0;
+var firstapperance=0;
+console.log(songdivs);
+console.log("Check for",songdivs[x].innerText);
+while(iter<songdivlength){
+   // console.log(everydiv[iter].innerText,"VERSUS",songdivs[x].innerText);
+   //console.log("Actual songdivs.length:",songdivs.length);
+   console.log("(x)",x, "gets song",songdivs[x].innerText);
+if(everydiv[iter].innerText.includes(songdivs[x].innerText)){
+    if(firstapperance<=2){
+        console.log("PArdon",everydiv[iter].innerText);
+        //console.log("PArdon");
+        firstapperance++;
     }
-    work4tier++;
+    else{
+       console.log("FOUND",everydiv[iter].innerText);
+       console.log("REMOVE");
+       console.log(songdivs[x].innerText);
+        everydiv[iter].innerText = everydiv[iter].innerText.replace(songdivs[x].innerText,"");
+    }
+}
+       iter++;
+    
     
     }
-
 }
 
 //console.log(entiredoc.length);
