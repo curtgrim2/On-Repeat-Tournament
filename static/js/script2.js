@@ -69,6 +69,8 @@ var testusernum = 3;
 
             var eliminated;
             var winners=[];
+            var losers=[];
+            var losernames=[];
             var counter=0;
             var numofsongsleft=totalusers*songsperuser;
             const totalsongs2 = numofsongsleft;
@@ -133,7 +135,7 @@ var testusernum = 3;
                 console.log(allusers2);
             console.log("Counter:" + counter + ", Current Round:" +currround);
                 if(counter<=currround) { //Going through each round
-                    //console.log("Left number:"+ usersongs1 + " Right number:"+ usersongs2);
+                    
                 if(theanswer == "left"){
                     //console.log(allusers2[usersongs1]);
                     console.log("LEFT");
@@ -142,12 +144,12 @@ var testusernum = 3;
                     var tempwinner = allusers2[usersongs1][songselector1];
 
                     winners.push(tempwinner); /*winners.push(allusers2[usersongs1][songselector1].shift()); */
+                    losers.push(eliminated);
+                    losernames.push(users_name[usersongs2]);
+
                     
                     allusers2[usersongs1].splice(songselector1,1); 
                     allusers2[usersongs2].splice(songselector2,1); //Get rid of both songs from current round selection pool but saves winner in "winners" array
-
-                   /* users_name.splice(usersongs2,1);
-                    users_name.splice(usersongs1,1); */
 
 
                     //allusers2 = allusers2.filter(arr => arr.length > 0);
@@ -157,6 +159,8 @@ var testusernum = 3;
                 console.log("AllUsers");
                 console.log(allusers2);
                 }
+
+
                 else if (theanswer == "right"){
                     console.log("RIGHT");
                     console.log(allusers2[usersongs2]);
@@ -165,12 +169,13 @@ var testusernum = 3;
                     var tempwinner = allusers2[usersongs2][songselector2];
 
                     winners.push(tempwinner);
-                    allusers2[usersongs2].splice(songselector2,1)
+                    losers.push(eliminated);
+                    losernames.push(users_name[usersongs1]);
+
+
+                    allusers2[usersongs2].splice(songselector2,1);
                     allusers2[usersongs1].splice(songselector1,1);
   
-
-                    //allusers2 = allusers2.filter(arr => arr.length > 0);
-
 
                 console.log("Eliminated: " + eliminated + ", Winner: " +  tempwinner);
                 console.log("The winners are display below:");
@@ -181,11 +186,10 @@ var testusernum = 3;
 
                 if(currround!=counter){ //To move on to the next round
                     document.getElementById("displayround").innerHTML = "Round of " + currround;
-                   // console.log("Number of songs remaining is " + numofsongsleft);                                                      
-                    //allusers2 = allusers2.filter(arr => arr.length > 0);
+                   /* console.log("Number of songs remaining is " + numofsongsleft);                                                      
                     console.log("AllUsers");
                     console.log(allusers2);
-                    console.log("Check length: " +allusers2.length);
+                    console.log("Check length: " +allusers2.length);*/
                     
              usersongs1 = Math.floor(Math.random()*allusers2.length);
              usersongs2 = Math.floor(Math.random()*allusers2.length);
@@ -221,7 +225,7 @@ var testusernum = 3;
             allusers2 = allusers2.filter(arr => arr.length > 0)
             console.log("AllUsers");
             console.log(allusers2);
-            console.log(allusers2.length);
+            //console.log(allusers2.length);
 
 
             usersongs1 = Math.floor(Math.random()*allusers2.length);
@@ -277,12 +281,11 @@ var testusernum = 3;
 
 
                 console.log("usersongs1:" + usersongs1 +"; usersongs2:" + usersongs2 + "; allusers2.length:" + allusers2.length);
-                console.log("AllUsers");
-                console.log(allusers2);
                 console.log("songselector1:" + songselector1 +"; songselector2:" + songselector2);
+               /* console.log("AllUsers");
+                console.log(allusers2);*/
                
                 console.log(allusers2[usersongs1][songselector1] + " vs " + allusers2[usersongs2][songselector2]);
-                console.log("songselector1:" + songselector1 +"; songselector2:" + songselector2);
                 setSong1(songselector1);
                 setSong2(songselector2);
 
@@ -458,7 +461,8 @@ var testusernum = 3;
                     document.getElementById("displayround").innerHTML="1 OF 1";
                     document.getElementById("vs").innerHTML="TOURNAMENT FINISHED";
 
-
+                    console.log(                    losers                );
+                    console.log(losernames);
 
 
 
@@ -529,7 +533,7 @@ var testusernum = 3;
 
                  
 
-                console.log("usersongs1:" + usersongs1 +"; usersongs2:" + usersongs2 + "; allusers2.length:" );
+                console.log("usersongs1:" + usersongs1 +"; usersongs2:" + usersongs2 + "; allusers2.length:",allusers2.length );
                 console.log("songselector1:" + songselector1 +"; songselector2:" + songselector2);
                
                 console.log(allusers2[usersongs1][songselector1] + " vs " + allusers2[usersongs2][songselector2]);
@@ -541,7 +545,7 @@ var testusernum = 3;
                 document.getElementById("rightvid").src = "//www.youtube.com/embed/" + rightvidID;
                 getVideoDetails("left",leftvidID);
                 getVideoDetails("right",rightvidID);
-                console.log("usersongs1:" + usersongs1 + "usersongs2" + usersongs2);
+                console.log("usersongs1: " + usersongs1 + ";usersongs2: " + usersongs2);
                 document.getElementById("leftname").innerHTML = users_name[usersongs1];
                 document.getElementById("rightname").innerHTML = users_name[usersongs2];
 
