@@ -148,8 +148,8 @@ var testusernum = 3;
                     losernames.push(users_name[usersongs2]);
 
                     
-                    allusers2[usersongs1].splice(songselector1,1); 
-                    allusers2[usersongs2].splice(songselector2,1); //Get rid of both songs from current round selection pool but saves winner in "winners" array
+                    allusers2[usersongs1].splice(allusers2[usersongs1].indexOf(tempwinner),1); //Get rid of both songs from current round selection pool but saves winner in "winners" array
+                    allusers2[usersongs2].splice(allusers2[usersongs2].indexOf(eliminated),1); //Song locations change so use indexOf function to always pick right index
 
 
                     //allusers2 = allusers2.filter(arr => arr.length > 0);
@@ -173,8 +173,8 @@ var testusernum = 3;
                     losernames.push(users_name[usersongs1]);
 
 
-                    allusers2[usersongs2].splice(songselector2,1);
-                    allusers2[usersongs1].splice(songselector1,1);
+                    allusers2[usersongs2].splice(allusers2[usersongs2].indexOf(tempwinner),1);
+                    allusers2[usersongs1].splice(allusers2[usersongs1].indexOf(eliminated),1);
   
 
                 console.log("Eliminated: " + eliminated + ", Winner: " +  tempwinner);
