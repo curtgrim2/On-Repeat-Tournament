@@ -9,6 +9,7 @@
 - Let the user save drafts via image OR save said image in database
 - Should add another section for in slide3 for notes/time start and stop
 - Can you make the video stop and start at certain places?
+- In the future we can take the Spotify profile pictures and have them in the design in the gametime.html
 
 ### TASKS
 -  Screen shot tier option
