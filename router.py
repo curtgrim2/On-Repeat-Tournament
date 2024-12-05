@@ -122,13 +122,14 @@ def startgame():
 def showresults():
     print("Going to results page")
     #print(request.form.get('winnertiers'))
-    print(request.form.get('winnernames'))
+    print(request.form.get("bottomtier"))
+    
     
     eachtier = request.form.get('winnertiers')
     
     '''for x in request.form.get('winnertiers'):
         print(x)'''
-    return render_template('resultspage.html',listoftiers=eachtier,namesintiers=request.form.get('winnernames'))   
+    return render_template('resultspage.html',listoftiers=eachtier,namesintiers=request.form.get('winnernames'),bottomtier=request.form.get("bottomtier"),lowtiernames=request.form.get("bottomnames"))   
 
 
 

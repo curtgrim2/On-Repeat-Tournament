@@ -431,6 +431,9 @@ var testusernum = 3;
 
            console.log(allnames);
            document.getElementById("allnames").value = JSON.stringify(allnames);
+           document.getElementById("losers").value = JSON.stringify(losers);
+           document.getElementById("losernames").value= JSON.stringify(losernames);
+
           /* allnames[tiercounter++]=newusernames;//Save names for results
            console.log(allnames);
            document.getElementById("allnames").value = JSON.stringify(allnames);*/
@@ -460,6 +463,10 @@ var testusernum = 3;
                     //document.getElementById("vs").style.display="none";
                     document.getElementById("displayround").innerHTML="1 OF 1";
                     document.getElementById("vs").innerHTML="TOURNAMENT FINISHED";
+                    document.getElementById("vs").style.right="33%";
+                    document.getElementById("vs").style.textDecoration="underline";
+                    document.getElementById("vs").style.fontSize="3vw";
+
 
                     console.log(                    losers                );
                     console.log(losernames);

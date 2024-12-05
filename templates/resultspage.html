@@ -19,22 +19,51 @@
     
      listoftiers = JSON.parse({{ listoftiers | tojson | safe }});
      namesintiers = JSON.parse({{namesintiers | tojson | safe}});
-     console.log(listoftiers);
-     console.log(namesintiers);
-     var height4tiers = 100/listoftiers.length;
+     bottomtier = JSON.parse({{bottomtier | tojson | safe}});
+     lowtiernames = JSON.parse({{lowtiernames | tojson | safe}});
+     
+     console.log(bottomtier);
+     console.log(lowtiernames);
+     var height4tiers = 100/listoftiers.length+1; //Plus one is for bottom tier
+
+
 
      for(x=1; x<=listoftiers.length; x++){ // for(x=0; listoftiers.length-1>=x; x++){
         var createtier = document.createElement("div");
         createtier.style.border = "black 1px solid";
         createtier.id=`Tier_${x}`;
         if(x==1){
-            createtier.style.backgroundColor="maroon";
+            //createtier.style.backgroundColor="maroon";
+            createtier.style.backgroundImage="linear-gradient(blue,grey)";//createtier.style.backgroundImage="linear-gradient( grey,blue)";
         }
+
         createtier.style.height = height4tiers +"%";
         createtier.style.width = "66%";
+        createtier.style.backgroundColor ="grey";
         document.getElementById("results").appendChild(createtier);
 
      }
+
+
+     var createlowesttier = document.createElement("div");
+     createlowesttier.id="bottomtier";
+     createlowesttier.style.height = height4tiers +"%";
+     createlowesttier.style.width = "66%";
+     createlowesttier.style.border = "black 1px solid";
+     createlowesttier.style.backgroundImage="linear-gradient( grey,red)";
+
+     document.getElementById("results").appendChild(createlowesttier);
+
+
+     var lowtiertitle = document.createElement("div");
+     lowtiertitle.innerHTML="LOSERS";
+     document.getElementById("bottomtier").appendChild(lowtiertitle);
+
+     /*for(x=0;x<bottomtier.length;x++){
+        
+     }*/
+
+
 
      videoDetails(listoftiers);
 
@@ -97,7 +126,6 @@
                 document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
 
                 newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
-                //newtieritem.id=video.items[0].snippet.title;
                 newtieritem.className="SongsDiv";
 
                 document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
@@ -105,7 +133,6 @@
             }
             else{ //Inside existing tier
                 newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
-                //newtieritem.id=video.items[0].snippet.title;
                 newtieritem.className="SongsDiv";
                 document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
             }
@@ -114,9 +141,12 @@
    // return video.items[0].snippet.title;
 
     }
+    
         catch(error){
          console.error("Fetch error:",error);
     }
+
+    
         y++;
     }
 }
@@ -126,6 +156,34 @@ console.error("Variable is not defined or is not an array:", variable);
 }
 tiernumber++;
 }
+
+//Adding Losers tier
+for(let z=0;z<bottomtier.length;z++){
+            var url =bottomtier[z];
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/; 
+        var vid_id = url.match(regExp);
+
+        const apiCall = `https://www.googleapis.com/youtube/v3/videos?id=${vid_id[2]}&part=snippet,contentDetails,statistics&key=${apiKey}`;
+    //console.log(bottomtier.length);
+        try{
+
+            var response = await fetch(apiCall);
+            if(!response.ok){
+          throw new Error("Network status isn't okay " + response.statusText);
+            }
+            const video = await response.json();
+            //console.log(video.items[0].snippet.title);
+            var newtieritem2 = document.createElement("div");
+            newtieritem2.innerHTML = video.items[0].snippet.title + " ["+ lowtiernames[z] +"]";
+            newtieritem2.className="SongsDiv";
+            document.getElementById("bottomtier").appendChild(newtieritem2);
+        }
+        catch{
+            console.error("Somethings wrong");
+        }
+        
+    
+    }
 
 
 //Removing repeats
@@ -139,25 +197,25 @@ for(var x=0; x<songdivs.length;x++){//for(var x=listoftiers.length-1; x>=0;x--){
     var test = document.getElementById(`Tier_${(tiernumber2)}`);
     tiernumber2++;
 
-    //var everydiv = document.querySelectorAll("div");
-    var everydiv = document.getElementsByClassName("SongsDiv");
+
+var everydiv = document.getElementsByClassName("SongsDiv");
 var iter=0;
 var firstapperance=0;
-console.log(songdivs);
-console.log("Check for",songdivs[x].innerText);
+//console.log(songdivs);
+//console.log("Check for",songdivs[x].innerText);
 while(iter<songdivlength){
    // console.log(everydiv[iter].innerText,"VERSUS",songdivs[x].innerText);
-   console.log("(x)",x, "gets song",songdivs[x].innerText);
+   //console.log("(x)",x, "gets song",songdivs[x].innerText);
 if(everydiv[iter].innerText.includes(songdivs[x].innerText)){
     if(firstapperance<1){
-        console.log("Pardon");
-        console.log(everydiv[iter].innerHTML);
+        //console.log("Pardon");
+        //console.log(everydiv[iter].innerHTML);
         firstapperance++;
     }
     else{
-       console.log("FOUND",everydiv[iter].innerText);
-       console.log("REMOVE");
-       console.log(songdivs[x].innerText);
+       //console.log("FOUND",everydiv[iter].innerText);
+       //console.log("REMOVE");
+       //console.log(songdivs[x].innerText);
         everydiv[iter].innerText = everydiv[iter].innerText.replace(songdivs[x].innerText,"");
     }
 }
