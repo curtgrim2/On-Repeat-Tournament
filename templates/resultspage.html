@@ -114,10 +114,23 @@
                 document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
                 console.log(namesintiers[0]);
                 newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[0][0] +"]";
-                //newtieritem.id=video.items[0].snippet.title;
+                newtieritem.id=video.items[0].snippet.title + x;
+                console.log(newtieritem.id);
                 newtieritem.className="SongsDiv"; 
                 newtieritem.style.color ="gold";
+                newtieritem.style.backgroundColor="black";
+
                 document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
+
+
+                var thumbnail = document.createElement("img");
+                thumbnail.src= video.items[0].snippet.thumbnails.high.url;
+                console.log(video.items[0].snippet.thumbnails.high.url);
+                thumbnail.style.width = "10%";
+                thumbnail.style.height = "20%";
+                document.getElementById(newtieritem.id).appendChild(thumbnail);//document.getElementById(`Tier_${tiernumber}`).appendChild(thumbnail);
+
+                //console.log(document.getElementById(`Tier_${tiernumber}`).innerHTML);
 
             }
             else if(y==0){ //Start of a new tier (Not Winning tier)
@@ -126,15 +139,44 @@
                 document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
 
                 newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
-                newtieritem.className="SongsDiv";
+                newtieritem.id=video.items[0].snippet.title + x;
+                newtieritem.style.backgroundColor="black";
 
+                //console.log(newtieritem.id);
+
+                newtieritem.className="SongsDiv";
                 document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
+
+                var thumbnail = document.createElement("img");
+                thumbnail.src= video.items[0].snippet.thumbnails.high.url;
+                thumbnail.style.width = "10%";
+                thumbnail.style.height = "20%";
+                document.getElementById(newtieritem.id).appendChild(thumbnail);//document.getElementById(`Tier_${tiernumber}`).appendChild(thumbnail);
+
+                //console.log(video.items[0].snippet.thumbnails.high.url);
+                //console.log(document.getElementById(`Tier_${tiernumber}`).innerHTML);
+
 
             }
             else{ //Inside existing tier
                 newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
+                newtieritem.id=video.items[0].snippet.title + x;
+                newtieritem.style.backgroundColor="black";
+                //console.log(newtieritem.id);
+
                 newtieritem.className="SongsDiv";
                 document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
+
+                var thumbnail = document.createElement("img");
+                thumbnail.src= video.items[0].snippet.thumbnails.high.url;
+                thumbnail.style.width = "10%";
+                thumbnail.style.height = "20%";
+                document.getElementById(newtieritem.id).appendChild(thumbnail);//document.getElementById(`Tier_${tiernumber}`).appendChild(thumbnail);
+
+                //console.log(video.items[0].snippet.thumbnails.high.url);
+
+                //console.log(document.getElementById(`Tier_${tiernumber}`).innerHTML);
+
             }
             
             
@@ -175,8 +217,16 @@ for(let z=0;z<bottomtier.length;z++){
             //console.log(video.items[0].snippet.title);
             var newtieritem2 = document.createElement("div");
             newtieritem2.innerHTML = video.items[0].snippet.title + " ["+ lowtiernames[z] +"]";
+            newtieritem2.id=video.items[0].snippet.title;
             newtieritem2.className="SongsDiv";
             document.getElementById("bottomtier").appendChild(newtieritem2);
+
+
+            var thumbnail2 = document.createElement("img");
+                thumbnail2.src= video.items[0].snippet.thumbnails.high.url;
+                thumbnail2.style.width = "25%";
+                thumbnail2.style.height = "50%";
+                document.getElementById(newtieritem2.id).appendChild(thumbnail);
         }
         catch{
             console.error("Somethings wrong");
@@ -208,15 +258,18 @@ while(iter<songdivlength){
    //console.log("(x)",x, "gets song",songdivs[x].innerText);
 if(everydiv[iter].innerText.includes(songdivs[x].innerText)){
     if(firstapperance<1){
-        //console.log("Pardon");
+        
+        console.log("Pardon");
+        console.log(songdivs[x]);
         //console.log(everydiv[iter].innerHTML);
         firstapperance++;
     }
     else{
        //console.log("FOUND",everydiv[iter].innerText);
-       //console.log("REMOVE");
-       //console.log(songdivs[x].innerText);
-        everydiv[iter].innerText = everydiv[iter].innerText.replace(songdivs[x].innerText,"");
+       console.log("REMOVE");
+       console.log(everydiv[iter].innerHTML);
+       console.log(songdivs[x].innerHTML);
+        everydiv[iter].innerHTML = everydiv[iter].innerHTML.replace(songdivs[x].innerHTML,"");
     }
 }
        iter++;
