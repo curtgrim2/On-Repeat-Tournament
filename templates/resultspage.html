@@ -1,8 +1,11 @@
 <!DOCTYPE>
 <html>
     <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <body>
+
+    <button id="screenshot" onclick="screenshot()">Screenshot Results</button>
     <div style="text-align:center;">RESULTS</div>
     <div id="results">
 
@@ -241,14 +244,21 @@ if(everydiv[iter].innerText.includes(songdivs[x].innerText)){
     }
 }
 
-//console.log(entiredoc.length);
+}
+
+//Screenshot section
 
 
-
-
-
-
-
+function screenshot(){
+    //document.getElementById("screenshot").
+    html2canvas(document.body).then(canvas=>{
+        var link = document.createElement("a");
+        link.download = "fullresults.png";
+        link.href = canvas.toDataURL();
+        link.click();
+    }).catch(error=>{
+        console.error("ERROR ON SCREENSHOT",error);
+    });
 
 }
 
