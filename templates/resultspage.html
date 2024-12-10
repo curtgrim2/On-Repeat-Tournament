@@ -22,12 +22,14 @@
      bottomtier = JSON.parse({{bottomtier | tojson | safe}});
      lowtiernames = JSON.parse({{lowtiernames | tojson | safe}});
      
-     console.log(bottomtier);
-     console.log(lowtiernames);
+  
      var height4tiers = 100/listoftiers.length+1; //Plus one is for bottom tier
 
-
-
+    //listoftiers[listoftiers.length]=bottomtier;
+    listoftiers.unshift(bottomtier);
+    namesintiers.unshift(lowtiernames);
+    console.log(listoftiers);
+    console.log(namesintiers);
      for(x=1; x<=listoftiers.length; x++){ // for(x=0; listoftiers.length-1>=x; x++){
         var createtier = document.createElement("div");
         createtier.style.border = "black 1px solid";
@@ -44,7 +46,7 @@
 
      }
 
-
+/*
      var createlowesttier = document.createElement("div");
      createlowesttier.id="bottomtier";
      createlowesttier.style.height = height4tiers +"%";
@@ -58,7 +60,7 @@
      var lowtiertitle = document.createElement("div");
      lowtiertitle.innerHTML="LOSERS";
      document.getElementById("bottomtier").appendChild(lowtiertitle);
-
+*/
      /*for(x=0;x<bottomtier.length;x++){
         
      }*/
@@ -112,8 +114,9 @@
                 var tiertitle = document.createElement("div");
                 tiertitle.innerHTML ="AND THE WINNER IS...";
                 document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
-                console.log(namesintiers[0]);
-                newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[0][0] +"]";
+                console.log(namesintiers[namesintiers.length-1]);
+                //console.log(namesintiers[0]);
+                newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[namesintiers.length-1][0] +"]";
                 newtieritem.id=video.items[0].snippet.title + x;
                 console.log(newtieritem.id);
                 newtieritem.className="SongsDiv"; 
@@ -199,41 +202,7 @@ console.error("Variable is not defined or is not an array:", variable);
 tiernumber++;
 }
 
-//Adding Losers tier
-for(let z=0;z<bottomtier.length;z++){
-            var url =bottomtier[z];
-        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/; 
-        var vid_id = url.match(regExp);
 
-        const apiCall = `https://www.googleapis.com/youtube/v3/videos?id=${vid_id[2]}&part=snippet,contentDetails,statistics&key=${apiKey}`;
-    //console.log(bottomtier.length);
-        try{
-
-            var response = await fetch(apiCall);
-            if(!response.ok){
-          throw new Error("Network status isn't okay " + response.statusText);
-            }
-            const video = await response.json();
-            //console.log(video.items[0].snippet.title);
-            var newtieritem2 = document.createElement("div");
-            newtieritem2.innerHTML = video.items[0].snippet.title + " ["+ lowtiernames[z] +"]";
-            newtieritem2.id=video.items[0].snippet.title;
-            newtieritem2.className="SongsDiv";
-            document.getElementById("bottomtier").appendChild(newtieritem2);
-
-
-            var thumbnail2 = document.createElement("img");
-                thumbnail2.src= video.items[0].snippet.thumbnails.high.url;
-                thumbnail2.style.width = "25%";
-                thumbnail2.style.height = "50%";
-                document.getElementById(newtieritem2.id).appendChild(thumbnail);
-        }
-        catch{
-            console.error("Somethings wrong");
-        }
-        
-    
-    }
 
 
 //Removing repeats
@@ -259,16 +228,16 @@ while(iter<songdivlength){
 if(everydiv[iter].innerText.includes(songdivs[x].innerText)){
     if(firstapperance<1){
         
-        console.log("Pardon");
-        console.log(songdivs[x]);
+        //console.log("Pardon");
+        //console.log(songdivs[x]);
         //console.log(everydiv[iter].innerHTML);
         firstapperance++;
     }
     else{
        //console.log("FOUND",everydiv[iter].innerText);
-       console.log("REMOVE");
-       console.log(everydiv[iter].innerHTML);
-       console.log(songdivs[x].innerHTML);
+       //console.log("REMOVE");
+       //console.log(everydiv[iter].innerHTML);
+       //console.log(songdivs[x].innerHTML);
         everydiv[iter].innerHTML = everydiv[iter].innerHTML.replace(songdivs[x].innerHTML,"");
     }
 }

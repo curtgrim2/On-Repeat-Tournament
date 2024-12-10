@@ -207,16 +207,30 @@ var testusernum = 3;
 
                
                 //Checking the user arrays that has no more songs in them
+                var toeliminate =[];
+                var elimcount =0;
                 for(x=0;x<allusers2.length;x++){
                     if(allusers2[x].length==0 ){ 
-                        console.log("User "+users_name[x]+" has been eliminated");                       
-                        users_name.splice(x,1);       
-                        //allusers2[x][0]=null;                       
+                        console.log(x);
+                        console.log("User "+users_name[x]+" has been eliminated");   
+                        toeliminate[elimcount++] = users_name[x];  
+                        delete users_name[x];                 
+                       // users_name.splice(x,1);       
+                       // allusers2[x]=null;                       
                     }
                     else{
 
                     }
                 } 
+
+                users_name = users_name.filter(arr => arr.length > 0);
+
+
+
+              /*  for(){
+                    users_name.replace(toeliminate[x],)
+
+                }*/
                 
 
 
@@ -327,7 +341,8 @@ var testusernum = 3;
 
                     //Preperation; Needed for next batch that will be insert (Makes sure the array stays an array)
 
-                    for(x=0;x<winners.length;x++){ 
+                    for(x=0;x<allusers.length;x++){  
+                        //Need allusers2 to have the amount of original users so songs can be place with their respective person
                         allusers2[x]=[];
                     }
 
@@ -385,12 +400,9 @@ var testusernum = 3;
                             findsong++;
                             findsonghelp++;
                             if(findsonghelp==songsperuser){ //For initial reapplication, every (songperuser) is dedicated to a person
-                                //Meaning go onto next user according to in utubeurls
-                                
-                                //console.log("findsonghelp: "+findsonghelp);                       
+                                //Meaning go onto next user according to in utubeurls                              
                                 theuser++;
                                 findsonghelp=0;   
-                                //console.log("Switch to User number: " + theuser + "; findsong: "+ findsong);                            
                             }
                            }                                                      
                     }
