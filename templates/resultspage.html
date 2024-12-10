@@ -39,31 +39,14 @@
             createtier.style.backgroundImage="linear-gradient(blue,grey)";//createtier.style.backgroundImage="linear-gradient( grey,blue)";
         }
 
-        createtier.style.height = height4tiers +"%";
-        createtier.style.width = "66%";
+        createtier.style.height = "70%";//createtier.style.height = height4tiers +"%";
+        createtier.style.width = "75%";
+        createtier.style.position="relative";
+        createtier.style.block="block";
         createtier.style.backgroundColor ="grey";
         document.getElementById("results").appendChild(createtier);
 
      }
-
-/*
-     var createlowesttier = document.createElement("div");
-     createlowesttier.id="bottomtier";
-     createlowesttier.style.height = height4tiers +"%";
-     createlowesttier.style.width = "66%";
-     createlowesttier.style.border = "black 1px solid";
-     createlowesttier.style.backgroundImage="linear-gradient( grey,red)";
-
-     document.getElementById("results").appendChild(createlowesttier);
-
-
-     var lowtiertitle = document.createElement("div");
-     lowtiertitle.innerHTML="LOSERS";
-     document.getElementById("bottomtier").appendChild(lowtiertitle);
-*/
-     /*for(x=0;x<bottomtier.length;x++){
-        
-     }*/
 
 
 
@@ -121,7 +104,7 @@
                 console.log(newtieritem.id);
                 newtieritem.className="SongsDiv"; 
                 newtieritem.style.color ="gold";
-                newtieritem.style.backgroundColor="black";
+               // newtieritem.style.backgroundColor="black";
 
                 document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
 
@@ -129,8 +112,10 @@
                 var thumbnail = document.createElement("img");
                 thumbnail.src= video.items[0].snippet.thumbnails.high.url;
                 console.log(video.items[0].snippet.thumbnails.high.url);
-                thumbnail.style.width = "10%";
-                thumbnail.style.height = "20%";
+                thumbnail.style.width = "33%";
+                thumbnail.style.height = "66%";
+                thumbnail.style.display="block";
+
                 document.getElementById(newtieritem.id).appendChild(thumbnail);//document.getElementById(`Tier_${tiernumber}`).appendChild(thumbnail);
 
                 //console.log(document.getElementById(`Tier_${tiernumber}`).innerHTML);
@@ -143,7 +128,11 @@
 
                 newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
                 newtieritem.id=video.items[0].snippet.title + x;
-                newtieritem.style.backgroundColor="black";
+                //newtieritem.style.backgroundColor="black";
+                newtieritem.style.position="relative";
+                
+                
+
 
                 //console.log(newtieritem.id);
 
@@ -152,8 +141,10 @@
 
                 var thumbnail = document.createElement("img");
                 thumbnail.src= video.items[0].snippet.thumbnails.high.url;
-                thumbnail.style.width = "10%";
+                thumbnail.style.width = "20%";
                 thumbnail.style.height = "20%";
+                thumbnail.style.display="block";
+
                 document.getElementById(newtieritem.id).appendChild(thumbnail);//document.getElementById(`Tier_${tiernumber}`).appendChild(thumbnail);
 
                 //console.log(video.items[0].snippet.thumbnails.high.url);
@@ -164,16 +155,19 @@
             else{ //Inside existing tier
                 newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
                 newtieritem.id=video.items[0].snippet.title + x;
-                newtieritem.style.backgroundColor="black";
-                //console.log(newtieritem.id);
+                //newtieritem.style.backgroundColor="black";
+                newtieritem.style.display="block";
+                newtieritem.style.position="relative";
 
                 newtieritem.className="SongsDiv";
                 document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
 
                 var thumbnail = document.createElement("img");
                 thumbnail.src= video.items[0].snippet.thumbnails.high.url;
-                thumbnail.style.width = "10%";
+                thumbnail.style.width = "20%";
                 thumbnail.style.height = "20%";
+                thumbnail.style.display="block";
+                thumbnail.style.position="relative";
                 document.getElementById(newtieritem.id).appendChild(thumbnail);//document.getElementById(`Tier_${tiernumber}`).appendChild(thumbnail);
 
                 //console.log(video.items[0].snippet.thumbnails.high.url);

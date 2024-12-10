@@ -214,7 +214,9 @@ var testusernum = 3;
                         console.log(x);
                         console.log("User "+users_name[x]+" has been eliminated");   
                         toeliminate[elimcount++] = users_name[x];  
-                        delete users_name[x];                 
+                        delete users_name[x];  
+                        //Remove the user names that got eliminate (aim for he names not index bc of movement)    
+                                 
                        // users_name.splice(x,1);       
                        // allusers2[x]=null;                       
                     }
