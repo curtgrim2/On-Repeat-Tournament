@@ -219,7 +219,7 @@ function inputdraft(){
 
         //console.log(`namenum${eacheverysong++}`);
         document.getElementById(`namenumid${x}`).appendChild(utubeURLs);
-        console.log(document.getElementById(`namenum${eacheverysong++}`));
+        console.log(document.getElementById(`namenum${eeee++}`));
                             
        }
     } 
