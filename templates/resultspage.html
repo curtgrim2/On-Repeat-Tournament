@@ -207,6 +207,7 @@ for(x=0; x<document.getElementsByClassName("SongsDiv").length-listoftiers[0].len
     //The "-listoftiers[0].length" takes away the losers tier who haven't beaten any songs
 
 urltitles[x]= document.getElementsByClassName("SongsDiv")[x].id; //The id are the song names themselves
+urltitles[x]=urltitles[x].slice(0,-1); //Removed the id number indicator that I added previously
 }
 console.log(urltitles);
 
@@ -293,34 +294,30 @@ console.log(urltitles);*/
 
 var getindex=listoftiers.length-1;
 var titlecounter=0;
-
-
 var getsong = listoftiers[getindex].length-1;
-var restarttitle=0;
+var iterhelp=1;
+var tmp=0
+
 for(var x=1; x<everydiv.length; x++){  //skip x=0 because the winner didn't lose to anybody
 
-
-var defeatedby = document.createElement("div");
-    
-
-    
-    defeatedby.innerHTML = "Defeated By "+ urltitles[titlecounter--]; //+ " (" + listoftiers[getindex][getsong]+ ") ";
-     restarttitle++; //Have to go backwards because urltitles tier results are in reverse
+    var defeatedby = document.createElement("div");
+    //var startpoint = 
+    defeatedby.innerHTML = "Defeated By "+ "\"" +urltitles[titlecounter++] + "\""; //+ " (" + listoftiers[getindex][getsong]+ ") ";
+//Have to go backwards because urltitles tier results are in reverse? (FALSE but is it changing?)
     document.getElementById(everydiv[x].id).appendChild(defeatedby);
 
-    if(getsong==0){
-        //console.log("kfjfwjk");
+    if(getsong==listoftiers[getindex].length){ //if(getsong==0){ 
+        
+       /* titlecounter=tmp + listoftiers[--getindex].length; //Go to the next tier
+        tmp=titlecounter;*/
         getindex--;
-        getsong = listoftiers[getindex].length-1;
-        titlecounter=restarttitle+1; //Go to the next tier
-
+        getsong=0;//getsong = listoftiers[getindex].length-1;
+        console.log(titlecounter);
 }
 else{
-    getsong--;
+    getsong++;
 
 }
-    //console.log(getsong);
-
 
 }
 
