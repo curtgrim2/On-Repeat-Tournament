@@ -7,7 +7,7 @@
 
     <button id="screenshot" onclick="screenshot()">Screenshot Results</button>
     <div style="text-align:center;">RESULTS</div>
-    <div id="splashscreen">LOADING RESULTS</div>
+    <div id="splashscreen">FORMING RESULTS</div>
     <div id="results">
 
     </div>
@@ -54,9 +54,15 @@
      }
 
 
+//async function starters(){
+     const splashScreen = document.getElementById('splashscreen');
+    const mainContent = document.getElementById('results');
+    splashScreen.style.display = 'block'; // Hide the splash screen
+    mainContent.style.display = 'none'; // Show the main content
+  /*   await videoDetails(listoftiers);
+}*/
 
-     videoDetails(listoftiers);
-
+ videoDetails(listoftiers);
 
 
 window.addEventListener('load',()=>{
@@ -78,7 +84,8 @@ window.addEventListener('load',()=>{
      
 
      
-     async function videoDetails(listoftiers) {
+      async function videoDetails(listoftiers) { //async
+       // return new Promise((resolve) => {
         var urltitles =[];
                //console.log(vid_id[2]);
                console.log(listoftiers);
@@ -360,6 +367,12 @@ while(y<tierlength){
     y++;
 }
 } */
+
+/*
+resolve();
+});*/ //For async function
+
+
 
 }
 
