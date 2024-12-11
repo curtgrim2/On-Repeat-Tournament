@@ -14,7 +14,6 @@
 
 ### TASKS
 - Splash screen for results page
-- Have tiers display where songs lose at
 - Add another section in slide3 for notes/time start and stop
 - Show title of songs in slide3 page
   
