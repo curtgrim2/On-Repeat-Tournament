@@ -59,6 +59,7 @@
 
      
      async function videoDetails(listoftiers) {
+        var urltitles =[];
                //console.log(vid_id[2]);
                console.log(listoftiers);
                var tiernumber=1;
@@ -83,7 +84,9 @@
         var vid_id = url.match(regExp);
 
         const apiCall = `https://www.googleapis.com/youtube/v3/videos?id=${vid_id[2]}&part=snippet,contentDetails,statistics&key=${apiKey}`;
-
+        
+        //var urlindex =0;
+        
         try{
 
             var response = await fetch(apiCall);
@@ -95,8 +98,10 @@
 
             var newtieritem = document.createElement("div");
 
-            
+            //urltitles[urlindex++] =video.items[0].snippet.title; //This won't work with API call; "Returns only once"
             if(tierlength==1){//Winning tier
+
+
                 var tiertitle = document.createElement("div");
                 tiertitle.innerHTML ="AND THE WINNER IS...";
                 document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
@@ -125,6 +130,8 @@
 
             }
             else if(y==0){ //Start of a new tier (Not Winning tier)
+
+
                 var tiertitle = document.createElement("div");
                 tiertitle.innerHTML = "Tier "+ tiernumber;
                 document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
@@ -156,6 +163,8 @@
 
             }
             else{ //Inside existing tier
+
+
                 newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
                 newtieritem.id=video.items[0].snippet.title + x;
                 //newtieritem.style.backgroundColor="black";
@@ -177,18 +186,13 @@
 
                 //console.log(document.getElementById(`Tier_${tiernumber}`).innerHTML);
 
-            }
-            
-            
+            }           
    // return video.items[0].snippet.title;
 
-    }
-    
+    }   
         catch(error){
          console.error("Fetch error:",error);
-    }
-
-    
+    }   
         y++;
     }
 }
@@ -199,20 +203,22 @@ console.error("Variable is not defined or is not an array:", variable);
 tiernumber++;
 }
 
+for(x=0; x<document.getElementsByClassName("SongsDiv").length-listoftiers[0].length;x++){
+    //The "-listoftiers[0].length" takes away the losers tier who haven't beaten any songs
 
+urltitles[x]= document.getElementsByClassName("SongsDiv")[x].id; //The id are the song names themselves
+}
+console.log(urltitles);
 
 
 //Removing repeats
-var tiernumber2=1;
-//work4tier=
 var songdivs = document.getElementsByClassName("SongsDiv");
 var songdivindex=0
 const songdivlength =songdivs.length;
-for(var x=0; x<songdivs.length;x++){//for(var x=listoftiers.length-1; x>=0;x--){//Covers total amount of songs
-    //console.log(`Looking for ID: Tier_${tiernumber2}`);
-    var test = document.getElementById(`Tier_${(tiernumber2)}`);
-    tiernumber2++;
 
+console.log(songdivlength);
+for(var x=0; x<songdivs.length;x++){ //for(var x=0; x<songdivs.length;x++){//for(var x=listoftiers.length-1; x>=0;x--){//Covers total amount of songs
+//Make songdivs.length the total amount of songs (thats why we have 8)
 
 var everydiv = document.getElementsByClassName("SongsDiv");
 var iter=0;
@@ -220,22 +226,29 @@ var firstapperance=0;
 //console.log(songdivs);
 //console.log("Check for",songdivs[x].innerText);
 while(iter<songdivlength){
-   // console.log(everydiv[iter].innerText,"VERSUS",songdivs[x].innerText);
-   //console.log("(x)",x, "gets song",songdivs[x].innerText);
+    //console.log(everydiv[iter],iter);
 if(everydiv[iter].innerText.includes(songdivs[x].innerText)){
     if(firstapperance<1){
         
         //console.log("Pardon");
-        //console.log(songdivs[x]);
-        //console.log(everydiv[iter].innerHTML);
         firstapperance++;
     }
     else{
        //console.log("FOUND",everydiv[iter].innerText);
        //console.log("REMOVE");
-       //console.log(everydiv[iter].innerHTML);
-       //console.log(songdivs[x].innerHTML);
-        everydiv[iter].innerHTML = everydiv[iter].innerHTML.replace(songdivs[x].innerHTML,"");
+
+         everydiv[iter].innerHTML = everydiv[iter].innerHTML.replace(songdivs[x].innerHTML,"");
+
+       //everydiv[iter].className="";
+        //console.log(songdivs[x]);
+        //delete everydiv[iter];
+
+        //console.log(everydiv[iter]);
+        
+
+
+        //delete everydiv[iter];
+        //everydiv[iter].remove();
     }
 }
        iter++;
@@ -243,6 +256,93 @@ if(everydiv[iter].innerText.includes(songdivs[x].innerText)){
     
     }
 }
+
+
+/*for(x=0; x<everydiv.length;x++){
+urltitles[x]= everydiv[x].id;
+}
+console.log(urltitles);
+
+*/
+
+
+
+//Add what songs got defeated by what
+
+
+var everydiv = document.getElementsByClassName("SongsDiv");
+
+for(var x= everydiv.length-1; x>=0; x--){ 
+    // Iterate in reverse to avoid issues with shifting indices
+   var mightdelete = everydiv[x].querySelectorAll("img");
+
+   if(mightdelete.length==0){
+    everydiv[x].remove();
+   }
+   else{
+   }
+}
+
+
+//console.log(everydiv.length);
+
+/*for(x=0; x<everydiv.length;x++){
+urltitles[x]= everydiv[x].id;
+}
+console.log(urltitles);*/
+
+var getindex=listoftiers.length-1;
+var titlecounter=0;
+
+
+var getsong = listoftiers[getindex].length-1;
+var restarttitle=0;
+for(var x=1; x<everydiv.length; x++){  //skip x=0 because the winner didn't lose to anybody
+
+
+var defeatedby = document.createElement("div");
+    
+
+    
+    defeatedby.innerHTML = "Defeated By "+ urltitles[titlecounter--]; //+ " (" + listoftiers[getindex][getsong]+ ") ";
+     restarttitle++; //Have to go backwards because urltitles tier results are in reverse
+    document.getElementById(everydiv[x].id).appendChild(defeatedby);
+
+    if(getsong==0){
+        //console.log("kfjfwjk");
+        getindex--;
+        getsong = listoftiers[getindex].length-1;
+        titlecounter=restarttitle+1; //Go to the next tier
+
+}
+else{
+    getsong--;
+
+}
+    //console.log(getsong);
+
+
+}
+
+
+
+
+
+/*
+for(var x=0; x<listoftiers.length; x++){
+    var defeatedby = document.createElement("div");
+    defeatedby.innerHTML = "Defeated By";
+    var tierlength = listoftiers[x].length;
+    var y=0;
+while(y<tierlength){
+
+
+   // document.getElementById("")
+
+   // if(listoftiers[x][y]){}
+    y++;
+}
+} */
 
 }
 
