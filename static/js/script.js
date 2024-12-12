@@ -4,7 +4,7 @@ const apiKey =  'AIzaSyBc9Y9VMDPAaILM7erb5kwBhJ_B8knnKQk'
 var inc = document.getElementById("increase");
 var dec = document.getElementById("decrease");
 let numofusers = document.getElementById("showusernum");
-var error = document.getElementById("errorbox")
+var error = document.getElementById("errorbox");
 /*changingvalue = 2;
 numofusers.innerHTML=changingvalue;*/
 
@@ -77,6 +77,8 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
     slide2.style.display ="none";
     slide3.style.display ="block";
     olddrafts.style.display="none";
+    error.style.display = "none";
+
     //document.getElementById("startup").style.display = "none";
     eacheverysong=0;
 
@@ -289,13 +291,11 @@ inputs.forEach((input) => {
 
 
 
-
+//Error checking before starting game
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form"); // Select the form
     form.addEventListener("submit", function (event) {
-
         var totalempty = 0; // Reset totalempty for this submission
-
         for (var x = 0; x < totalsongs; x++) {
             const inputElement = document.getElementsByName(`namenum${x}`)[0]; // Select the input element by name
 
@@ -314,8 +314,12 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
         
-         error.style.display = "block";
-        error.innerHTML = `No empty URL boxes. There are ${totalempty} empty boxes`; 
+        if(totalempty>0){
+            error.style.display = "block";
+            error.innerHTML = `No empty URL boxes. There are ${totalempty} empty boxes`;  
+        }
+
+         
     });
 });
 
@@ -393,6 +397,12 @@ async function getVideoDetails(videoId,usethisid,fortitledisplay){
         console.error('Fetch error:',error);
     }
 
+  }
+
+  function b4send(){
+    error.style.display="none";
+    document.getElementById("isthesavebuttonclicked").value="notclicked";
+    
   }
 
 
