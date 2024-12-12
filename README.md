@@ -13,7 +13,7 @@
 - Make a table that saves past 12 winners (for the year?)
 
 ### TASKS
-- Edit Splash screen for results page
+- Can Splash screen appear for duration of page loading? (Not based on specific amount of seconds)
 - Add another section in slide3 for notes/time start and stop  
 
   
