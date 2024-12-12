@@ -13,9 +13,7 @@
 - Make a table that saves past 12 winners (for the year?)
 
 ### TASKS
-- Splash screen for results page
-- Add another section in slide3 for notes/time start and stop
-- Show title of songs in slide3 page
-  
+- Edit Splash screen for results page
+- Add another section in slide3 for notes/time start and stop  
 
   
