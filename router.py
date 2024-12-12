@@ -76,12 +76,14 @@ def startgame():
         print(allurls[x])
         x+=1
     print(totalsongs)
+    
     if request.form.get("checkdraftbut")=="notclicked":#if request.method == "POST":    
         '''print('RESULTS SHOULD BE HERE')        
         print(request.form.get("checkdraftbut"))
         print(allthenames)
         print(allurls)'''
         #print(allurls)
+        #print("DONE")
         #return "TEST"
         return render_template('gametime.html',totalusers = int(request.form.get("numofusers")),songspereach=request.form.get("songspereach"),allnames=allthenames,utubeurls=allurls)
     else:

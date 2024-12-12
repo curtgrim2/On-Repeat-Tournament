@@ -1,3 +1,6 @@
+const apiKey =  'AIzaSyBc9Y9VMDPAaILM7erb5kwBhJ_B8knnKQk'
+
+
 var inc = document.getElementById("increase");
 var dec = document.getElementById("decrease");
 let numofusers = document.getElementById("showusernum");
@@ -97,12 +100,35 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
        for(y=0; y<songsperuser.value; y++){ //Each user gets a certain amount of songs. Here we display them.
         var utubeURLs  = document.createElement("input");
         utubeURLs.type = "text";
+        utubeURLs.id=`namenum${eacheverysong}`;
         utubeURLs.name = `namenum${eacheverysong}`; //Ids ALL songs; Used in Python router
         utubeURLs.placeholder="Enter the URL";
         utubeURLs.style.display ="block";
         utubeURLs.style.width="90%";
-        console.log(`namenum${eacheverysong++}`);
+        console.log(`namenum${eacheverysong}`);
         document.getElementById(`namenumid${x}`).appendChild(utubeURLs); 
+
+
+        var titleclass = document.createElement("div");
+        titleclass.className = `namenum${eacheverysong}`;
+        titleclass.innerHTML ="Test";
+        document.getElementById(`namenumid${x}`).appendChild(titleclass);
+
+        var fortitledisplay = titleclass.className.substring(titleclass.className.length-1,titleclass.className.length)
+        //console.log(fortitledisplay);
+        showsongtitle("",`namenum${eacheverysong}`,fortitledisplay);
+
+
+
+
+
+        utubeURLs.addEventListener('input',function(event){
+            var neednameid = event.target.id;
+            var fortitledisplay2=neednameid.substring(neednameid.length-1,neednameid.length);
+            showsongtitle(event.target.value,event.target.id,fortitledisplay);
+        });
+
+        eacheverysong++;
                             
        }
     }   
@@ -213,18 +239,53 @@ function inputdraft(){
         utubeURLs.placeholder="Enter the URL";
         utubeURLs.style.display ="block";
         utubeURLs.style.width="90%";
+        
+        utubeURLs.value = drafturls[iterhelp];
 
-        utubeURLs.value = drafturls[iterhelp++];
-        //console.log(utubeURLs.value);
 
-        //console.log(`namenum${eacheverysong++}`);
         document.getElementById(`namenumid${x}`).appendChild(utubeURLs);
-        //console.log(document.getElementById(`namenum${eacheverysong++}`));
+
+        var titleclass = document.createElement("div");
+        titleclass.className = `namenum${eacheverysong}`;
+        titleclass.innerHTML ="TEst";
+        document.getElementById(`namenumid${x}`).appendChild(titleclass);
+
+        var fortitledisplay = titleclass.className.substring(titleclass.className.length-1,titleclass.className.length)
+        //console.log(fortitledisplay);
+        showsongtitle(drafturls[iterhelp],`namenum${eacheverysong}`,fortitledisplay);
+
+
+
+
+
+        utubeURLs.addEventListener('input',function(event){
+            var neednameid = event.target.id;
+            var fortitledisplay2=neednameid.substring(neednameid.length-1,neednameid.length);
+            showsongtitle(event.target.value,event.target.id,fortitledisplay);
+        });
+
+
+
+        eacheverysong++;//console.log(document.getElementById(`namenum${eacheverysong++}`));
+        iterhelp++;
                             
        }
     } 
 
 }
+
+
+/*
+var inputs = document.querySelectorAll('input'); // Select all input elements
+
+inputs.forEach((input) => {
+    input.addEventListener('input', (event) => {
+        console.log("jendek");
+    console.log(event.target.value);
+    //showsongtitle(event.target.value,`namenum${eacheverysong}`);
+    });
+});
+*/
 
 
 
@@ -284,6 +345,55 @@ async function savethisdraft(){ //Don't think this needs to be double spaced
     
 
 }
+
+function showsongtitle(theurl,usethisid,fortitledisplay){
+    //console.log(theurl);
+
+
+
+    //function createvideoID(theurl){ //Right here is where we need to have utube values and maybe a for loop with it
+            
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/; 
+        const match = theurl.match(regExp); 
+        /*match[0] is the entire url,  match[1] is which exxpression contained the video ID, match[2] is the ID itself*/
+                                                    //true    //false
+        (match && match[2].length === 11) ? 
+        getVideoDetails(match[2],usethisid,fortitledisplay) : 
+        document.getElementsByClassName(usethisid)[0].innerHTML="PLEASE ENTER VALID YOUTUBE URL"; 
+        /*Youtube ID's are always 11 characters long*/ 
+    
+    //Check above
+
+}
+
+async function getVideoDetails(videoId,usethisid,fortitledisplay){
+    const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet,contentDetails,statistics&key=${apiKey}`;
+
+    try{
+        const response = await fetch(apiUrl);
+        if(!response.ok){
+            throw new Error("Network status isn't ok:" + response.statusText);
+        }
+        const data = await response.json();
+       console.log(document.getElementsByClassName(usethisid)[0]);
+
+       document.getElementsByClassName(usethisid)[0].innerHTML=data.items[0].snippet.title;
+
+      /* var titledisplayed = document.createElement("span");
+       titledisplayed.innerHTML=data.items[0].snippet.title;
+       titledisplayed.id="";
+
+     
+        document.getElementById(usethisid).insertAdjacentElement('afterend',titledisplayed);
+        console.log( document.getElementById(usethisid));*/
+
+    
+    }
+    catch(error){
+        console.error('Fetch error:',error);
+    }
+
+  }
 
 
 
