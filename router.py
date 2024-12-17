@@ -51,7 +51,7 @@ def home():
         numofusers1.append(row[6])
         
     #print(names1)
-    return render_template('gameprep.html',draftnames=names1,drafturls=url1,songsperuser=songsperuser1,numofusers=numofusers1)
+    return render_template('gameprep.html',draftnames=names1,drafturls=url1,draftnotes=notes1,songsperuser=songsperuser1,numofusers=numofusers1)
 
 
 #@app.route('/',methods=["GET","POST"])

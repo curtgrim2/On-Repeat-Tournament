@@ -91,8 +91,8 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
        newdiv.style.display="block";
        newdiv.style.margin="10px";
        newdiv.style.width="50%";
-       newdiv.style.height="100%";
-       //newdiv.style.paddingBottom ="20%";
+       //newdiv.style.height="100%"; //No height added to have it adjust to the amount of input elements
+       newdiv.style.paddingBottom ="5%";
        newdiv.style.position ="relative";
        document.getElementById("s3").appendChild(newdiv);
        
@@ -121,6 +121,8 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         notes.type="text";
         notes.id = `notes4song${eacheverysong}`;
         notes.name = `notes4song${eacheverysong}`;
+        notes.placeholder="Optional notes goes here";
+        notes.style.marginBottom="5%";
         document.getElementById(`namenumid${x}`).appendChild(notes);
 
         var fortitledisplay = titleclass.className.substring(titleclass.className.length-1,titleclass.className.length)
@@ -227,7 +229,9 @@ function inputdraft(){
        newdiv.style.display="block";
        newdiv.style.margin="10px";
        newdiv.style.width="50%";
-       newdiv.style.height="30%";
+      // newdiv.style.height="30%";
+       newdiv.style.paddingBottom ="5%";
+
 
        document.getElementById("s3").appendChild(newdiv);
        
@@ -261,6 +265,9 @@ function inputdraft(){
         notes.type="text";
         notes.id = `notes4song${eacheverysong}`;
         notes.name = `notes4song${eacheverysong}`;
+        notes.placeholder="Optional notes goes here";
+        notes.style.marginBottom="5%";
+        notes.value = draftnotes[iterhelp];
         document.getElementById(`namenumid${x}`).appendChild(notes);
 
         var fortitledisplay = titleclass.className.substring(titleclass.className.length-1,titleclass.className.length)

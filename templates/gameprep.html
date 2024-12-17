@@ -82,6 +82,7 @@
             var drafturls= JSON.parse('{{drafturls | tojson | safe}}');
             var draftsongsperuser=JSON.parse('{{songsperuser | tojson | safe}}');
             var draftnumofusers=JSON.parse('{{numofusers | tojson | safe}}');
+            var draftnotes =JSON.parse('{{draftnotes | tojson | safe}}');
 
             if(draftnames != null || draftnames != "" ){
                 document.getElementById("olddrafts").innerHTML="OLD DRAFT AVAILABLE";
