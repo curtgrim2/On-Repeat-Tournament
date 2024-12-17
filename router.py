@@ -63,6 +63,7 @@ def startgame():
     personnum=0
     allthenames =[]
     allurls = []
+    thenotes=[]
     
     print(request.form.get(f'namenum{1}'))
 
@@ -73,10 +74,11 @@ def startgame():
             totalsongs = int(request.form.get("songspereach")) * int(request.form.get("numofusers"))
     for x in range(totalsongs):
         allurls.append(request.form.get(f'namenum{x}')) #Pushing each song URL from 
+        thenotes.append(request.form.get(f'notes4song{x}'))
         print(allurls[x])
         x+=1
     print(totalsongs)
-    
+    print(thenotes)
     if request.form.get("checkdraftbut")=="notclicked":#if request.method == "POST":    
         '''print('RESULTS SHOULD BE HERE')        
         print(request.form.get("checkdraftbut"))
@@ -85,7 +87,7 @@ def startgame():
         #print(allurls)
         #print("DONE")
         #return "TEST"
-        return render_template('gametime.html',totalusers = int(request.form.get("numofusers")),songspereach=request.form.get("songspereach"),allnames=allthenames,utubeurls=allurls)
+        return render_template('gametime.html',totalusers = int(request.form.get("numofusers")),songspereach=request.form.get("songspereach"),allnames=allthenames,utubeurls=allurls,thenotes=thenotes)
     else:
         iterthrsongs=0
         print("Draft save button Clicked")
@@ -102,7 +104,7 @@ def startgame():
             songsperuser =totalsongs//len(allthenames) # Double /:To prevent float TypeError
             #print(songsperuser)
             for y in range(songsperuser):
-                cursor.execute("""INSERT INTO saveddrafts(Name,SongURL,Notes,EntryNum,SongsperUser,NumofUsers)VALUES(?, ?, ?, ?, ?, ?)""",(allthenames[x], allurls[iterthrsongs], "",int(iterthrsongs+1), songsperuser, len(allthenames)))
+                cursor.execute("""INSERT INTO saveddrafts(Name,SongURL,Notes,EntryNum,SongsperUser,NumofUsers)VALUES(?, ?, ?, ?, ?, ?)""",(allthenames[x], allurls[iterthrsongs], thenotes[iterthrsongs],int(iterthrsongs+1), songsperuser, len(allthenames))) #thenotes[iterthrsongs]
                 #print("Name:" + allthenames[x] + "; Song URL:" + allurls[iterthrsongs] + " - " + str(iterthrsongs))
                 iterthrsongs+=1
                 

@@ -91,13 +91,14 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
        newdiv.style.display="block";
        newdiv.style.margin="10px";
        newdiv.style.width="50%";
-       newdiv.style.height="30%";
+       newdiv.style.height="100%";
+       //newdiv.style.paddingBottom ="20%";
+       newdiv.style.position ="relative";
        document.getElementById("s3").appendChild(newdiv);
        
        newdiv.innerHTML = document.getElementById(`nameid${x}`).value;
-       //console.log(document.getElementById(`nameid${x}`).value + " checking in");
-      /* document.getElementById("s3").appendChild(document.createElement('br'));
-       console.log("SPACE"); */
+
+      /* document.getElementById("s3").appendChild(document.createElement('br')); */
 
        for(y=0; y<songsperuser.value; y++){ //Each user gets a certain amount of songs. Here we display them.
         var utubeURLs  = document.createElement("input");
@@ -116,12 +117,15 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         titleclass.innerHTML ="Test";
         document.getElementById(`namenumid${x}`).appendChild(titleclass);
 
+        var notes = document.createElement("input");
+        notes.type="text";
+        notes.id = `notes4song${eacheverysong}`;
+        notes.name = `notes4song${eacheverysong}`;
+        document.getElementById(`namenumid${x}`).appendChild(notes);
+
         var fortitledisplay = titleclass.className.substring(titleclass.className.length-1,titleclass.className.length)
         //console.log(fortitledisplay);
         showsongtitle("",`namenum${eacheverysong}`,fortitledisplay);
-
-
-
 
 
         utubeURLs.addEventListener('input',function(event){
@@ -242,6 +246,7 @@ function inputdraft(){
         utubeURLs.style.display ="block";
         utubeURLs.style.width="90%";
         
+        
         utubeURLs.value = drafturls[iterhelp];
 
 
@@ -251,6 +256,12 @@ function inputdraft(){
         titleclass.className = `namenum${eacheverysong}`;
         titleclass.innerHTML ="TEst";
         document.getElementById(`namenumid${x}`).appendChild(titleclass);
+
+        var notes = document.createElement("input");
+        notes.type="text";
+        notes.id = `notes4song${eacheverysong}`;
+        notes.name = `notes4song${eacheverysong}`;
+        document.getElementById(`namenumid${x}`).appendChild(notes);
 
         var fortitledisplay = titleclass.className.substring(titleclass.className.length-1,titleclass.className.length)
         //console.log(fortitledisplay);
