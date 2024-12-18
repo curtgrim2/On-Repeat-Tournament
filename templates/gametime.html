@@ -3,6 +3,8 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
     <body>
 
+        <div>
+
         <form method="post" action="{{url_for("showresults")}}">
         <div id="displayround"></div>
 
@@ -13,6 +15,10 @@
             <!--<div id="leftvideotitle"></div>-->
             <div id="leftname" class="namedisplay"></div>
             <div id="leftnotes" class="notes"></div>
+            <br/>
+            <br/>
+            <div id="clickfortie" onclick="clickfortie()">COIN FLIP</div>
+
         </div>
 
                     <span id="vs">VS</span>
@@ -26,6 +32,9 @@
             <div id="rightnotes" class="notes"></div>          
         </div>
 
+
+        <!--<div  id="test" onclick="clickfortie()">COIN FLIP</div> -->
+
         <button type="submit" id="toresultspage">SEE RESULTS</button>
 
         <input type="hidden" id="tiers" name="winnertiers">
@@ -33,8 +42,7 @@
         <input type="hidden" id="losers" name="bottomtier">
         <input type="hidden" id="losernames" name="bottomnames">
     </form>   
-
-    <div id="clickfortie" onclick="clickfortie()">COIN FLIP</div>
+</div>
 
 
     <div id="coinflip_contain">
@@ -43,6 +51,9 @@
         <div id="trackflips"></div>
         <div id="flipcoinagain" onclick="coinflip()">FLIP COIN</div>
     </div>
+
+    <!--<div id="clickfortie" onclick="clickfortie()">COIN FLIP</div> -->
+
      
      <!---->  <ul id="eachname"> 
         {% for x in range(totalusers)%}      

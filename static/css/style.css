@@ -17,6 +17,7 @@ button{
 
 form{
     margin:5% auto;
+    display: block;
 }
 
 #displayround{
@@ -72,9 +73,6 @@ form{
 }
 
 
-.thevideos{
-    display: inline-block;
-}
 #leftvid1{
     position: absolute;
     left:10;
@@ -118,6 +116,7 @@ form{
     
 
 }
+
 
 #toresultspage{
     color:white;
@@ -167,14 +166,20 @@ cursor:pointer;
     display:none;
 }
 
+.notes{
+    background-color: black;
+    text-align: center;
+}
+
 #clickfortie{
     background-color: red;
     border-radius: 50%;
-    padding: 5%;
+    padding: 6%;
+    width:10%;
+    aspect-ratio:1;
     text-align: center;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    display:block;
+    font-size: 2.5vh;
     cursor:pointer;
 }
 
@@ -192,7 +197,8 @@ cursor:pointer;
 #showthecoinflip{
     background-color: black;
     position: relative;
-    top:33%;
+    top:50%; /*If we make this 70 or above it extends outside the box; why?*/
+   /* top:33%; */
     left:25%;
     padding: 8% 0 8% 0;
     width: 50%;
@@ -204,6 +210,8 @@ cursor:pointer;
     bottom: 0;
     left:45%;
     cursor:pointer;
+    background-color: darkorange;
+    border:black 1px solid;
 }
 #trackflips{
     color:pink;

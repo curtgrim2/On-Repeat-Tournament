@@ -558,6 +558,8 @@ while(winnernotes.length>0){
                     document.getElementById("rightbutt").style.display="none";
                     document.getElementById("leftname").style.display="none";
                     document.getElementById("rightname").style.display="none";
+                    document.getElementById("leftnotes").style.display="none";
+                    document.getElementById("rightnotes").style.display="none";
                     document.getElementById("clickfortie").style.display="none";
 
                     //document.getElementById("vs").style.display="none";
@@ -744,18 +746,20 @@ while(winnernotes.length>0){
           
           var showtheflip = document.getElementById("showthecoinflip"); 
 
+
+          var flipcounter=1;
           function coinflip(){
-            var flipresult="";
+
+
+           if(flipcounter<=3){
             var theflip = Math.floor(Math.random()*2);
 
             if(theflip==0){
                 showtheflip.innerHTML = "Heads";
-                //flipresult="Heads";
 
             }
             else{
                 showtheflip.innerHTML = "Tails";
-                //flipresult="Tails";
 
             }
 
@@ -763,19 +767,67 @@ while(winnernotes.length>0){
             flipattemptresult.innerHTML=showtheflip.innerHTML;
             flipattemptresult.style.backgroundColor="white";
             flipattemptresult.style.color="black";
-            flipattemptresult.style.padding="1%";
             flipattemptresult.style.display="inline-block";
             flipattemptresult.style.borderRight="1px black solid";
+            flipattemptresult.style.borderRadius="50%";
+            flipattemptresult.style.padding="15%";
             document.getElementById("trackflips").appendChild(flipattemptresult);
+
+            
+            if(flipcounter>=3){
+                var itsheads=0;
+                var itstails=0;
+
+                var trackflips = document.getElementById("trackflips");
+                var getwinner = trackflips.querySelectorAll("div");
+                getwinner.forEach(getwinner=>{
+                    if(getwinner.innerHTML=="Heads"){
+                        itsheads++;
+                    }
+                    else{
+                        itstails++;
+                    }
+                });
+
+                if(itsheads>itstails){
+                    showtheflip.innerHTML="Heads Win!";
+                    getwinner.forEach(changecolor=>{
+                        if(changecolor.innerHTML=="Heads"){
+                            changecolor.style.backgroundColor="green";
+                        }
+                        else{
+                            changecolor.style.backgroundColor="red";
+                        }
+                    });
+                }
+                else{
+                    showtheflip.innerHTML="Tails Win!";
+                    getwinner.forEach(changecolor=>{
+                        if(changecolor.innerHTML=="Tails"){
+                            changecolor.style.backgroundColor="green";
+                        }
+                        else{
+                            changecolor.style.backgroundColor="red";
+                        }
+                    });
+
+                }
+
+            }
+            flipcounter++;
+           }
+           else{
+
+           }
 
           }
 
           function closecoinflip(){
             var closecoinflip = document.getElementById("coinflip_contain");
             closecoinflip.style.display="none";
+            flipcounter=1;
             var trackflips = document.getElementById("trackflips");
             var clearthese = trackflips.querySelectorAll("div");
-
             clearthese.forEach(clearthese=>{
                 trackflips.removeChild(clearthese);
             });

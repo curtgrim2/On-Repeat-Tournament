@@ -92,7 +92,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
        newdiv.style.margin="10px";
        newdiv.style.width="50%";
        //newdiv.style.height="100%"; //No height added to have it adjust to the amount of input elements
-       newdiv.style.paddingBottom ="5%";
+       newdiv.style.paddingBottom ="2.5%";
        newdiv.style.position ="relative";
        document.getElementById("s3").appendChild(newdiv);
        
@@ -230,7 +230,7 @@ function inputdraft(){
        newdiv.style.margin="10px";
        newdiv.style.width="50%";
       // newdiv.style.height="30%";
-       newdiv.style.paddingBottom ="5%";
+       newdiv.style.paddingBottom ="2.5%";
 
 
        document.getElementById("s3").appendChild(newdiv);
