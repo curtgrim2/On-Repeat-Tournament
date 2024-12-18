@@ -69,7 +69,22 @@ form{
 }
 #s3{
     display: block;
-    width:75%;
+    width:100%;
+}
+
+#startsavemenu{
+    text-align: center;
+    background-color: #525252;
+    height:10%;
+    position: fixed;
+    top:0;
+    right:0;
+    padding:5%;
+}
+
+#startsavemenu button{
+    display:block;
+
 }
 
 

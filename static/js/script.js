@@ -92,7 +92,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
        newdiv.style.backgroundColor = "grey";
        //newdiv.style.minWidth="400px";
        newdiv.style.display="block";
-       newdiv.style.margin="10px";
+       newdiv.style.margin="10px auto 10px auto";
        newdiv.style.width="50%";
        //newdiv.style.height="100%"; //No height added to have it adjust to the amount of input elements
        newdiv.style.paddingBottom ="2.5%";
@@ -250,6 +250,9 @@ function inputdraft(){  //REMEMBER: Changes in here apply to slide3()
        newdiv.style.display="block";
        newdiv.style.margin="10px";
        newdiv.style.width="50%";
+       newdiv.style.margin="10px auto 10px auto";
+
+       //newdiv.style.textAlign="center";
       // newdiv.style.height="30%"; //No height so that it always adjusts to dynamic # of songs
        newdiv.style.paddingBottom ="2.5%";
 
