@@ -72,6 +72,9 @@ function toslide2(showusernum){
 }
 }
 
+
+
+var iterhelp2=0;
 function toslide3(showusernum,enternames){ /*For Youtube URLs */
     slide1.style.display = "none";
     slide2.style.display ="none";
@@ -101,6 +104,18 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
       /* document.getElementById("s3").appendChild(document.createElement('br')); */
 
        for(y=0; y<songsperuser.value; y++){ //Each user gets a certain amount of songs. Here we display them.
+
+        var songcontain = document.createElement("div");
+        songcontain.id=`namenumid2${iterhelp2}`;
+        //songcontain.style.border="1px black solid";
+       // songcontain.style.backgroundColor="silver";
+       //songcontain.style.boxShadow="0px 0px 10px 1px black";
+       songcontain.style.backgroundColor="#9d9e9d";
+        songcontain.style.width="80%";
+        songcontain.style.margin="0 auto 10px auto";
+        songcontain.style.paddingTop="4%";
+        document.getElementById(`namenumid${x}`).appendChild(songcontain);
+
         var utubeURLs  = document.createElement("input");
         utubeURLs.type = "text";
         utubeURLs.id=`namenum${eacheverysong}`;
@@ -109,13 +124,13 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         utubeURLs.style.display ="block";
         utubeURLs.style.width="90%";
         console.log(`namenum${eacheverysong}`);
-        document.getElementById(`namenumid${x}`).appendChild(utubeURLs); 
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(utubeURLs); 
 
 
         var titleclass = document.createElement("div");
         titleclass.className = `namenum${eacheverysong}`;
         titleclass.innerHTML ="Test";
-        document.getElementById(`namenumid${x}`).appendChild(titleclass);
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(titleclass);
 
         var notes = document.createElement("input");
         notes.type="text";
@@ -123,7 +138,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         notes.name = `notes4song${eacheverysong}`;
         notes.placeholder="Optional notes goes here";
         notes.style.marginBottom="5%";
-        document.getElementById(`namenumid${x}`).appendChild(notes);
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(notes);
 
         var fortitledisplay = titleclass.className.substring(titleclass.className.length-1,titleclass.className.length)
         //console.log(fortitledisplay);
@@ -137,6 +152,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         });
 
         eacheverysong++;
+        iterhelp2++;
                             
        }
     }   
@@ -182,7 +198,8 @@ function changenumofusers(addorsubtract){
     }
 }
 
-function inputdraft(){
+iterhelp2=0;
+function inputdraft(){  //REMEMBER: Changes in here apply to slide3()
 
 
     var gothrnames=0;
@@ -196,12 +213,12 @@ function inputdraft(){
        node.id=`nameid${x}`; //Dynamically hard coding unique names and id(Not used) for each user
         node.className = "allnames2";
         node.placeholder="Enter name here";
-        //if(x%draftsongsperuser==0){
+
         console.log(draftsongsperuser);
             node.value = draftnames[gothrnames];
             console.log(gothrnames);
             gothrnames+=draftsongsperuser[0];
-        //}
+
         document.getElementById("enternames").appendChild(node);
     } 
 
@@ -212,6 +229,8 @@ function inputdraft(){
     document.getElementById("songsperuser").value=draftsongsperuser[0];
     console.log(document.getElementById("showusernum").value);
 
+
+    //Beginning of "Slide 3" section
     console.log(draftnames);
     slide1.style.display = "none";
     slide2.style.display ="none";
@@ -223,13 +242,15 @@ function inputdraft(){
     var iterhelp=0;
 
       for( x=0; x<draftnumofusers[0]; x++){ 
+        
+
        var newdiv = document.createElement("div");
        newdiv.id = `namenumid${x}`;
        newdiv.style.backgroundColor = "grey";
        newdiv.style.display="block";
        newdiv.style.margin="10px";
        newdiv.style.width="50%";
-      // newdiv.style.height="30%";
+      // newdiv.style.height="30%"; //No height so that it always adjusts to dynamic # of songs
        newdiv.style.paddingBottom ="2.5%";
 
 
@@ -242,6 +263,15 @@ function inputdraft(){
 
        for(y=0; y<draftsongsperuser[0]; y++){ 
        // console.log(drafturls[iterhelp]);
+
+       var songcontain = document.createElement("div");
+       songcontain.id=`namenumid2${iterhelp2}`;
+      songcontain.style.backgroundColor="#9d9e9d";
+       songcontain.style.width="80%";
+       songcontain.style.margin="0 auto 10px auto";
+       songcontain.style.paddingTop="4%";
+       document.getElementById(`namenumid${x}`).appendChild(songcontain);
+
         var utubeURLs  = document.createElement("input");
         utubeURLs.type = "text";
         utubeURLs.name = `namenum${eacheverysong}`; 
@@ -249,17 +279,15 @@ function inputdraft(){
         utubeURLs.placeholder="Enter the URL";
         utubeURLs.style.display ="block";
         utubeURLs.style.width="90%";
-        
-        
         utubeURLs.value = drafturls[iterhelp];
 
 
-        document.getElementById(`namenumid${x}`).appendChild(utubeURLs);
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(utubeURLs);
 
         var titleclass = document.createElement("div");
         titleclass.className = `namenum${eacheverysong}`;
         titleclass.innerHTML ="TEst";
-        document.getElementById(`namenumid${x}`).appendChild(titleclass);
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(titleclass);
 
         var notes = document.createElement("input");
         notes.type="text";
@@ -268,7 +296,7 @@ function inputdraft(){
         notes.placeholder="Optional notes goes here";
         notes.style.marginBottom="5%";
         notes.value = draftnotes[iterhelp];
-        document.getElementById(`namenumid${x}`).appendChild(notes);
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(notes);
 
         var fortitledisplay = titleclass.className.substring(titleclass.className.length-1,titleclass.className.length)
         //console.log(fortitledisplay);
@@ -288,6 +316,7 @@ function inputdraft(){
 
         eacheverysong++;//console.log(document.getElementById(`namenum${eacheverysong++}`));
         iterhelp++;
+        iterhelp2++;
                             
        }
     } 
