@@ -180,10 +180,15 @@ var testusernum = 3;
 
 
                     
+                    
+
                     allusers2[usersongs1].splice(allusers2[usersongs1].indexOf(tempwinner),1); //Get rid of both songs from current round selection pool but saves winner in "winners" array
                     allusers2[usersongs2].splice(allusers2[usersongs2].indexOf(eliminated),1); //Song locations change so use indexOf function to always pick right index
-                    usersnotes[usersongs1].splice(usersnotes[usersongs1].indexOf(tempnoteswin),1);
-                    usersnotes[usersongs2].splice(usersnotes[usersongs2].indexOf(elimnotes),1);
+                    
+                    usersnotes2[usersongs1].splice(usersnotes2[usersongs1].indexOf(tempnoteswin),1);
+                    usersnotes2[usersongs2].splice(usersnotes2[usersongs2].indexOf(elimnotes),1);
+
+                    console.log(usersnotes2);
 
                     //allusers2 = allusers2.filter(arr => arr.length > 0);
 
@@ -211,12 +216,16 @@ var testusernum = 3;
                     winnernotes.push(usersnotes2[usersongs2][songselector2]);
 
 
+                    
+
+                    
+
                     allusers2[usersongs2].splice(allusers2[usersongs2].indexOf(tempwinner),1);
                     allusers2[usersongs1].splice(allusers2[usersongs1].indexOf(eliminated),1);
 
-                    usersnotes[usersongs2].splice(usersnotes[usersongs2].indexOf(tempnoteswin),1);
-                    usersnotes[usersongs1].splice(usersnotes[usersongs1].indexOf(elimnotes),1);
-                    //console.log("Deleted",winnernotes,tempnoteswin);
+                    usersnotes2[usersongs2].splice(usersnotes2[usersongs2].indexOf(tempnoteswin),1);
+                    usersnotes2[usersongs1].splice(usersnotes2[usersongs1].indexOf(elimnotes),1);
+                    console.log(usersnotes2);
 
                 console.log("Eliminated: " + eliminated + ", Winner: " +  tempwinner);
                 console.log("The winners are display below:");
@@ -352,7 +361,7 @@ var testusernum = 3;
                
                 console.log(allusers2[usersongs1][songselector1] + " vs " + allusers2[usersongs2][songselector2]);
 
-console.log(usersnotes2)
+                console.log(usersnotes2)
 
                 setSong1(songselector1);
                 setSong2(songselector2);
@@ -745,32 +754,35 @@ while(winnernotes.length>0){
 
           
           var showtheflip = document.getElementById("showthecoinflip"); 
-
-
           var flipcounter=1;
+
           function coinflip(){
-
-
            if(flipcounter<=3){
             var theflip = Math.floor(Math.random()*2);
-
             if(theflip==0){
                 showtheflip.innerHTML = "Heads";
-
             }
             else{
                 showtheflip.innerHTML = "Tails";
-
             }
 
             var flipattemptresult = document.createElement("div");
             flipattemptresult.innerHTML=showtheflip.innerHTML;
             flipattemptresult.style.backgroundColor="white";
             flipattemptresult.style.color="black";
-            flipattemptresult.style.display="inline-block";
+            flipattemptresult.style.display="block";
             flipattemptresult.style.borderRight="1px black solid";
             flipattemptresult.style.borderRadius="50%";
-            flipattemptresult.style.padding="15%";
+            //flipattemptresult.style.width="40%";
+            flipattemptresult.style.height="30%";
+
+            //flipattemptresult.style.padding="10% 0 10% 0";
+
+           // flipattemptresult.style.boxSizing="border-box";
+           flipattemptresult.style.margin="5% auto 5% auto";
+           flipattemptresult.style.textAlign="center";
+           flipattemptresult.style.fontSize="2vw";
+           flipattemptresult.style.aspectRatio="1";
             document.getElementById("trackflips").appendChild(flipattemptresult);
 
             
