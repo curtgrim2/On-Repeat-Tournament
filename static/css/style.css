@@ -41,13 +41,22 @@ form{
 }
 
 #slide1,#slide2{
-    border:white 50px double;
-    background-color:black ;/*rgb(232, 232, 232);*/
+    background-color:grey ;/*rgb(232, 232, 232);*/
     /*border:5px rgb(107, 106, 106) double;*/
     width:50%;
     min-height:50%;
     margin:0 auto 0 auto;
     text-align: center;
+    overflow: hidden;
+}
+
+#slide1 input{
+    width:40px;
+    text-align: center;
+}
+
+input{
+    overflow: hidden;
 }
 
 .numofusersbutton{
@@ -175,8 +184,9 @@ cursor:pointer;
     color:black;
     font-weight: bolder;
     background-color: red;
-    width:35%;
-    padding: 4% 0 4% 0;
+    box-shadow: 0 0 10px 10px red;
+    width:20%;
+    padding: 4% 1% 4% 1%;
     text-align: center;
     display:none;
 }
@@ -226,20 +236,28 @@ cursor:pointer;
 #flipcoinagain{
     position: absolute;
     bottom: 0;
-    right:0;
-    height:25%;
-    width:50%;
+    left:67.5%;
+    border-radius:50%;
+    height:10%;
+    padding:5%;
+    aspect-ratio:1;
     cursor:pointer;
-    background-color: darkorange;
-    border:black 1px solid;
+    color:black;
+    background-color: silver;
     z-index:2;
     text-align:center;
+    border:10px white double;
+}
+
+#flipcoinagain:hover{
+    background-color: grey;
 }
 #trackflips{
     color:pink;
     width:50%;
     height:100%;
-    background-color: grey;
+    background-color:grey;
+    /*background-image: linear-gradient(to right,grey  ,black);*/
     text-align: center;
 }
 .close{

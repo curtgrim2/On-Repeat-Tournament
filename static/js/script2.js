@@ -773,11 +773,8 @@ while(winnernotes.length>0){
             flipattemptresult.style.display="block";
             flipattemptresult.style.borderRight="1px black solid";
             flipattemptresult.style.borderRadius="50%";
-            //flipattemptresult.style.width="40%";
-            flipattemptresult.style.height="30%";
-
-            //flipattemptresult.style.padding="10% 0 10% 0";
-
+            flipattemptresult.style.height="10%";
+            flipattemptresult.style.padding="14%";
            // flipattemptresult.style.boxSizing="border-box";
            flipattemptresult.style.margin="5% auto 5% auto";
            flipattemptresult.style.textAlign="center";

@@ -23,21 +23,23 @@ var totalsongs;
 function toslide2(showusernum){
     var songperuser = document.getElementById("songsperuser").value
     totalsongs =   parseInt(document.getElementById("songsperuser").value) * parseInt(showusernum.value);
+    console.log(totalsongs);
+
      if(songperuser == "" || showusernum.value  ==""){
         error.style.display = "block";
         error.innerHTML = "Values cannot be empty!";
    }
 
-   else if(totalsongs%2!==0){
+    else if(totalsongs%2!==0){
     error.style.display = "block";
     error.innerHTML = "TOTAL AMOUNT OF SONGS MUST BE EVEN";
 
-    if(showusernum.value %2!=0){
+   /* if(showusernum.value %2!=0){
         error.innerHTML = "Make songs per user an even number";
-    }
+    }*/
    }
 
-   else if(showusernum.value>6){
+    else if(showusernum.value>6){
     error.style.display = "block";
     error.innerHTML = "TOO MANY USERS - Maximum of 6";
    }
@@ -47,11 +49,8 @@ function toslide2(showusernum){
     error.innerHTML = "Must have at least 1 user";
    }
 
-   
   
    else {
-    
-
     console.log(showusernum.value);
     slide1.style.display = "none";
     slide2.style.display ="block";
@@ -236,6 +235,7 @@ function inputdraft(){  //REMEMBER: Changes in here apply to slide3()
     slide2.style.display ="none";
     slide3.style.display ="block";
     olddrafts.style.display="none";
+    errorbox.style.display="none";
     eacheverysong=0;
     console.log(draftnumofusers[0]);
 
