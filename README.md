@@ -15,7 +15,8 @@
 
 ### TASKS
 
-- Add another section in slide3 for notes/time start and stop
+- Add another section in slide3 for time start and stop
+- Show notes in results page
 - Show title of songs in slide3 page
   
 
