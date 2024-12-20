@@ -247,6 +247,7 @@ cursor:pointer;
     z-index:2;
     text-align:center;
     border:10px white double;
+    
 }
 
 #flipcoinagain:hover{
@@ -308,6 +309,12 @@ cursor:pointer;
 
     text-align:center;
     /*animation:splashloading 2s forwards;*/
+}
+
+.thedefeated2{
+    text-decoration: none !important; 
+    color:red;
+    text-decoration-color: grey;
 }
 
 @keyframes splashloading{

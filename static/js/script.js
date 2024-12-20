@@ -128,6 +128,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
 
         var titleclass = document.createElement("div");
         titleclass.className = `namenum${eacheverysong}`;
+        titleclass.style.textAlign="center";
         titleclass.innerHTML ="Test";
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(titleclass);
 
@@ -135,12 +136,12 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         notes.type="text";
         notes.id = `notes4song${eacheverysong}`;
         notes.name = `notes4song${eacheverysong}`;
+        notes.style.width="70%";
         notes.placeholder="Optional notes goes here";
         notes.style.marginBottom="5%";
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(notes);
 
         var fortitledisplay = titleclass.className.substring(titleclass.className.length-1,titleclass.className.length)
-        //console.log(fortitledisplay);
         showsongtitle("",`namenum${eacheverysong}`,fortitledisplay);
 
 
@@ -289,15 +290,16 @@ function inputdraft(){  //REMEMBER: Changes in here apply to slide3()
 
         var titleclass = document.createElement("div");
         titleclass.className = `namenum${eacheverysong}`;
-        titleclass.innerHTML ="TEst";
+        titleclass.style.textAlign="center";
+        titleclass.innerHTML ="Searching for Song Title...";
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(titleclass);
 
         var notes = document.createElement("input");
         notes.type="text";
         notes.id = `notes4song${eacheverysong}`;
         notes.name = `notes4song${eacheverysong}`;
+        notes.style.width="70%";
         notes.placeholder="Optional notes goes here";
-        notes.style.marginBottom="5%";
         notes.value = draftnotes[iterhelp];
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(notes);
 
