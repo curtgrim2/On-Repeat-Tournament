@@ -11,11 +11,7 @@
 - In the future we can take the Spotify profile pictures and have them in the design in the gametime.html
 - Save who is top 4 and make a new table that checks for this in the database?
 - Make a table that saves past 12 winners (for the year?)
-- Improve Splash screen
 
 ### TASKS
-
-- Add another section in slide3 for time start and stop
-- Show notes in results page  
-
-  
+- Can Splash screen appear for duration of page loading? (Not based on specific amount of seconds)
+- Add another section in slide3 for notes/time start and stop  
