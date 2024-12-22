@@ -26,15 +26,24 @@
      namesintiers = JSON.parse({{namesintiers | tojson | safe}});
      bottomtier = JSON.parse({{bottomtier | tojson | safe}});
      lowtiernames = JSON.parse({{lowtiernames | tojson | safe}});
-     
-  
+     allnotes = JSON.parse({{allnotes | tojson  | safe}});
+     losernotes = JSON.parse({{losernotes | tojson | safe}});
+       
      var height4tiers = 100/listoftiers.length+1; //Plus one is for bottom tier
 
-    //listoftiers[listoftiers.length]=bottomtier;
-    listoftiers.unshift(bottomtier);
+    
+    listoftiers.unshift(bottomtier); //Makes all the losers the last/bottom tier 
     namesintiers.unshift(lowtiernames);
+    allnotes.unshift(losernotes);
+
+    /*for(var x=losernotes.length-1; x>=0;x--){
+        //console.log(losernotes[x]);
+        allnotes.unshift(losernotes[x]);
+    }*/
+
     console.log(listoftiers);
     console.log(namesintiers);
+    console.log(allnotes);
      for(x=1; x<=listoftiers.length; x++){ // for(x=0; listoftiers.length-1>=x; x++){
         var createtier = document.createElement("div");
         createtier.style.margin="0 auto";
@@ -163,6 +172,13 @@ window.addEventListener('load',()=>{
                 newtieritem.id=video.items[0].snippet.title + x;
                 console.log(newtieritem.id);
                 newtieritem.className="SongsDiv"; 
+                //newtieritem.style.backgroundColor="pink";
+                newtieritem.style.width="50%";
+
+                
+                newtieritem.style.display="inline-block";
+                
+
                 newtieritem.style.color ="gold";
 
                 document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
@@ -173,9 +189,9 @@ window.addEventListener('load',()=>{
                 console.log(video.items[0].snippet.thumbnails.high.url);
 
                 thumbnail.style.aspectRatio="1";
-                thumbnail.style.height = "40%";
+                thumbnail.style.height = "30%";
                 thumbnail.style.display="block";
-                thumbnail.style.margin="0 auto";
+                //thumbnail.style.margin="0 auto";
                 document.getElementById(newtieritem.id).appendChild(thumbnail);//document.getElementById(`Tier_${tiernumber}`).appendChild(thumbnail);
 
 
@@ -200,17 +216,17 @@ window.addEventListener('load',()=>{
                 document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
 
                 newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
-
+               // newtieritem.style.backgroundColor="pink";
+                newtieritem.style.width="50%";
                 newtieritem.style.textDecoration="underline";
-                console.log(x,"vs",listoftiers.length-1);
+                newtieritem.style.display="inline-block";
+
 
                 if(x==0){
                     newtieritem.style.textDecorationColor = "blue";
-                    console.log("eiefhejkc");
 
                 }                
                 else{
-                    console.log("Sho up");
                     newtieritem.style.textDecorationColor = "red";
 
                 }
@@ -218,6 +234,7 @@ window.addEventListener('load',()=>{
                 newtieritem.style.position="relative";
                 newtieritem.style.textAlign="center";
                 newtieritem.className="SongsDiv";
+                
                 document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
 
                 var thumbnail = document.createElement("img");
@@ -232,10 +249,8 @@ window.addEventListener('load',()=>{
                 newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
 
                 newtieritem.style.textDecoration="underline";
-                console.log(x,"vs",listoftiers.length-1);
                 if(x==0){
                     newtieritem.style.textDecorationColor = "blue";
-                    console.log("eiefhejkc 2");
 
                 }  
                 else{
@@ -246,6 +261,10 @@ window.addEventListener('load',()=>{
                 newtieritem.style.display="block";
                 newtieritem.style.position="relative";
                 newtieritem.style.textAlign="center";
+                //newtieritem.style.backgroundColor="pink";
+                newtieritem.style.width="50%";
+                newtieritem.style.display="inline-block";
+
 
                 newtieritem.className="SongsDiv";
                 document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
@@ -280,10 +299,48 @@ tiernumber++;
 for(x=0; x<document.getElementsByClassName("SongsDiv").length-listoftiers[0].length;x++){
     //The "-listoftiers[0].length" takes away the losers tier who haven't beaten any songs
 
-urltitles[x]= document.getElementsByClassName("SongsDiv")[x].id; //The id are the song names themselves
-urltitles[x]=urltitles[x].slice(0,-1); //Removed the id number indicator that I added previously
+       urltitles[x]= document.getElementsByClassName("SongsDiv")[x].id; //The id are the song names themselves
+       urltitles[x]=urltitles[x].slice(0,-1); //Removed the id number indicator that I added previously
 }
 console.log(urltitles);
+
+
+//var iterhelp=allnotes.length-1;
+var iterhelp=0;
+var everydiv = document.getElementsByClassName("SongsDiv");
+
+
+var tracktier=allnotes.length-1;
+for(var x=0; x<everydiv.length;x++){
+    var addnotes= document.createElement('span');
+    addnotes.innerHTML= allnotes[tracktier][iterhelp];
+    addnotes.className ="NoteNum";
+    addnotes.style.backgroundColor="black";
+    addnotes.style.display="inline-block";
+    addnotes.style.position="absolute";
+    addnotes.style.right="0";
+    addnotes.style.padding="1%";
+    /*addnotes.style.paddingTop="1%";
+    addnotes.style.paddingBottom="1%";
+    addnotes.style.paddingLeft="1%";*/
+    addnotes.style.width="33%";
+    
+    //document.getElementById(everydiv[x].id).appendChild(addnotes);
+    document.getElementById(everydiv[x].id).insertAdjacentElement('afterend',addnotes);
+
+    
+
+    if(iterhelp==allnotes[tracktier].length-1){
+        tracktier--;
+        iterhelp=0;
+    }
+    else{
+        iterhelp++;
+    }
+
+}
+
+
 
 
 //Removing repeats
@@ -295,7 +352,6 @@ console.log(songdivlength);
 for(var x=0; x<songdivs.length;x++){ //for(var x=0; x<songdivs.length;x++){//for(var x=listoftiers.length-1; x>=0;x--){//Covers total amount of songs
 //Make songdivs.length the total amount of songs (thats why we have 8)
 
-var everydiv = document.getElementsByClassName("SongsDiv");
 var iter=0;
 var firstapperance=0;
 
@@ -309,6 +365,7 @@ if(everydiv[iter].innerText.includes(songdivs[x].innerText)){
     else{
        //console.log("FOUND",everydiv[iter].innerText);
        //console.log("REMOVE");
+
          everydiv[iter].innerHTML = everydiv[iter].innerHTML.replace(songdivs[x].innerHTML,"");
 
     }
@@ -333,6 +390,7 @@ console.log(urltitles);
 
 
 var everydiv = document.getElementsByClassName("SongsDiv");
+var everynote = document.getElementsByClassName("NoteNum");
 
 for(var x= everydiv.length-1; x>=0; x--){ 
     // Iterate in reverse to avoid issues with shifting indices
@@ -340,9 +398,9 @@ for(var x= everydiv.length-1; x>=0; x--){
 
    if(mightdelete.length==0){
     everydiv[x].remove();
+    everynote[x].remove();
    }
-   else{
-   }
+
 }
 
 
@@ -351,10 +409,13 @@ for(var x= everydiv.length-1; x>=0; x--){
 var getindex=listoftiers.length-1;
 var titlecounter=0;
 var getsong = listoftiers[getindex].length-1;
-var iterhelp=1;
+ iterhelp=1;
 var tmp=0
-
+//Added defeatedby additions here because it won't work within API calls
 for(var x=1; x<everydiv.length; x++){  //skip x=0 because the winner didn't lose to anybody
+
+
+
 
     var defeatedby = document.createElement("div");
     defeatedby.style.marginBottom="5%";
@@ -365,7 +426,7 @@ for(var x=1; x<everydiv.length; x++){  //skip x=0 because the winner didn't lose
 //Have to go backwards because urltitles tier results are in reverse? (FALSE but is it changing?)
 
 
-    document.getElementById(everydiv[x].id).insertAdjacentElement('afterend',defeatedby); //document.getElementById(everydiv[x].id).appendChild(defeatedby);
+document.getElementsByClassName("NoteNum")[x].insertAdjacentElement('afterend',defeatedby); //document.getElementById(everydiv[x].id).insertAdjacentElement('afterend',defeatedby); 
     //Have to put it AFTER parent element so we dont inherit text decoration
 
     if(getsong==listoftiers[getindex].length){ //if(getsong==0){ 

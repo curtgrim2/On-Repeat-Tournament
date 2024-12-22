@@ -133,7 +133,9 @@ def showresults():
     
     '''for x in request.form.get('winnertiers'):
         print(x)'''
-    return render_template('resultspage.html',listoftiers=eachtier,namesintiers=request.form.get('winnernames'),bottomtier=request.form.get("bottomtier"),lowtiernames=request.form.get("bottomnames"))   
+    return render_template('resultspage.html',listoftiers=eachtier,namesintiers=request.form.get('winnernames'),
+                           bottomtier=request.form.get("bottomtier"),lowtiernames=request.form.get("bottomnames"),
+                           allnotes=request.form.get("notesforresults"),losernotes=request.form.get('losernotes'));   
 
 
 

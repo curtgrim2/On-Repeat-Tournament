@@ -60,7 +60,6 @@ var testusernum = 3;
             var users_namessongs=[]
             var totalsongs = allusers.length;
             var onlyone=18;
-            console.log();
             for(x=0;x<allusers.length;x++){ //Each array
                 var usersongnum=0; 
                 while(usersongnum<songsperuser){
@@ -89,6 +88,9 @@ var testusernum = 3;
 
             var losers=[];
             var losernames=[];
+            //var keepwinnernotes=usersnotes;
+            var keepwinnernotes=[];
+            var losernotes=[];
             var counter=0;
             var numofsongsleft=totalusers*songsperuser;
             const totalsongs2 = numofsongsleft;
@@ -177,6 +179,8 @@ var testusernum = 3;
                     losers.push(eliminated);
                     losernames.push(users_name[usersongs2]);
                     winnernotes.push(usersnotes2[usersongs1][songselector1]);
+                    losernotes.push(usersnotes2[usersongs2][songselector2]);
+
 
 
                     
@@ -214,6 +218,8 @@ var testusernum = 3;
                     losernames.push(users_name[usersongs1]);
                     console.log(usersnotes2[usersongs2][songselector2]);
                     winnernotes.push(usersnotes2[usersongs2][songselector2]);
+                    losernotes.push(usersnotes2[usersongs1][songselector1]);
+
 
 
                     
@@ -405,7 +411,17 @@ var testusernum = 3;
                 var newusernames=[];
 
 
-
+                if (!Array.isArray(keepwinnernotes[tiercounter])) {
+                    keepwinnernotes[tiercounter] = [];
+                }
+        
+                    var  y = keepwinnernotes.length;
+                   for(var x=0;x<winnernotes.length;x++){
+                    console.log(winnernotes[x]);
+                    keepwinnernotes[tiercounter][x]=winnernotes[x];
+                   }
+        
+                console.log(keepwinnernotes);
 
                     //Preperation; Needed for next batch that will be insert (Makes sure the array stays an array)
 
@@ -419,7 +435,7 @@ var testusernum = 3;
                     console.log(usersnotes2);
                     console.log(allusers2);
 
-                    for(x=0;x<winners.length;x++){ //Each array
+                    for(x=0;x<winners.length;x++){ 
                         theuser=0;
                         findsong=0; //Song iterator for original list
 
@@ -459,9 +475,13 @@ var testusernum = 3;
                                 if (!Array.isArray(allnames[tiercounter])) {
                                     allnames[tiercounter] = [];
                                 }
+
+
+                                
                                 
                                 console.log(orderusernames[theuser]);
                                 allnames[tiercounter][x]=orderusernames[theuser];
+                                //tiercounter++;
 
                                 if(newusernames.includes(orderusernames[theuser])){
                                     /*The Else statement adds the name of the user to the names list only if it isn't already in there;
@@ -470,7 +490,6 @@ var testusernum = 3;
                                 }
                                 else{
                                    newusernames.push(orderusernames[theuser]);
-                                  // newusernames[theuser]=orderusernames[theuser]
                                 }
                                 console.log(winners);
                                }
@@ -488,7 +507,8 @@ var testusernum = 3;
                     console.log(usersnotes2);
 
                     
-                    tiers[tiercounter++]=winners; //Saving results via tiers that will be displayed on Results page
+                    tiers[tiercounter]=winners; //Saving results via tiers that will be displayed on Results page
+                    tiercounter++;
                     document.getElementById("tiers").value = JSON.stringify(tiers);
                     console.log(tiers);
 
@@ -526,19 +546,32 @@ var testusernum = 3;
            document.getElementById("allnames").value = JSON.stringify(allnames);
            document.getElementById("losers").value = JSON.stringify(losers);
            document.getElementById("losernames").value= JSON.stringify(losernames);
+           document.getElementById("notesforresults").value = JSON.stringify(keepwinnernotes);
+           document.getElementById("losernotes").value = JSON.stringify(losernotes);
 
           /* allnames[tiercounter++]=newusernames;//Save names for results
            console.log(allnames);
            document.getElementById("allnames").value = JSON.stringify(allnames);*/
 
 
-          // console.log(thenotes);
+          /* if (!Array.isArray(keepwinnernotes[tiercounter])) {
+            keepwinnernotes[tiercounter] = [];
+        }
+
+
+            var  y = keepwinnernotes.length;
+           for(var x=0;x<winnernotes.length;x++){
+            console.log(winnernotes[x]);
+            keepwinnernotes[tiercounter][x]=winnernotes[x];
+           }
+
+        console.log(keepwinnernotes);
+        tiercounter++;*/
 
             //winnernotes=[];
 while(winnernotes.length>0){
     winnernotes.pop();
 }
-           console.log(winnernotes);
            console.log(usersnotes2);
            console.log(newusernames);
 
@@ -579,7 +612,7 @@ while(winnernotes.length>0){
                     document.getElementById("vs").style.fontSize="3vw";
 
 
-                    console.log(                    losers                );
+                    console.log(     losers                );
                     console.log(losernames);
 
 
@@ -773,8 +806,8 @@ while(winnernotes.length>0){
             flipattemptresult.style.display="block";
             flipattemptresult.style.borderRight="1px black solid";
             flipattemptresult.style.borderRadius="50%";
-            flipattemptresult.style.height="10%";
-            flipattemptresult.style.padding="14%";
+            flipattemptresult.style.height="2vh";
+            flipattemptresult.style.padding="1vh";
            // flipattemptresult.style.boxSizing="border-box";
            flipattemptresult.style.margin="5% auto 5% auto";
            flipattemptresult.style.textAlign="center";
