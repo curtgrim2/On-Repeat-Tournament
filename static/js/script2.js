@@ -790,7 +790,7 @@ while(winnernotes.length>0){
           }
 
           
-          var showtheflip = document.getElementById("showthecoinflip"); 
+          var showtheflip = document.getElementById("currentflip"); 
           var flipcounter=0;
 
           function coinflip(){

@@ -442,13 +442,17 @@ mainContent.style.display = 'block'; // Show the main content
 
 function screenshot(){
 //document.getElementById("screenshot").
+var resultstitle = prompt("Screenshot Title?","fullresults");
+
+if(resultstitle!=null){
 html2canvas(document.body).then(canvas=>{
     var link = document.createElement("a");
-    link.download = "fullresults.png";
+    link.download = resultstitle + ".png";
     link.href = canvas.toDataURL();
     link.click();
 }).catch(error=>{
     console.error("ERROR ON SCREENSHOT",error);
 });
+}
 
 }
