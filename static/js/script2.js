@@ -1,5 +1,8 @@
 const apiKey =  'AIzaSyBc9Y9VMDPAaILM7erb5kwBhJ_B8knnKQk'
 
+var body1 = document.getElementsByTagName("body");
+body1[0].style.backgroundColor = "#4a4a4a";
+
 var testusernum = 3;
             var num =0;
             //var everyuserssong = new Map();
@@ -782,6 +785,7 @@ while(winnernotes.length>0){
 
           function clickfortie(){
             document.getElementById("coinflip_contain").style.display="block";
+            document.getElementById("coinflipbackground").style.display="block";
             coinflip();
           }
 
@@ -870,8 +874,8 @@ while(winnernotes.length>0){
           }
 
           function closecoinflip(){
-            var closecoinflip = document.getElementById("coinflip_contain");
-            closecoinflip.style.display="none";
+            document.getElementById("coinflip_contain").style.display="none";
+            document.getElementById("coinflipbackground").style.display="none";
             flipcounter=0;
             var trackflips = document.getElementById("trackflips");
             var clearthese = trackflips.querySelectorAll("div");
@@ -879,3 +883,13 @@ while(winnernotes.length>0){
                 trackflips.removeChild(clearthese);
             });
           }
+
+        /*  function setFullHeight() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+            console.log("ednefklwmfepee")
+          }
+          
+          window.addEventListener('resize', setFullHeight);
+          setFullHeight();*/
+          

@@ -164,8 +164,8 @@ def testarea():
 
 
 if __name__ == "__main__":
-    #app.run(debug=True)
+    app.run(debug=True)
      # This is where Waitress runs the whole app
     from waitress import serve
-    print("Running on http://localhost:8000/")
-    serve(app, host="localhost", port=8000)
+   # print("Running on http://localhost:8000/")
+    #serve(app, host="localhost", port=8000)
