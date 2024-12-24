@@ -787,10 +787,10 @@ while(winnernotes.length>0){
 
           
           var showtheflip = document.getElementById("showthecoinflip"); 
-          var flipcounter=1;
+          var flipcounter=0;
 
           function coinflip(){
-           if(flipcounter<=3){
+           if(flipcounter<=2){
             var theflip = Math.floor(Math.random()*2);
             if(theflip==0){
                 showtheflip.innerHTML = "Heads";
@@ -806,17 +806,22 @@ while(winnernotes.length>0){
             flipattemptresult.style.display="block";
             flipattemptresult.style.borderRight="1px black solid";
             flipattemptresult.style.borderRadius="50%";
-            flipattemptresult.style.height="2vh";
-            flipattemptresult.style.padding="1vh";
-           // flipattemptresult.style.boxSizing="border-box";
+            //flipattemptresult.style.width="20%";
+            flipattemptresult.style.height="12%";
+            flipattemptresult.style.padding="4%";
+            flipattemptresult.style.position="absolute";
+            flipattemptresult.style.top=flipcounter*30+"%";
+            flipattemptresult.style.left="15%";
+           //flipattemptresult.style.boxSizing="border-box";
            flipattemptresult.style.margin="5% auto 5% auto";
            flipattemptresult.style.textAlign="center";
-           flipattemptresult.style.fontSize="2vw";
+           flipattemptresult.style.fontSize="2.5vw";
            flipattemptresult.style.aspectRatio="1";
+           flipattemptresult.style.overflow="hidden";
             document.getElementById("trackflips").appendChild(flipattemptresult);
 
             
-            if(flipcounter>=3){
+            if(flipcounter==2){
                 var itsheads=0;
                 var itstails=0;
 
@@ -867,7 +872,7 @@ while(winnernotes.length>0){
           function closecoinflip(){
             var closecoinflip = document.getElementById("coinflip_contain");
             closecoinflip.style.display="none";
-            flipcounter=1;
+            flipcounter=0;
             var trackflips = document.getElementById("trackflips");
             var clearthese = trackflips.querySelectorAll("div");
             clearthese.forEach(clearthese=>{
