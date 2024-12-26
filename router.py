@@ -12,9 +12,28 @@ dbsetup = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};"
                          "Database=o_r_tournament;"
                          "Trusted_Connection=yes;") #Format must be exactly like this, down to the spacing and new lines
 
-
+alldrafts=[]
 cursor = dbsetup.cursor()
-#cursor.execute('')
+cursor.execute("SELECT table_name FROM INFORMATION_SCHEMA.TABLES;")
+tables = cursor.fetchall()
+print('Here we go')
+# Loop through tables and execute queries
+draftiter=0
+for table in tables:
+    #print(table[0])
+    table_name = table[0]
+    cursor.execute(f"SELECT * FROM {table_name};")
+    results = cursor.fetchall()
+    alldrafts.append(results)
+    
+    spu=int(results[0][6])
+    for x in range(spu):  
+        y=x*int(results[0][5])
+        #print(y)
+        #print(f"Results from {table_name}: {results[y][1]}")
+        
+    draftiter+=1
+print(alldrafts)
 
 names1=[]
 url1=[]
@@ -50,7 +69,6 @@ def home():
         songsperuser1.append(row[5])
         numofusers1.append(row[6])
         
-    #print(names1)
     return render_template('gameprep.html',draftnames=names1,drafturls=url1,draftnotes=notes1,songsperuser=songsperuser1,numofusers=numofusers1)
 
 
