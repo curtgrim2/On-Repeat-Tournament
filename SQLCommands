@@ -12,5 +12,16 @@ EXEC "showdrafts"
 
 ALTER TABLE o_r_tournament.dbo.saveddrafts ADD EntryNum int 
 
+USE "o_r_tournament";"saveddraft2"
+CREATE TABLE "2ndsaveddraft"(
+UserNum int IDENTITY(1,1) PRIMARY KEY,
+Name nvarchar(50) NOT NULL,
+SongURL nvarchar(255),
+Notes nvarchar(255),
+EntryNum int,
+SongsperUser int,
+NumofUsers int
+);
+
 USE "o_r_tournament";
 EXEC sp_rename "2ndsaveddraft", "saveddraft2";
