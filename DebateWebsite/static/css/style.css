@@ -1,9 +1,18 @@
+*{
+    user-select: none;
+    margin:0;
+    padding:0;
+}
+
 body{
    /* min-width:960px;*/
-    background-color:rgb(113, 113, 113);/*maroon;*/ /*darkgray*/
+  
+   background-color:rgb(113, 113, 113);/*maroon;*/ /*darkgray*/
     color:white;
     font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    
 }
+
 
 button{
     cursor: pointer;
@@ -11,6 +20,7 @@ button{
 
 form{
     margin:5% auto;
+    display: block;
 }
 
 #displayround{
@@ -34,13 +44,22 @@ form{
 }
 
 #slide1,#slide2{
-    border:white 50px double;
-    background-color:black ;/*rgb(232, 232, 232);*/
+    background-color:grey ;/*rgb(232, 232, 232);*/
     /*border:5px rgb(107, 106, 106) double;*/
     width:50%;
     min-height:50%;
     margin:0 auto 0 auto;
     text-align: center;
+    overflow: hidden;
+}
+
+#slide1 input{
+    width:40px;
+    text-align: center;
+}
+
+input{
+    overflow: hidden;
 }
 
 .numofusersbutton{
@@ -62,13 +81,25 @@ form{
 }
 #s3{
     display: block;
-    width:75%;
+    width:100%;
+}
+
+#startsavemenu{
+    text-align: center;
+    background-color: #525252;
+    height:10%;
+    position: fixed;
+    top:0;
+    right:0;
+    padding:5%;
+}
+
+#startsavemenu button{
+    display:block;
+
 }
 
 
-.thevideos{
-    display: inline-block;
-}
 #leftvid1{
     position: absolute;
     left:10;
@@ -113,12 +144,24 @@ form{
 
 }
 
+
 #toresultspage{
     color:white;
     background-color: black;
-    position: absolute;
+    position:absolute;
     bottom:0;
+    width:99%;
+    height:25%;
+    /*padding:5%;   */ 
+   /* position: static;
+    margin: 0 auto 0 auto;*/
     display:none;
+}
+#toresultspage:hover{
+background-color: green;
+border-color: white;
+font-size:2.5vw;
+cursor:pointer;
 }
 
 #olddrafts{
@@ -144,19 +187,186 @@ form{
     color:black;
     font-weight: bolder;
     background-color: red;
-    width:35%;
-    padding: 4% 0 4% 0;
+    box-shadow: 0 0 10px 10px red;
+    width:20%;
+    padding: 4% 1% 4% 1%;
     text-align: center;
     display:none;
 }
 
+.notes{
+    background-color: black;
+    text-align: center;
+}
+
+#clickfortie{
+    background-color: red;
+    border-radius: 50%;
+    padding: 6%;
+    width:10%;
+    aspect-ratio:1;
+    text-align: center;
+    display:block;
+    font-size: 2.5vh;
+    cursor:pointer;
+}
+
+#clickfortie:hover{
+animation:hoveringcoinflip 2.5s infinite;
+}
+
+#coinflipbackground{
+    display: none;
+    z-index:2;
+    background-color: rgba(0,0,0,.7);
+    position:fixed;
+    bottom:0;
+   width:100vw;
+    height: 100vh;
+    box-sizing: border-box;
+
+   /* width: 100vw;
+    height: calc(var(--vh, 1vh) * 100); */
+}
+
 
 #coinflip_contain{
+    display: none;
     position:relative;
-    z-index:2;
+    z-index:3;
     margin: 0 auto 0 auto;
-    background-color: darkblue;
+    /*background-color: darkblue;*/
+    background-color: rgba(0,0,0,1);
+    border: 3px white solid;
     width:70%;
     height: 70%;
 }
 
+#showthecoinflip{
+    background-color: rgba(0,0,0,1);
+    position: absolute;
+   /* top:50%; *//*If we make this 70 or above it extends outside the box; why?*/
+    right:0;
+    /*padding: 8% 0 8% 0;*/
+    width: 50%;
+    height:100%;
+    /*box-sizing:border-box; 8?
+    /*height:100%;*/
+    text-align: center;
+    z-index:1;
+    border-left:10px white dashed;
+
+}
+
+#currentflip{
+    color:white;
+    /*background-color: white;*/
+    z-index:3;
+    position: absolute;
+    top:20%;
+    right: 0%;
+    width:50%;
+    text-align: center;
+    font-size:3vw;
+ 
+}
+
+#flipcoinagain{
+    position: absolute;
+    top:60%;
+    left:67.5%;
+    border-radius:50%;
+    height:10%;
+    padding:5%;
+    aspect-ratio:1;
+    cursor:pointer;
+    color:black;
+    background-color: gold;
+    z-index:3;
+    text-align:center;
+    /*border:10px white double;*/
+    
+}
+
+#flipcoinagain:hover{
+box-shadow:0px 0px 20px 2px yellow;
+}
+#trackflips{
+    color:pink;
+    width:50%;
+    height:100%;
+    background-color:black;
+    /*background-image: linear-gradient(to right,grey  ,black);*/
+    text-align: center;
+    border-right:2px white dashed;
+}
+.close{
+    background-color: black;
+    color:white;
+    padding:1%;
+    width:5%;
+    position: absolute;
+    top:0;
+    right:0;
+    text-align: center;
+    z-index:3;
+}
+
+.close:hover{
+    background-color: red;
+    cursor:pointer;
+}
+
+
+#screenshot{
+    background-color: white;
+    color: black;
+    width:10%;
+    height:10%;
+    border:none;
+    position: fixed;
+    right:0;
+}
+
+#screenshot:hover{
+    box-shadow: 0 0 20px 10px gold;
+}
+
+#splashscreen{
+    position: fixed;
+    top:0;
+    left:0;
+    z-index:2;
+    font-size:3vh;
+    /*left:25%;
+    top:20%;*/
+    background-color: black;
+    width:100%;
+    height:100%;
+    padding-top:20%;
+    padding-bottom:20%;
+
+    text-align:center;
+    /*animation:splashloading 2s forwards;*/
+}
+
+.thedefeated2{
+    text-decoration: none !important; 
+    color:red;
+    text-decoration-color: grey;
+}
+
+@keyframes hoveringcoinflip{
+
+    50%{
+          font-size: 3vh;
+    }
+
+    100%{
+        font-size: 2.5vh;
+    }
+}
+
+@keyframes splashloading{
+
+}
