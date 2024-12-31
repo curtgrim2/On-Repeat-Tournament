@@ -2,6 +2,9 @@
 <html>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
     <body>
+        <div id="coinflipbackground"> </div>
+
+        <div>
 
         <form method="post" action="{{url_for("showresults")}}">
         <div id="displayround"></div>
@@ -12,6 +15,11 @@
             <div id="leftbutt" class="winnerbutton" onclick="thewinneris('left')">Left Video is the Winner</div>
             <!--<div id="leftvideotitle"></div>-->
             <div id="leftname" class="namedisplay"></div>
+            <div id="leftnotes" class="notes"></div>
+            <br/>
+            <br/>
+            <div id="clickfortie" onclick="clickfortie()">COIN FLIP</div>
+
         </div>
 
                     <span id="vs">VS</span>
@@ -21,21 +29,39 @@
             <!--            <iframe id="rightvid" width="100%" height="315" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>-->
             <div id="rightbutt" class="winnerbutton" onclick="thewinneris('right')">Right Video is the Winner</div>
             <!--<div id="rightvideotitle"></div>-->
-            <div id="rightname" class="namedisplay"></div>            
+            <div id="rightname" class="namedisplay"></div>  
+            <div id="rightnotes" class="notes"></div>          
         </div>
 
-        <div id="clickfortie" onclick="clickfortie()">COIN FLIP</div>
+
+        <!--<div  id="test" onclick="clickfortie()">COIN FLIP</div> -->
+
         <button type="submit" id="toresultspage">SEE RESULTS</button>
 
         <input type="hidden" id="tiers" name="winnertiers">
         <input type="hidden" id="allnames" name="winnernames">
+        <input type="hidden" id="losers" name="bottomtier">
+        <input type="hidden" id="losernames" name="bottomnames">
+        <input type="hidden" id="notesforresults" name="notesforresults">
+        <input type="hidden" id="losernotes" name="losernotes">
+
+        
     </form>   
+</div>
+
 
 
     <div id="coinflip_contain">
+        <div id="closecoinflip" class="close" onclick="closecoinflip()">x</div>
         <div id="showthecoinflip"></div>
-        <div onclick="coinflip()">FLIP COIN</div>
+        <div id="currentflip">testing</div>
+
+        <div id="trackflips"></div>
+        <div id="flipcoinagain" onclick="coinflip()">FLIP COIN</div>
     </div>
+
+    <!--<div id="clickfortie" onclick="clickfortie()">COIN FLIP</div> -->
+
      
      <!---->  <ul id="eachname"> 
         {% for x in range(totalusers)%}      
@@ -49,7 +75,8 @@
     songsperuser=JSON.parse('{{ songspereach | tojson | safe }}');;
     allnames=JSON.parse('{{ allnames | tojson | safe }}');
     utubeurls=JSON.parse('{{ utubeurls | tojson | safe }}');
-
+    thenotes =JSON.parse('{{ thenotes | tojson | safe }}');
+    console.log(thenotes);
 </script>
 
 <script src="{{ url_for('static', filename='js/script2.js') }}"></script> 
