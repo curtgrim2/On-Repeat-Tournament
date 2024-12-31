@@ -12,9 +12,28 @@ dbsetup = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};"
                          "Database=o_r_tournament;"
                          "Trusted_Connection=yes;") #Format must be exactly like this, down to the spacing and new lines
 
-
+alldrafts=[]
 cursor = dbsetup.cursor()
-#cursor.execute('')
+cursor.execute("SELECT table_name FROM INFORMATION_SCHEMA.TABLES;")
+tables = cursor.fetchall()
+print('Here we go')
+# Loop through tables and execute queries
+draftiter=0
+for table in tables:
+    #print(table[0])
+    table_name = table[0]
+    cursor.execute(f"SELECT * FROM {table_name};")
+    results = cursor.fetchall()
+    alldrafts.append(results)
+    
+    spu=int(results[0][6])
+    for x in range(spu):  
+        y=x*int(results[0][5])
+        #print(y)
+        #print(f"Results from {table_name}: {results[y][1]}")
+        
+    draftiter+=1
+print(alldrafts)
 
 names1=[]
 url1=[]
@@ -50,8 +69,7 @@ def home():
         songsperuser1.append(row[5])
         numofusers1.append(row[6])
         
-    print(names1)
-    return render_template('gameprep.html',draftnames=names1,drafturls=url1,songsperuser=songsperuser1,numofusers=numofusers1)
+    return render_template('gameprep.html',draftnames=names1,drafturls=url1,draftnotes=notes1,songsperuser=songsperuser1,numofusers=numofusers1)
 
 
 #@app.route('/',methods=["GET","POST"])
@@ -63,23 +81,31 @@ def startgame():
     personnum=0
     allthenames =[]
     allurls = []
+    thenotes=[]
+    
+    print(request.form.get(f'namenum{1}'))
 
     while f'name{personnum}' in request.form: #name{personnum} are the users unique identifiers 
             allthenames.append(request.form[f'name{personnum}'])      #We're getting the variables in the form withrequest.form 
+            #print(allthenames[personnum])
             personnum += 1       
-            #print(allthenames)
             totalsongs = int(request.form.get("songspereach")) * int(request.form.get("numofusers"))
-            for x in range(totalsongs):
-                allurls.append(request.form.get(f'namenum{x}')) #Pushing each song URL from 
-                x+=1
-    
+    for x in range(totalsongs):
+        allurls.append(request.form.get(f'namenum{x}')) #Pushing each song URL from 
+        thenotes.append(request.form.get(f'notes4song{x}'))
+        print(allurls[x])
+        x+=1
+    print(totalsongs)
+    print(thenotes)
     if request.form.get("checkdraftbut")=="notclicked":#if request.method == "POST":    
         '''print('RESULTS SHOULD BE HERE')        
         print(request.form.get("checkdraftbut"))
         print(allthenames)
         print(allurls)'''
+        #print(allurls)
+        #print("DONE")
         #return "TEST"
-        return render_template('gametime.html',totalusers = int(request.form.get("numofusers")),songspereach=request.form.get("songspereach"),allnames=allthenames,utubeurls=allurls)
+        return render_template('gametime.html',totalusers = int(request.form.get("numofusers")),songspereach=request.form.get("songspereach"),allnames=allthenames,utubeurls=allurls,thenotes=thenotes)
     else:
         iterthrsongs=0
         print("Draft save button Clicked")
@@ -96,7 +122,7 @@ def startgame():
             songsperuser =totalsongs//len(allthenames) # Double /:To prevent float TypeError
             #print(songsperuser)
             for y in range(songsperuser):
-                cursor.execute("""INSERT INTO saveddrafts(Name,SongURL,Notes,EntryNum,SongsperUser,NumofUsers)VALUES(?, ?, ?, ?, ?, ?)""",(allthenames[x], allurls[iterthrsongs], "",int(iterthrsongs+1), songsperuser, len(allthenames)))
+                cursor.execute("""INSERT INTO saveddrafts(Name,SongURL,Notes,EntryNum,SongsperUser,NumofUsers)VALUES(?, ?, ?, ?, ?, ?)""",(allthenames[x], allurls[iterthrsongs], thenotes[iterthrsongs],int(iterthrsongs+1), songsperuser, len(allthenames))) #thenotes[iterthrsongs]
                 #print("Name:" + allthenames[x] + "; Song URL:" + allurls[iterthrsongs] + " - " + str(iterthrsongs))
                 iterthrsongs+=1
                 
@@ -118,13 +144,16 @@ def startgame():
 def showresults():
     print("Going to results page")
     #print(request.form.get('winnertiers'))
-    print(request.form.get('winnernames'))
+    print(request.form.get("bottomtier"))
+    
     
     eachtier = request.form.get('winnertiers')
     
     '''for x in request.form.get('winnertiers'):
         print(x)'''
-    return render_template('resultspage.html',listoftiers=eachtier,namesintiers=request.form.get('winnernames'))   
+    return render_template('resultspage.html',listoftiers=eachtier,namesintiers=request.form.get('winnernames'),
+                           bottomtier=request.form.get("bottomtier"),lowtiernames=request.form.get("bottomnames"),
+                           allnotes=request.form.get("notesforresults"),losernotes=request.form.get('losernotes'));   
 
 
 
@@ -154,3 +183,7 @@ def testarea():
 
 if __name__ == "__main__":
     app.run(debug=True)
+     # This is where Waitress runs the whole app
+    from waitress import serve
+   # print("Running on http://localhost:8000/")
+    #serve(app, host="localhost", port=8000)
