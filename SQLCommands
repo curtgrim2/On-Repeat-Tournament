@@ -11,3 +11,6 @@ CREATE PROCEDURE "showdrafts" AS SELECT * FROM o_r_tournament.dbo.saveddrafts
 EXEC "showdrafts"
 
 ALTER TABLE o_r_tournament.dbo.saveddrafts ADD EntryNum int 
+
+USE "o_r_tournament";
+EXEC sp_rename "2ndsaveddraft", "saveddraft2";
