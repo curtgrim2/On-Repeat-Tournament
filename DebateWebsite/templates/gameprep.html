@@ -16,7 +16,8 @@
                     <br/>
                     <div>How many users are participating? </div>
                 <!---<input input id ="decrease" class="numofusersbutton" type="button" value = "-" onclick="changenumofusers('sub')"> -->
-                 <input type ="number" min=1 max=6 name = "numofusers" id="showusernum"/>
+                <input id="showusernum" type ="text" name="numofusers">
+                <!--<input type ="number" min=1 max=6 name = "numofusers" id="showusernum"/> -->
                 <!-- <input input id ="increase" class="numofusersbutton" type="button" value = "+" onclick="changenumofusers('add')"> -->
                  <div>What is the maximum number of songs per person? </div> 
                  <div>(MUST BE AN EVEN NUMBER)</div>              
@@ -58,9 +59,9 @@
 
                     </div>
                     
-                    <div style="text-align: center;background-color: black;height:10%;">
+                    <div id="startsavemenu" >
                         <button type="submit"  id="savedraft" onclick="savethisdraft()">SAVE DRAFT</button> 
-                        <button type="submit">START GAME</button> </div>
+                        <button type="submit" onclick="b4send()">START GAME</button> </div>
                     
                 </div>
 
@@ -70,6 +71,7 @@
 
                <input type="hidden" id="draftsave" />
                <input type="hidden" value="notclicked" name="checkdraftbut" id="isthesavebuttonclicked" />
+               <input type="hidden" />
          </form>    
         </div>
         
@@ -81,6 +83,7 @@
             var drafturls= JSON.parse('{{drafturls | tojson | safe}}');
             var draftsongsperuser=JSON.parse('{{songsperuser | tojson | safe}}');
             var draftnumofusers=JSON.parse('{{numofusers | tojson | safe}}');
+            var draftnotes =JSON.parse('{{draftnotes | tojson | safe}}');
 
             if(draftnames != null || draftnames != "" ){
                 document.getElementById("olddrafts").innerHTML="OLD DRAFT AVAILABLE";
