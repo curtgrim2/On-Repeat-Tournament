@@ -27,3 +27,5 @@ USE "o_r_tournament";
 EXEC sp_rename "2ndsaveddraft", "saveddraft2";
 
 UPDATE saveddraft2 SET NumofUsers = 1
+
+ALTER TABLE o_r_tournament.dbo.TestDraft ADD DraftTitle nvarchar(255) 
