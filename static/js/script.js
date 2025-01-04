@@ -16,7 +16,9 @@ var slide1 = document.getElementById("slide1");
 var slide3 = document.getElementById("slide3");
 slide3.style.display ="none";
 
-var olddrafts = document.getElementById("olddrafts") ;
+//var olddrafts = document.getElementById("olddrafts") ;
+var updatebutt = document.getElementById("updatedraft");
+updatebutt.style.display="none";
 
 var totalsongs;
 
@@ -75,10 +77,19 @@ function toslide2(showusernum){
 
 var iterhelp2=0;
 function toslide3(showusernum,enternames){ /*For Youtube URLs */
+
+    document.getElementById("isthesavebuttonclicked").value="notclicked";
+
+
+    var draftbox = document.querySelectorAll(".selectdrafts");
+    draftbox.forEach(draftbox=>{
+    draftbox.style.display="none";
+
+});
     slide1.style.display = "none";
     slide2.style.display ="none";
     slide3.style.display ="block";
-    olddrafts.style.display="none";
+    //olddrafts.style.display="none";
     error.style.display = "none";
 
     //document.getElementById("startup").style.display = "none";
@@ -199,7 +210,52 @@ function changenumofusers(addorsubtract){
 }
 
 iterhelp2=0;
-function inputdraft(){  //REMEMBER: Changes in here apply to slide3()
+function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
+
+    document.getElementById("isthesavebuttonclicked").value="notclicked";
+
+
+    var draftbox = document.querySelectorAll(".selectdrafts");
+    draftbox.forEach(draftbox=>{
+    draftbox.style.display="none";
+
+});
+
+    if(whichdraft==1){
+        draftnames=draftnames1;
+        document.getElementsByName("newdraftname")[0].value=drafttitle1[0];
+
+    }
+    if(whichdraft==2){
+        draftnames = draftnames2;
+        draftnumofusers = draftnumofusers2;
+        draftsongsperuser =draftsongsperuser2;
+        drafturls = drafturls2;
+        draftnotes = draftnotes2;
+        drafttitle = drafttitle2;
+        document.getElementsByName("newdraftname")[0].value=drafttitle2[0];
+
+
+    }
+
+    if(whichdraft==3){
+        draftnames = draftnames3;
+        draftnumofusers = draftnumofusers3;
+        draftsongsperuser =draftsongsperuser3;
+        drafturls = drafturls3;
+        draftnotes = draftnotes3;
+        drafttitle = drafttitle3;
+        document.getElementsByName("newdraftname")[0].value=drafttitle3[0];
+
+    }
+
+    console.log(whichdraft);
+    console.log(draftnames1);
+    console.log(draftnumofusers);
+    console.log(draftsongsperuser);
+    console.log(drafturls);
+    console.log(draftnotes);
+
 
 
     var gothrnames=0;
@@ -214,9 +270,9 @@ function inputdraft(){  //REMEMBER: Changes in here apply to slide3()
         node.className = "allnames2";
         node.placeholder="Enter name here";
 
-        console.log(draftsongsperuser);
+       // console.log(draftsongsperuser);
             node.value = draftnames[gothrnames];
-            console.log(gothrnames);
+           // console.log(gothrnames);
             gothrnames+=draftsongsperuser[0];
 
         document.getElementById("enternames").appendChild(node);
@@ -231,12 +287,12 @@ function inputdraft(){  //REMEMBER: Changes in here apply to slide3()
 
 
     //Beginning of "Slide 3" section
-    console.log(draftnames);
     slide1.style.display = "none";
     slide2.style.display ="none";
     slide3.style.display ="block";
-    olddrafts.style.display="none";
+    //olddrafts.style.display="none";
     errorbox.style.display="none";
+    updatebutt.style.display="block";
     eacheverysong=0;
     console.log(draftnumofusers[0]);
 
@@ -347,22 +403,26 @@ inputs.forEach((input) => {
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form"); // Select the form
     form.addEventListener("submit", function (event) {
+        
+        if(document.getElementById("isthesavebuttonclicked").value!="createnewdraft" && document.getElementById("isthesavebuttonclicked").value!="clicked"){
+        //if(document.getElementsByName("checkdraftbut")[0].value!="createnewdraft"){
+            console.log(document.getElementsByName("checkdraftbut")[0].value);
         var totalempty = 0; // Reset totalempty for this submission
         for (var x = 0; x < totalsongs; x++) {
             const inputElement = document.getElementsByName(`namenum${x}`)[0]; // Select the input element by name
 
             if (inputElement) {
                 const inputValue = inputElement.value; // Get the value of the input
-                console.log(`Input value for namenum${x}:`, inputValue);
+                //console.log(`Input value for namenum${x}:`, inputValue);
 
                 if (inputValue === "") {
                     totalempty++;
-                    console.log(`namenum${x} is empty.`);
+                    //console.log(`namenum${x} is empty.`);
                     event.preventDefault(); // Prevent default form submission behavior
 
                 }
             } else {
-                console.warn(`Input element with name="namenum${x}" not found.`);
+                //console.warn(`Input element with name="namenum${x}" not found.`);
             }
         }
         
@@ -371,46 +431,70 @@ document.addEventListener("DOMContentLoaded", function () {
             error.innerHTML = `No empty URL boxes. There are ${totalempty} empty boxes`;  
         }
 
-         
+    }
     });
 });
 
 
-function urlscantbeempty(){
 
-  
-    
-
-/*    var totalempty=0;
-console.log(totalsongs);
-for(var x=0; x<totalsongs; x++){  
-    console.log(document.getElementsByName(`namenum${x}`));
-    if(document.getElementsByName(`namenum${x}`).value==""){
-        totalempty++;
-    }
-    error.innerHTML =  "No empty URL boxes. There are " + totalempty + " empty boxes";
-    console.log("No empty URL boxes. There are " + totalempty + " empty boxes");
-    return false;
-}
-return true*/
-}
-
-async function savethisdraft(){ //Don't think this needs to be double spaced
+ async function updatedraft1(){ //Don't think this needs to be double spaced
+    var confirmation = confirm("Are you sure you want to delete this draft?");
 
     document.getElementById("isthesavebuttonclicked").value="clicked"; //This triggers first before getting sent to python router
+    console.log("Hello?");
     
 
+}
+
+document.getElementById("savedraft").addEventListener('click',(event)=>{
+    if(totaltitles==3){
+        alert("FULL DRAFT SLOT; Please delete a draft");
+        event.preventDefault();
+    }
+});
+
+async function savenewdraft(){
+    document.getElementById("isthesavebuttonclicked").value="createnewdraft";
+    document.getElementsByName("newdraftname")[0].value= prompt("Name of the draft?");
+}
+
+
+var otherthing1 = document.getElementById("deletedraft");
+otherthing1.addEventListener('click',(event)=>{
+    var confirmation = confirm("Are you sure you want to delete this draft?");
+    if(confirmation==false){
+        event.preventDefault();
+        console.log("STOP FIGHTING");
+    }
+    else{
+        topython();
+    }
+
+});
+
+
+  function topython(){
+    document.getElementById("isthesavebuttonclicked").value="deletethisdraft";
+    /*var confirmation = confirm("Are you sure you want to delete this draft?");
+   
+   if(confirmation==false){
+        return false;
+    }*/
 }
 
 function showsongtitle(theurl,usethisid,fortitledisplay){
-    //console.log(theurl);
-
-
-
-    //function createvideoID(theurl){ //Right here is where we need to have utube values and maybe a for loop with it
+   
+    //Right here is where we need to have utube values and maybe a for loop with it
             
         const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/; 
-        const match = theurl.match(regExp); 
+        if(theurl==undefined){
+           theurl="";
+
+        }
+        //if(regExp!=null){
+            const match = theurl.match(regExp); 
+
+        //}
         /*match[0] is the entire url,  match[1] is which exxpression contained the video ID, match[2] is the ID itself*/
                                                     //true    //false
         (match && match[2].length === 11) ? 
@@ -431,7 +515,7 @@ async function getVideoDetails(videoId,usethisid,fortitledisplay){
             throw new Error("Network status isn't ok:" + response.statusText);
         }
         const data = await response.json();
-       console.log(document.getElementsByClassName(usethisid)[0]);
+       //console.log(document.getElementsByClassName(usethisid)[0]);
 
        document.getElementsByClassName(usethisid)[0].innerHTML=data.items[0].snippet.title;
 
@@ -455,6 +539,14 @@ async function getVideoDetails(videoId,usethisid,fortitledisplay){
     error.style.display="none";
     document.getElementById("isthesavebuttonclicked").value="notclicked";
     
+  }
+
+  function cleareverything(){
+    //To clear values in drafts to potentially create a new one
+  }
+
+  function tester(){
+    console.log("Tesret");
   }
 
 

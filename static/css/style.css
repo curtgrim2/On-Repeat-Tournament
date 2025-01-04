@@ -165,20 +165,21 @@ cursor:pointer;
 }
 
 #olddrafts{
-    background-color: black;
     position: fixed;
     bottom:0;
     right:0;
-    border:white 1px solid;
-    padding:1%;
+    text-align: right;
+    /*border:white 1px solid;*/
+    width:100%;
    /* border-top-left-radius:100%;
     border-top-right-radius:100%;*/
 }
+/*
 #olddrafts:hover{
     cursor: pointer;
     background-color: green;
 
-}
+}*/
 
 #errorbox{
     position:fixed;
@@ -329,7 +330,7 @@ box-shadow:0px 0px 20px 2px yellow;
 }
 
 #screenshot:hover{
-    box-shadow: 0 0 20px 10px gold;
+    box-shadow: 0 0 20px 10px white;
 }
 
 #splashscreen{

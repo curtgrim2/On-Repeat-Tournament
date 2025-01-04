@@ -60,34 +60,114 @@
                     </div>
                     
                     <div id="startsavemenu" >
-                        <button type="submit"  id="savedraft" onclick="savethisdraft()">SAVE DRAFT</button> 
+                        <button type="submit"  id="updatedraft" onclick="updatedraft1()">CHANGE CURRENT DRAFT</button> 
+                        <button type="submit"  id="savedraft" onclick="savenewdraft()" >SAVE NEW DRAFT</button> <!--<button type="submit"  id="savedraft" onclick="savenewdraft()">SAVE NEW DRAFT</button> -->
+                        <button type="submit" id="deletedraft" >Boink DRAFT</button>   <!--<button type="submit" id="deletedraft" onclick="otherthing()">Boink DRAFT</button>-->
                         <button type="submit" onclick="b4send()">START GAME</button> </div>
                     
                 </div>
 
                 <div id="errorbox"></div>
 
-                <div id="olddrafts" onclick="inputdraft()"></div>
+               <div id="olddrafts" ></div>
 
                <input type="hidden" id="draftsave" />
                <input type="hidden" value="notclicked" name="checkdraftbut" id="isthesavebuttonclicked" />
-               <input type="hidden" />
+               <input type="hidden" name="newdraftname" value="DefaultDraft"/>
+               
          </form>    
         </div>
         
         <script src="{{ url_for('static', filename='js/script.js') }}"></script></script>
         <script>
-            draftnames=[];
-             draftnames = JSON.parse('{{draftnames | tojson | safe}}');
-            console.log(draftnames);
+             draftnames1 = JSON.parse('{{draftnames | tojson | safe}}');
+            console.log(draftnames1);
             var drafturls= JSON.parse('{{drafturls | tojson | safe}}');
             var draftsongsperuser=JSON.parse('{{songsperuser | tojson | safe}}');
             var draftnumofusers=JSON.parse('{{numofusers | tojson | safe}}');
             var draftnotes =JSON.parse('{{draftnotes | tojson | safe}}');
+            var drafttitle1 =JSON.parse('{{drafttitle1 | tojson | safe}}');
 
-            if(draftnames != null || draftnames != "" ){
+            
+            var draftnames2 = JSON.parse('{{draftnames2 | tojson | safe}}');
+            var drafturls2= JSON.parse('{{drafturls2 | tojson | safe}}');
+            var draftsongsperuser2=JSON.parse('{{songsperuser2 | tojson | safe}}');
+            var draftnumofusers2=JSON.parse('{{numofusers2 | tojson | safe}}');
+            var draftnotes2 =JSON.parse('{{draftnotes2 | tojson | safe}}');
+            var drafttitle2 =JSON.parse('{{drafttitle2 | tojson | safe}}');
+
+
+            var draftnames3 = JSON.parse('{{draftnames3 | tojson | safe}}');
+            console.log(draftnames3);
+            var drafturls3= JSON.parse('{{drafturls3 | tojson | safe}}');
+            var draftsongsperuser3=JSON.parse('{{songsperuser3 | tojson | safe}}');
+            var draftnumofusers3=JSON.parse('{{numofusers3 | tojson | safe}}');
+            var draftnotes3 =JSON.parse('{{draftnotes3 | tojson | safe}}');
+            var drafttitle3 =JSON.parse('{{drafttitle3 | tojson | safe}}');
+             
+            
+          /*  if(draftnames != null || draftnames != "" ){
                 document.getElementById("olddrafts").innerHTML="OLD DRAFT AVAILABLE";
-            }
+            }*/
+
+           const variables = {
+            drafttitle1:drafttitle1[0],
+            drafttitle2:drafttitle2[0],
+            drafttitle3:drafttitle3[0],
+
+           }
+
+           //var totaltitles = Object.keys(variables).length;
+           
+           totaltitles=0;
+            for(var x=1; x<=3; x++){
+                var draft = document.createElement("div");
+                draft.style.backgroundColor="black";
+                draft.style.position="relative";
+                draft.style.display="inline-block";
+                draft.style.bottom="0";
+                draft.style.padding="3% 0";
+                draft.style.textAlign="center";
+                draft.style.cursor="pointer";
+                var combine = "drafttitle"+x;
+
+                if(variables[combine]==undefined){
+                    draft.innerHTML= "DRAFT SLOT AVAILABLE";
+                    draft.style.backgroundColor="rgba(0,0,0,0)";
+                    draft.style.border="white 2px dashed";
+                    draft.style.cursor="not-allowed";
+                   
+                }
+                else{
+                    draft.style.border="white 1px solid";
+                    draft.innerHTML=variables[combine];
+                    totaltitles++;
+
+                }
+
+
+                draft.style.color="white";
+                draft.id=x;
+                draft.className="selectdrafts";
+                draft.style.width="20%";
+
+                //document.getElementsByTagName("body")[0].appendChild(draft); 
+                document.getElementById("olddrafts").appendChild(draft);
+
+                draft.addEventListener('click',function(event){
+                    if(event.target.innerHTML=="DRAFT SLOT AVAILABLE"){
+                        alert("EMPTY DRAFT SPOT");
+                    }
+                    else{
+                    inputdraft(event.target.id);
+                    }
+                });
+
+            } 
+
+
+            console.log(totaltitles);
+            
         </script>
     </body>
 </html>
