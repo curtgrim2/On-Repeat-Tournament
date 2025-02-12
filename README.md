@@ -7,9 +7,9 @@
 - In the future we can take the Spotify profile pictures and have them in the design in the gametime.html
 - Save who is top 4 and make a new table that checks for this in the database?
 - Make a table that saves past 12 winners (for the year?)
+- Use Google cloud console for cloud database (costs money)
 
 ### TASKS
 - Add another section in slide3 for notes/time start and stop
-- CREATE CLOUD DATABASE
 - Edit total amount of songs within the draft page (slide 3)
 - Allow quotations to be in notes
