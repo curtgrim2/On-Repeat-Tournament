@@ -13,3 +13,4 @@
 - Add another section in slide3 for notes/time start and stop
 - Edit total amount of songs within the draft page (slide 3)
 - Allow quotations to be in notes
+- Quick access to names and their sections
