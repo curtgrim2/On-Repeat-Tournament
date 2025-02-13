@@ -14,3 +14,4 @@
 - Edit total amount of songs within the draft page (slide 3)
 - Allow quotations to be in notes
 - Quick access to names and their sections
+- TOTAL SONGS MUST HAVE A FINAL DIGIT OF 2,4,OR 8 (For our ORT, do 9 songs each for a total of 54?)
