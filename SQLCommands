@@ -32,3 +32,13 @@ ALTER TABLE o_r_tournament.dbo.TestDraft ADD DraftTitle nvarchar(255)
 
 USE "o_r_tournament";
 SELECT table_name FROM INFORMATION_SCHEMA.TABLES;
+
+USE [o_r_tournament]
+GO
+/****** Object:  StoredProcedure [dbo].[showdrafts]    Script Date: 2/12/2025 3:52:10 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[showdrafts] AS SELECT * FROM dbo.saveddrafts
+
