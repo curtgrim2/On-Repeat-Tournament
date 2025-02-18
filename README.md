@@ -8,6 +8,8 @@
 - Save who is top 4 and make a new table that checks for this in the database?
 - Make a table that saves past 12 winners (for the year?)
 - Use Google cloud console for cloud database (costs money)
+  
+- Not allowed to start a database table with a number BUT we can somehow still display it as such (f.e. 12songeduwu)
 
 ### TASKS
 - Add another section in slide3 for notes/time start and stop
