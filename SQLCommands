@@ -40,5 +40,8 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
+ALTER TABLE o_r_tournament.dbo.Ari_vs_Stevie ADD SpecificUserSongNum int 
+
 ALTER PROCEDURE [dbo].[showdrafts] AS SELECT * FROM dbo.saveddrafts
 
