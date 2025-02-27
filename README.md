@@ -15,5 +15,5 @@
 - Add another section in slide3 for notes/time start and stop
 - Edit total amount of songs within the draft page (slide 3)
 - Allow quotations to be in notes
-- Quick access to names and their sections
-- TOTAL SONGS MUST HAVE A FINAL DIGIT OF 2,4,OR 8 (For our ORT, do 9 songs each for a total of 54?)
+- Quick access to names and their sections (do the same for results page)
+- Apply song notes to third index in multidimensional array (until then, don't display notes)
