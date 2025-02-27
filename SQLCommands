@@ -45,3 +45,8 @@ ALTER TABLE o_r_tournament.dbo.Ari_vs_Stevie ADD SpecificUserSongNum int
 
 ALTER PROCEDURE [dbo].[showdrafts] AS SELECT * FROM dbo.saveddrafts
 
+USE o_r_tournament;
+SELECT table_name FROM INFORMATION_SCHEMA.TABLES;
+SELECT * FROM o_r_tournament.dbo.newuwufufu;
+
+
