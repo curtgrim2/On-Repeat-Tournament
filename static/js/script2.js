@@ -1,5 +1,7 @@
 const apiKey =  'AIzaSyBc9Y9VMDPAaILM7erb5kwBhJ_B8knnKQk'
 
+console.log(songnum4user);
+
 var body1 = document.getElementsByTagName("body");
 body1[0].style.backgroundColor = "#4a4a4a";
 
@@ -35,16 +37,19 @@ var testusernum = 3;
 
             //Setting the amount of users that are playing the game (Maximum of 6)
             var setlength = allusers.length;
-            for(x=totalusers;x<setlength;x++){
+            for(x=totalusers; x<setlength; x++){
                 allusers.pop();
                 usersnotes.pop();
             }
 
             var z=0;
             console.log(thenotes);
+            var forcurrround=0;
             for(var x=0; x<totalusers;x++){
+                forcurrround+=Number(songnum4user[x]);
+
                 var y=0;
-                    while(y<songsperuser){
+                    while(y<songnum4user[x]){
                         usersnotes[x][y]= thenotes[z];
                         //console.log( thenotes[z]);
                         y++;
@@ -63,9 +68,10 @@ var testusernum = 3;
             var users_namessongs=[]
             var totalsongs = allusers.length;
             var onlyone=18;
+
             for(x=0;x<allusers.length;x++){ //Each array
                 var usersongnum=0; 
-                while(usersongnum<songsperuser){
+                while(usersongnum<songnum4user[x]){
                     allusers[x][usersongnum]= utubeurls[songiter++];
                     users_name[x]=testnames[x].innerHTML; //Will use to display the name underneath video
                     orderusernames[x]=testnames[x].innerHTML;
@@ -95,10 +101,11 @@ var testusernum = 3;
             var keepwinnernotes=[];
             var losernotes=[];
             var counter=0;
-            var numofsongsleft=totalusers*songsperuser;
-            const totalsongs2 = numofsongsleft;
+            var numofsongsleft=forcurrround;//var numofsongsleft=totalusers*songsperuser;
+            const totalsongs2 = forcurrround;
             var totalrounds = 3;
-            var currround = 8; //Needs to be 64 on final versionS
+            var currround = forcurrround;//64;//songsperuser*totalusers; //Needs to be 64 on final versionS
+            
 
 
             //Start of Round of 64
@@ -298,10 +305,10 @@ var testusernum = 3;
            if(allusers2.length>1){
             //(Normal Activities) Setting up new versus as long as theres still multiple users 
             allusers2 = allusers2.filter(arr => arr.length > 0);
+            
             usersnotes2 = usersnotes2.filter(arr  => arr.length>0);
             console.log("AllUsers");
             console.log(allusers2);
-            //console.log(allusers2.length);
 
 
             usersongs1 = Math.floor(Math.random()*allusers2.length);
@@ -437,26 +444,30 @@ var testusernum = 3;
 
                     console.log(usersnotes2);
                     console.log(allusers2);
+                    console.log(winners.length);
+
 
                     for(x=0;x<winners.length;x++){ 
+                        var finduser=0;
                         theuser=0;
                         findsong=0; //Song iterator for original list
+                        findsonghelp=0;   
 
-                         while(findsong <totalsongs2){ //Assign winning song to winning user
+
+                        while(findsong <forcurrround){//while(findsong <totalsongs2){ //Assign winning song to winning user 
 
                             if(winners[x]==utubeurls[findsong]){                    
                                 if(allusers2.length<=1){ //Put in the first song of allusers2
                                     allusers2[0].push(winners[x]);
                                     newusernames.push(orderusernames[theuser]);
                                     usersnotes2[0].push(winnernotes[x]);
-                                    //winnernotes.push(thenotes[findsong]);
-
 
                                     console.log("Winners Name:" + orderusernames[theuser] + "----- Winners Song:" + winners[x]);
                                 console.log("Song Order on the list: " + findsong);
                                 console.log("theuser Num:" + theuser + " Winner iter:" + x);
                                 console.log(newusernames);
-                                //console.log(thenotes[findsong]);
+
+                                finduser=0;
                                 }
                                else{
                                 console.log("AllUsers");
@@ -468,23 +479,21 @@ var testusernum = 3;
                                 allusers2[theuser].push(winners[x]);
                                 usersnotes2[theuser].push(winnernotes[x]);
 
+                                finduser=0;
+
 
                                 if (!Array.isArray(allusers2[theuser])) {
                                     allusers2[theuser] = []; // Initialize as an empty array if it isn’t
                                 }
                                 
-
                                 //Lets put the winner names here
                                 if (!Array.isArray(allnames[tiercounter])) {
                                     allnames[tiercounter] = [];
                                 }
-
-
-                                
+      
                                 
                                 console.log(orderusernames[theuser]);
                                 allnames[tiercounter][x]=orderusernames[theuser];
-                                //tiercounter++;
 
                                 if(newusernames.includes(orderusernames[theuser])){
                                     /*The Else statement adds the name of the user to the names list only if it isn't already in there;
@@ -499,10 +508,13 @@ var testusernum = 3;
                             }                       
                             findsong++;
                             findsonghelp++;
-                            if(findsonghelp==songsperuser){ //For initial reapplication, every (songperuser) is dedicated to a person
-                                //Meaning go onto next user according to in utubeurls                              
+                            if(findsonghelp==songnum4user[finduser]){ //For initial reapplication, every (songperuser) is dedicated to a person
+
+                                //Meaning go onto next user according to in utubeurls  
+                                //console.log(findsonghelp);                            
                                 theuser++;
                                 findsonghelp=0;   
+                                finduser++; //Limit should be totalusers
                             }
                            }                                                      
                     }
@@ -529,8 +541,6 @@ var testusernum = 3;
                 console.log("AllUsers " + allusers2.length);
                 console.log(allusers2);
 
-
-                //newusernames.sort();
 
            //Ordering the user names so that  songs allign with the users
            var orderusernames2=[];

@@ -244,7 +244,8 @@ setTimeout(()=>{
             thumbnail.src= video.items[0].snippet.thumbnails.high.url;
             thumbnail.style.aspectRatio="1";
             thumbnail.style.height = "30%";
-            
+            thumbnail.style.objectFit="cover";
+            thumbnail.style.objectPosition="center";
             thumbnail.style.display="block";
             thumbnail.style.position="relative";
 
@@ -276,7 +277,6 @@ for(x=0; x<document.getElementsByClassName("SongsDiv").length-listoftiers[0].len
 console.log(urltitles);
 
 
-//var iterhelp=allnotes.length-1;
 var iterhelp=0;
 var everydiv = document.getElementsByClassName("SongsDiv");
 
@@ -286,7 +286,9 @@ for(var x=0; x<everydiv.length;x++){
 var addnotes= document.createElement('span');
 addnotes.innerHTML= allnotes[tracktier][iterhelp];
 addnotes.className ="NoteNum";
-addnotes.style.backgroundColor="black";
+if(allnotes[tracktier][iterhelp]!=""){
+    addnotes.style.backgroundColor="black";
+}
 addnotes.style.display="inline-block";
 addnotes.style.position="absolute";
 addnotes.style.right="0";

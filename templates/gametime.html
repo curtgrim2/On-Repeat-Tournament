@@ -15,7 +15,9 @@
             <div id="leftbutt" class="winnerbutton" onclick="thewinneris('left')">Left Video is the Winner</div>
             <!--<div id="leftvideotitle"></div>-->
             <div id="leftname" class="namedisplay"></div>
-            <div id="leftnotes" class="notes"></div>
+
+            <div id="leftnotes" class="notes" ></div>
+
             <br/>
             <br/>
             <div id="clickfortie" onclick="clickfortie()">COIN FLIP</div>
@@ -72,11 +74,11 @@
 </ul>
 <script type="text/javascript">
     var totalusers = JSON.parse('{{ totalusers | tojson | safe }}');
-    songsperuser=JSON.parse('{{ songspereach | tojson | safe }}');;
     allnames=JSON.parse('{{ allnames | tojson | safe }}');
     utubeurls=JSON.parse('{{ utubeurls | tojson | safe }}');
     thenotes =JSON.parse('{{ thenotes | tojson | safe }}');
-    console.log(thenotes);
+    songnum4user=JSON.parse('{{songnum4user | tojson | safe}}');
+    totalsongs=JSON.parse('{{totalsongs | tojson | safe}}');
 </script>
 
 <script src="{{ url_for('static', filename='js/script2.js') }}"></script> 

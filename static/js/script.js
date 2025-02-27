@@ -5,6 +5,7 @@ var inc = document.getElementById("increase");
 var dec = document.getElementById("decrease");
 let numofusers = document.getElementById("showusernum");
 var error = document.getElementById("errorbox");
+var deletedraftbutton =  document.getElementById("deletedraft");
 /*changingvalue = 2;
 numofusers.innerHTML=changingvalue;*/
 
@@ -21,13 +22,18 @@ var updatebutt = document.getElementById("updatedraft");
 updatebutt.style.display="none";
 
 var totalsongs;
+var remainingsongs = document.getElementById("remainingsongs");
 
 function toslide2(showusernum){
-    var songperuser = document.getElementById("songsperuser").value
-    totalsongs =   parseInt(document.getElementById("songsperuser").value) * parseInt(showusernum.value);
-    console.log(totalsongs);
 
-     if(songperuser == "" || showusernum.value  ==""){
+   // var songperuser = document.getElementById("songsperuser").value
+    totalsongs =  document.getElementById("totalsongs").value;  //parseInt(document.getElementById("songsperuser").value) * parseInt(showusernum.value);
+
+    
+    remainingsongs.innerHTML=totalsongs;
+
+
+     if(showusernum.value  ==""){
         error.style.display = "block";
         error.innerHTML = "Values cannot be empty!";
    }
@@ -36,9 +42,6 @@ function toslide2(showusernum){
     error.style.display = "block";
     error.innerHTML = "TOTAL AMOUNT OF SONGS MUST BE EVEN";
 
-   /* if(showusernum.value %2!=0){
-        error.innerHTML = "Make songs per user an even number";
-    }*/
    }
 
     else if(showusernum.value>6){
@@ -63,12 +66,17 @@ function toslide2(showusernum){
     for(x=0; x<showusernum.value; x++){ 
         var node  = document.createElement("input");
         node.type = "text";
-       // node.name = "allnames";
        node.name = `name${x}`;
        node.id=`nameid${x}`; //Dynamically hard coding unique names and id(Not used) for each user
         node.className = "allnames2";
         node.placeholder="Enter name here";
         document.getElementById("enternames").appendChild(node);
+
+        var song4thisuser = document.createElement('input');
+        song4thisuser.type="text";
+        song4thisuser.id=`user${x}songtotal`;
+        song4thisuser.name=`user${x}songtotal`;
+    document.getElementById(node.id).insertAdjacentElement('afterend',song4thisuser);
     } 
 }
 }
@@ -89,10 +97,9 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
     slide1.style.display = "none";
     slide2.style.display ="none";
     slide3.style.display ="block";
-    //olddrafts.style.display="none";
     error.style.display = "none";
+    deletedraftbutton.style.display="none";
 
-    //document.getElementById("startup").style.display = "none";
     eacheverysong=0;
 
  /*For each name, take the number of songs and ask them to insert Youtube URL into each textbox */
@@ -100,20 +107,23 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
        var newdiv = document.createElement("div");
        newdiv.id = `namenumid${x}`;
        newdiv.style.backgroundColor = "grey";
-       //newdiv.style.minWidth="400px";
        newdiv.style.display="block";
        newdiv.style.margin="10px auto 10px auto";
        newdiv.style.width="50%";
-       //newdiv.style.height="100%"; //No height added to have it adjust to the amount of input elements
+       //No height added to have it adjust to the amount of input elements
        newdiv.style.paddingBottom ="2.5%";
        newdiv.style.position ="relative";
        document.getElementById("s3").appendChild(newdiv);
-       
        newdiv.innerHTML = document.getElementById(`nameid${x}`).value;
 
-      /* document.getElementById("s3").appendChild(document.createElement('br')); */
 
-       for(y=0; y<songsperuser.value; y++){ //Each user gets a certain amount of songs. Here we display them.
+       var songstocreate=document.getElementById(`user${x}songtotal`).value;
+
+       for(y=0; y<songstocreate; y++){//for(y=0; y<songsperuser.value; y++){ //Each user gets a certain amount of songs. Here we display them.
+
+        var newtotalsongs;
+        newtotalsongs++;
+
 
         var songcontain = document.createElement("div");
         songcontain.id=`namenumid2${iterhelp2}`;
@@ -136,6 +146,11 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         console.log(`namenum${eacheverysong}`);
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(utubeURLs); 
 
+        var dontuse = document.createElement('input');
+        dontuse.type = "checkbox";
+        dontuse.id=`ignoresong${iterhelp2}`;
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(dontuse);
+
 
         var titleclass = document.createElement("div");
         titleclass.className = `namenum${eacheverysong}`;
@@ -143,19 +158,26 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         titleclass.innerHTML ="Test";
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(titleclass);
 
+        
+
         var notes = document.createElement("input");
         notes.type="text";
         notes.id = `notes4song${eacheverysong}`;
         notes.name = `notes4song${eacheverysong}`;
         notes.style.width="70%";
         notes.placeholder="Optional notes goes here";
-        notes.style.marginBottom="5%";
+        //notes.style.marginBottom="5%";
+        notes.style.margin="0 auto 5% auto";
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(notes);
 
         var fortitledisplay = titleclass.className.substring(titleclass.className.length-1,titleclass.className.length)
         showsongtitle("",`namenum${eacheverysong}`,fortitledisplay);
 
-
+        //EVENT LISTENERS
+        dontuse.addEventListener('change',function(event){
+                console.log(event.target.id,"was clicked");
+                //utubeURLs.id=`namenum${eacheverysong}`;
+        });
         utubeURLs.addEventListener('input',function(event){
             var neednameid = event.target.id;
             var fortitledisplay2=neednameid.substring(neednameid.length-1,neednameid.length);
@@ -234,6 +256,7 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         draftnotes = draftnotes2;
         drafttitle = drafttitle2;
         document.getElementsByName("newdraftname")[0].value=drafttitle2[0];
+        draftsong4user=draftsong4user2;
 
 
     }
@@ -246,6 +269,8 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         draftnotes = draftnotes3;
         drafttitle = drafttitle3;
         document.getElementsByName("newdraftname")[0].value=drafttitle3[0];
+        draftsong4user=draftsong4user3;
+
 
     }
 
@@ -255,34 +280,45 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
     console.log(draftsongsperuser);
     console.log(drafturls);
     console.log(draftnotes);
+    console.log(draftsong4user);
+
+
+    
 
 
 
     var gothrnames=0;
-    totalsongs = parseInt(draftnumofusers) * parseInt(draftsongsperuser);
+    totalsongs = parseInt(draftnumofusers) * parseInt(draftsongsperuser); //CHANGE THIS?!!?!?
 
     for(x=0; x<draftnumofusers[0]; x++){ 
         var node  = document.createElement("input");
         node.type = "text";
-        console.log("HELLO");
+        //console.log("HELLO");
        node.name = `name${x}`;
        node.id=`nameid${x}`; //Dynamically hard coding unique names and id(Not used) for each user
         node.className = "allnames2";
         node.placeholder="Enter name here";
 
-       // console.log(draftsongsperuser);
-            node.value = draftnames[gothrnames];
-           // console.log(gothrnames);
-            gothrnames+=draftsongsperuser[0];
+        node.value = draftnames[gothrnames]; //node.value = draftnames[x];
+        gothrnames+=draftsong4user[x];
+        //console.log(gothrnames);
 
         document.getElementById("enternames").appendChild(node);
+
+        var song4thisuser = document.createElement('input');
+        song4thisuser.type="hidden";
+        song4thisuser.id=`user${x}songtotal`;
+        song4thisuser.name=`user${x}songtotal`;
+        song4thisuser.value=draftsong4user[x];
+        document.getElementById('form').appendChild(song4thisuser);
+        console.log(song4thisuser.value);
     } 
 
-
+    gothrnames=0;
 
     
     document.getElementById("showusernum").value=draftnumofusers[0];
-    document.getElementById("songsperuser").value=draftsongsperuser[0];
+    //document.getElementById("songsperuser").value=draftsongsperuser[0];
     console.log(document.getElementById("showusernum").value);
 
 
@@ -298,7 +334,7 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
 
     var iterhelp=0;
 
-      for( x=0; x<draftnumofusers[0]; x++){ 
+      for( x=0; x<draftnumofusers[0]; x++){  //For each user
         
 
        var newdiv = document.createElement("div");
@@ -315,14 +351,17 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
 
 
        document.getElementById("s3").appendChild(newdiv);
-       
-       if(iterhelp%draftsongsperuser[0]==0){
-        newdiv.innerHTML=draftnames[iterhelp];//Name of the user
+       if(x==0){
+        newdiv.innerHTML=draftnames[0];//Name of the user
        }
-       //console.log(iterhelp);
+       else{ //Used to get each individual name as names repeat in database
 
-       for(y=0; y<draftsongsperuser[0]; y++){ 
-       // console.log(drafturls[iterhelp]);
+        newdiv.innerHTML=draftnames[gothrnames];//Name of the user
+       }
+
+       gothrnames+=draftsong4user[x];
+
+       for(y=0; y<draftsong4user[x]; y++){ 
 
        var songcontain = document.createElement("div");
        songcontain.id=`namenumid2${iterhelp2}`;
@@ -438,8 +477,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
  async function updatedraft1(){ //Don't think this needs to be double spaced
-    var confirmation = confirm("Are you sure you want to delete this draft?");
-
+    //var confirmation = confirm("Are you sure you want to delete this draft?");
     document.getElementById("isthesavebuttonclicked").value="clicked"; //This triggers first before getting sent to python router
     console.log("Hello?");
     
@@ -547,6 +585,10 @@ async function getVideoDetails(videoId,usethisid,fortitledisplay){
 
   function tester(){
     console.log("Tesret");
+  }
+
+  function removesongs(){
+
   }
 
 

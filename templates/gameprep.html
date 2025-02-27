@@ -7,10 +7,10 @@
         
         <title></title>
     </head>
-    <body>
+    <body id="body">
 
         <div id="startup">
-          <form method="post" action="{{ url_for("startgame")}}" > 
+          <form method="post" id="form" action="{{ url_for("startgame")}}" > 
             <!-- <form method="post" action="{{ url_for("startgame")}}" onsubmit="event.preventDefault(); urlscantbeempty()">    -->
                 <div id = "slide1"> 
                     <br/>
@@ -19,19 +19,26 @@
                 <input id="showusernum" type ="text" name="numofusers">
                 <!--<input type ="number" min=1 max=6 name = "numofusers" id="showusernum"/> -->
                 <!-- <input input id ="increase" class="numofusersbutton" type="button" value = "+" onclick="changenumofusers('add')"> -->
-                 <div>What is the maximum number of songs per person? </div> 
-                 <div>(MUST BE AN EVEN NUMBER)</div>              
-                 <input id="songsperuser" type ="text" name="songspereach"><!--<input type="radio">-->
+                 
+                <!-- <div>What is the maximum number of songs per person? </div> 
+                 
+                 <div>(MUST BE AN EVEN NUMBER)</div>                   
+                 <input id="songsperuser" type ="text" name="songspereach"> -->
+                 <input id="songsperuser" type ="hidden" name="songspereach">
+
                      <br/>
-                   <!-- <select>
-                        <option value=1>1 on 1</option>
-                        <option value="2">Final Four</option>
-                        <option value="">Elite Eight</option>
-                        <option>Sweet Sixteen</option>
-                        <option>Dirty 32</option>
-                        <option>Sexy 64</option>                       
-                     </select> -->
+
+                     <div>Tournament Style</div>
+                   <select id="totalsongs" name="totalsongs">
+                        <option value="2">1 on 1</option>
+                        <option value="4">Final Four</option>
+                        <option value="8">Elite Eight</option>
+                        <option value="16">Sweet Sixteen</option>
+                        <option value="32">Dirty 32</option>
+                        <option valule-="64">Sexy 64</option>                       
+                     </select>
                  <!--<input type = "button" value="START GAME" onclick="startgame()"/>-->
+                 <br/>
                  <br/>
                  <div class="next1" onclick="toslide2(showusernum)">Next</div>
                 </div>
@@ -48,6 +55,8 @@
                     <!--<div onclick="sendtoFlask()">SUBMIT</div>  -->
                     <br/>
                     <div class="next1" onclick="toslide3(showusernum,enternames)">Next</div>
+
+                    <div id="remainingsongs"></div>
                 </div>
 
 
@@ -60,10 +69,11 @@
                     </div>
                     
                     <div id="startsavemenu" >
-                        <button type="submit"  id="updatedraft" onclick="updatedraft1()">CHANGE CURRENT DRAFT</button> 
-                        <button type="submit"  id="savedraft" onclick="savenewdraft()" >SAVE NEW DRAFT</button> <!--<button type="submit"  id="savedraft" onclick="savenewdraft()">SAVE NEW DRAFT</button> -->
-                        <button type="submit" id="deletedraft" >Boink DRAFT</button>   <!--<button type="submit" id="deletedraft" onclick="otherthing()">Boink DRAFT</button>-->
+                        <button type="submit"  id="updatedraft" onclick="updatedraft1()">UPDATE</button> 
+                        <button type="submit"  id="savedraft" onclick="savenewdraft()" >CREATE NEW DRAFT</button> <!--<button type="submit"  id="savedraft" onclick="savenewdraft()">SAVE NEW DRAFT</button> -->
+                        <button type="submit" id="deletedraft" >DELETE DRAFT</button>   <!--<button type="submit" id="deletedraft" onclick="otherthing()">Boink DRAFT</button>-->
                         <button type="submit" onclick="b4send()">START GAME</button> </div>
+                        <button onclick="removesongs()">REMOVE SONGS</button>
                     
                 </div>
 
@@ -87,14 +97,16 @@
             var draftnumofusers=JSON.parse('{{numofusers | tojson | safe}}');
             var draftnotes =JSON.parse('{{draftnotes | tojson | safe}}');
             var drafttitle1 =JSON.parse('{{drafttitle1 | tojson | safe}}');
+            var draftsong4user1 = JSON.parse('{{draftsong4user1 | tojson | safe}}');
 
             
             var draftnames2 = JSON.parse('{{draftnames2 | tojson | safe}}');
             var drafturls2= JSON.parse('{{drafturls2 | tojson | safe}}');
             var draftsongsperuser2=JSON.parse('{{songsperuser2 | tojson | safe}}');
             var draftnumofusers2=JSON.parse('{{numofusers2 | tojson | safe}}');
-            var draftnotes2 =JSON.parse('{{draftnotes2 | tojson | safe}}');
+            var draftnotes2 =JSON.parse('{{draftnotes2 | tojson | safe}}'); //Causes error when you have a notes column that includes quotation; Might need to do it like resultsapge
             var drafttitle2 =JSON.parse('{{drafttitle2 | tojson | safe}}');
+            var draftsong4user2 = JSON.parse('{{draftsong4user2| tojson | safe}}');
 
 
             var draftnames3 = JSON.parse('{{draftnames3 | tojson | safe}}');
@@ -104,6 +116,7 @@
             var draftnumofusers3=JSON.parse('{{numofusers3 | tojson | safe}}');
             var draftnotes3 =JSON.parse('{{draftnotes3 | tojson | safe}}');
             var drafttitle3 =JSON.parse('{{drafttitle3 | tojson | safe}}');
+            var draftsong4user3 = JSON.parse('{{draftsong4user3 | tojson | safe}}');
              
             
           /*  if(draftnames != null || draftnames != "" ){

@@ -16,12 +16,7 @@ dbsetup = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};"
 
 #print(notes1)
 
-
-
 # Loop through tables and execute queries
-
-
-
 
 
 
@@ -39,6 +34,7 @@ def home():
     songsperuser1=[]
     numofusers1=[]
     drafttitle1=[]
+    draftsong4user1=[]
     
     names2=[]
     url2=[]
@@ -47,6 +43,7 @@ def home():
     songsperuser2=[]
     numofusers2=[]
     drafttitle2=[]
+    draftsong4user2=[]
 
     
     names3=[]
@@ -56,6 +53,8 @@ def home():
     songsperuser3=[]
     numofusers3=[]
     drafttitle3=[]
+    draftsong4user3=[]
+
 
     
     alltables=[]
@@ -75,7 +74,9 @@ def home():
                  entrynum1.append(row[4])
                  songsperuser1.append(row[5])
                  numofusers1.append(row[6])
-                 drafttitle1.append(row[7])     
+                 drafttitle1.append(row[7]) 
+                 draftsong4user1.append(row[8])
+    
         elif tablenum==2:
              for row in cursor:
               #print(table_name, row[1])
@@ -86,6 +87,7 @@ def home():
                 songsperuser2.append(row[5])
                 numofusers2.append(row[6])
                 drafttitle2.append(row[7])     
+                draftsong4user2.append(row[8])
 
         elif tablenum==3:
              for row in cursor:
@@ -96,15 +98,15 @@ def home():
                 songsperuser3.append(row[5])
                 numofusers3.append(row[6])
                 drafttitle3.append(row[7])     
+                draftsong4user3.append(row[8])
     
    
         tablenum+=1  
-    print("Here it is") 
-    print(names1)
+    #print(names1)
 
-    return render_template('gameprep.html',draftnames=names1,drafturls=url1,draftnotes=notes1,songsperuser=songsperuser1,numofusers=numofusers1,drafttitle1=drafttitle1,
-                           draftnames2=names2,drafturls2=url2,draftnotes2=notes2,songsperuser2=songsperuser2,numofusers2=numofusers2,drafttitle2=drafttitle2,
-                            draftnames3=names3,drafturls3=url3,draftnotes3=notes3,songsperuser3=songsperuser3,numofusers3=numofusers3,drafttitle3=drafttitle3)
+    return render_template('gameprep.html',draftnames=names1,drafturls=url1,draftnotes=notes1,songsperuser=songsperuser1,numofusers=numofusers1,drafttitle1=drafttitle1,draftsong4user1=draftsong4user1,
+                           draftnames2=names2,drafturls2=url2,draftnotes2=notes2,songsperuser2=songsperuser2,numofusers2=numofusers2,drafttitle2=drafttitle2,draftsong4user2=draftsong4user2,
+                            draftnames3=names3,drafturls3=url3,draftnotes3=notes3,songsperuser3=songsperuser3,numofusers3=numofusers3,drafttitle3=drafttitle3,draftsong4user3=draftsong4user3)
 
 
 #@app.route('/',methods=["GET","POST"])
@@ -117,27 +119,46 @@ def startgame():
     allthenames =[]
     allurls = []
     thenotes=[]
+    songnum4user=[]
     
-    print(request.form.get(f'namenum{1}'))
+    print(request.form.get(f'namenum{1}')) #f-string literal
 
     while f'name{personnum}' in request.form: #name{personnum} are the users unique identifiers 
+            print("hgegdue")
             allthenames.append(request.form[f'name{personnum}'])      #We're getting the variables in the form withrequest.form 
-            #print(allthenames[personnum])
-            personnum += 1       
-            totalsongs = int(request.form.get("songspereach")) * int(request.form.get("numofusers"))
+            personnum += 1  
+            #totalsongs=int(request.form.get('totalsongs'))   
+            print("This should print 111111111111")  
+    personnum=0
+    
+    totalsongs=0
+    while f'user{personnum}songtotal' in request.form:
+            songnum4user.append(request.form.get(f'user{personnum}songtotal'))
+            print("Hello")
+            print(request.form.get(f'user{personnum}songtotal'))
+            totalsongs+=int(request.form.get(f'user{personnum}songtotal'))
+            personnum += 1 
+            print("This should print 2222222222")  
+
+            
+            
     for x in range(totalsongs):
         allurls.append(request.form.get(f'namenum{x}')) #Pushing each song URL from 
         thenotes.append(request.form.get(f'notes4song{x}'))
         print(allurls[x])
         x+=1
+        print("This should print 33333333333")  
+
     print(totalsongs)
     print(thenotes)
     
-    if request.form.get("checkdraftbut")=="notclicked":#if request.method == "POST":    
-        return render_template('gametime.html',totalusers = int(request.form.get("numofusers")),songspereach=request.form.get("songspereach"),
-                               allnames=allthenames,utubeurls=allurls,thenotes=thenotes)
+    if request.form.get("checkdraftbut")=="notclicked":   #Officially start the game
+        print("Song num per user should be right here:")
+        print(songnum4user)
+        return render_template('gametime.html',totalusers = int(request.form.get("numofusers")),allnames=allthenames,utubeurls=allurls,thenotes=thenotes,songnum4user=songnum4user,totalsongs=totalsongs) 
+        #,songspereach=request.form.get("songspereach")
     
-    elif request.form.get("checkdraftbut")=="createnewdraft":
+    elif request.form.get("checkdraftbut")=="createnewdraft": #Create new draft
             iterthrsongs=0                  
             cursor = dbsetup.cursor()
             
@@ -145,16 +166,21 @@ def startgame():
             newdraftname = request.form.get("newdraftname").replace(" ","_")
             
             cursor.execute(f"""CREATE TABLE "{newdraftname}"(UserNum int IDENTITY(1,1) PRIMARY KEY,Name nvarchar(50) NOT NULL,SongURL nvarchar(255),Notes nvarchar(255),
-            EntryNum int,SongsperUser int,NumofUsers int,DraftTitle nvarchar(255));""")
+            EntryNum int,SongsperUser int,NumofUsers int,DraftTitle nvarchar(255),SpecificUserSongNum int);""")
             cursor.commit()
             
             for x in range(int(request.form.get("numofusers"))):
-                          songsperuser = totalsongs//len(allthenames) # Double /:To prevent float TypeError
-                          for y in range(songsperuser):
+                          songsperuser = songnum4user[x]#totalsongs//len(allthenames) # Double /:To prevent float TypeError
+                          for y in range(int(songsperuser)):
                               cursor.execute(f"""INSERT INTO "{newdraftname}"(Name,SongURL,Notes,EntryNum,SongsperUser,NumofUsers,DraftTitle)VALUES(?, ?, ?, ?, ?, ?,?)""",
                                              (allthenames[x], allurls[iterthrsongs], thenotes[iterthrsongs],int(iterthrsongs+1), songsperuser, len(allthenames),newdraftname))
                               iterthrsongs+=1
 
+            placement=1
+            for x in songnum4user:
+                cursor.execute(f"""UPDATE "{newdraftname}" SET SpecificUserSongNum={x} WHERE EntryNum={placement};""")
+                placement+=1
+                
             cursor.commit()
             cursor.close()
             return redirect('/')
@@ -171,6 +197,7 @@ def startgame():
             
     else:  #Update original draft
         iterthrsongs=0
+        entrynum=1
         print("Draft save button Clicked")
         print(allurls)
         print(allthenames)
@@ -178,15 +205,27 @@ def startgame():
         newdraftname = request.form.get("newdraftname").replace(" ","_")
         
         cursor = dbsetup.cursor()
-        cursor.execute(f"""DELETE FROM {newdraftname};""")
-        cursor.commit()
+        #cursor.execute(f"""DELETE FROM {newdraftname};""")
+        #cursor.commit()
         for x in range(len(allthenames)):
-            songsperuser = totalsongs//len(allthenames) # Double /:To prevent float TypeError
+            songsperuser =  songnum4user[x]# totalsongs//len(allthenames) # Double /:To prevent float TypeError
             for y in range(songsperuser):
-                cursor.execute(f"""INSERT INTO "{newdraftname}" (Name,SongURL,Notes,EntryNum,SongsperUser,NumofUsers,DraftTitle)VALUES(?, ?, ?, ?, ?, ?,?)""",
-                               (allthenames[x], allurls[iterthrsongs], thenotes[iterthrsongs],int(iterthrsongs+1), songsperuser, len(allthenames),newdraftname))
+                cursor.execute(f"""
+                UPDATE [{newdraftname}] 
+                SET 
+                Name = '{allthenames[x]}',
+                SongURL = '{allurls[iterthrsongs]}',
+                Notes = '{thenotes[iterthrsongs]}',
+                EntryNum = {int(iterthrsongs+1)},
+                SongsperUser = {songsperuser},
+                NumofUsers = {len(allthenames)},
+                DraftTitle = '{newdraftname}'
+                WHERE EntryNum = {int(iterthrsongs+1)}""")                
+                '''cursor.execute(f"""INSERT INTO "{newdraftname}" (Name,SongURL,Notes,EntryNum,SongsperUser,NumofUsers,DraftTitle)VALUES(?, ?, ?, ?, ?, ?,?)""",
+                               (allthenames[x], allurls[iterthrsongs], thenotes[iterthrsongs],int(iterthrsongs+1), songsperuser, len(allthenames),newdraftname))'''
                 #print("Name:" + allthenames[x] + "; Song URL:" + allurls[iterthrsongs] + " - " + str(iterthrsongs))
                 iterthrsongs+=1
+                
                 
         cursor.commit()    
         cursor.close()
@@ -215,19 +254,6 @@ def showresults():
                            allnotes=request.form.get("notesforresults"),losernotes=request.form.get('losernotes'));   
 
 
-
- 
-        
-'''def startgame():
-    try:
-        data = request.json
-
-        if not data:
-            return jsonify({"status": "error", "message": "No data received"}), 400
-        
-        return jsonify({"status": "success", "data": data}), 200
-    except Exception as e:
-        return jsonify({"status": "error", "message": str(e)}), 500'''
  
     
 '''@app.route("/startgame")
@@ -241,8 +267,11 @@ def testarea():
 
 
 if __name__ == "__main__":
+    #Testing version
     app.run(debug=True)
+    
+    #Production version
      # This is where Waitress runs the whole app
-    from waitress import serve
-   # print("Running on http://localhost:8000/")
-    #serve(app, host="localhost", port=8000)
+'''from waitress import serve
+    print("Running on http://localhost:8000/")
+    serve(app, host="localhost", port=8000)'''

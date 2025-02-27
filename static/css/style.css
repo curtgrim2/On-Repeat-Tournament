@@ -4,6 +4,16 @@
     padding:0;
 }
 
+
+
+#leftnotes,#rightnotes{
+    display:none;
+}
+
+
+
+
+
 body{
    /* min-width:960px;*/
   
@@ -355,6 +365,11 @@ box-shadow:0px 0px 20px 2px yellow;
     text-decoration: none !important; 
     color:red;
     text-decoration-color: grey;
+}
+
+#remainingsongs{
+background-color: black;
+color:white;
 }
 
 @keyframes hoveringcoinflip{
