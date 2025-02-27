@@ -209,7 +209,7 @@ def startgame():
         #cursor.commit()
         for x in range(len(allthenames)):
             songsperuser =  songnum4user[x]# totalsongs//len(allthenames) # Double /:To prevent float TypeError
-            for y in range(songsperuser):
+            for y in range(int(songsperuser)):
                 cursor.execute(f"""
                 UPDATE [{newdraftname}] 
                 SET 
