@@ -17,3 +17,4 @@
 - Allow quotations to be in notes
 - Quick access to names and their sections (do the same for results page)
 - Apply song notes to third index in multidimensional array (until then, don't display notes)
+- Change the amount of songs per user on slide 3
