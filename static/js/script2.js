@@ -188,20 +188,27 @@ var testusernum = 3;
                     winners.push(tempwinner); /*winners.push(allusers2[usersongs1][songselector1].shift()); */
                     losers.push(eliminated);
                     losernames.push(users_name[usersongs2]);
-                    winnernotes.push(usersnotes2[usersongs1][songselector1]);
-                    losernotes.push(usersnotes2[usersongs2][songselector2]);
+
+                    winnernotes.push(tempnoteswin);
+                    losernotes.push(elimnotes);
+                   /* winnernotes.push(usersnotes2[usersongs1][songselector1]);
+                    losernotes.push(usersnotes2[usersongs2][songselector2]);*/
 
 
 
-                    
-                    
+                    var winindex =allusers2[usersongs1].indexOf(tempwinner);
+                    var elimindex = allusers2[usersongs2].indexOf(eliminated);
+
 
                     allusers2[usersongs1].splice(allusers2[usersongs1].indexOf(tempwinner),1); //Get rid of both songs from current round selection pool but saves winner in "winners" array
                     allusers2[usersongs2].splice(allusers2[usersongs2].indexOf(eliminated),1); //Song locations change so use indexOf function to always pick right index
-                    
-                    usersnotes2[usersongs1].splice(usersnotes2[usersongs1].indexOf(tempnoteswin),1);
-                    usersnotes2[usersongs2].splice(usersnotes2[usersongs2].indexOf(elimnotes),1);
+                   
 
+
+                    usersnotes2[usersongs1].splice(winindex,1);
+                    usersnotes2[usersongs2].splice(elimindex,1); 
+
+                    console.log(allusers2);
                     console.log(usersnotes2);
 
                     //allusers2 = allusers2.filter(arr => arr.length > 0);
@@ -227,20 +234,20 @@ var testusernum = 3;
                     losers.push(eliminated);
                     losernames.push(users_name[usersongs1]);
                     console.log(usersnotes2[usersongs2][songselector2]);
-                    winnernotes.push(usersnotes2[usersongs2][songselector2]);
-                    losernotes.push(usersnotes2[usersongs1][songselector1]);
+                    winnernotes.push(tempnoteswin);//winnernotes.push(usersnotes2[usersongs2][songselector2]);
+                    losernotes.push(elimnotes);//losernotes.push(usersnotes2[usersongs1][songselector1]);
 
 
-
-                    
-
-                    
+                    var winindex = allusers2[usersongs2].indexOf(tempwinner);
+                    var elimindex  = allusers2[usersongs1].indexOf(eliminated);     
 
                     allusers2[usersongs2].splice(allusers2[usersongs2].indexOf(tempwinner),1);
                     allusers2[usersongs1].splice(allusers2[usersongs1].indexOf(eliminated),1);
 
-                    usersnotes2[usersongs2].splice(usersnotes2[usersongs2].indexOf(tempnoteswin),1);
-                    usersnotes2[usersongs1].splice(usersnotes2[usersongs1].indexOf(elimnotes),1);
+                      
+
+                    usersnotes2[usersongs2].splice(winindex,1);
+                    usersnotes2[usersongs1].splice(elimindex,1);
                     console.log(usersnotes2);
 
                 console.log("Eliminated: " + eliminated + ", Winner: " +  tempwinner);
@@ -399,7 +406,7 @@ var testusernum = 3;
                 document.getElementById("rightname").innerHTML = newusernames[usersongs2];*/
                 
                 console.log(users_name);
-                console.log("usersongs1:" + usersongs1 + "; usersongs2 " + usersongs2);
+                console.log("usersongs1:" + usersongs1 + "; usersongs2: " + usersongs2);
 
 
                 document.getElementById("leftname").innerHTML =users_name[usersongs1];

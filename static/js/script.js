@@ -143,7 +143,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         utubeURLs.placeholder="Enter the URL";
         utubeURLs.style.display ="block";
         utubeURLs.style.width="90%";
-        console.log(`namenum${eacheverysong}`);
+        //console.log(`namenum${eacheverysong}`);
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(utubeURLs); 
 
         var dontuse = document.createElement('input');
