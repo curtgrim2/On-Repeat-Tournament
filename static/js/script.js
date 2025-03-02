@@ -38,11 +38,11 @@ function toslide2(showusernum){
         error.innerHTML = "Values cannot be empty!";
    }
 
-    else if(totalsongs%2!==0){
+   /* else if(totalsongs%2!==0){
     error.style.display = "block";
     error.innerHTML = "TOTAL AMOUNT OF SONGS MUST BE EVEN";
 
-   }
+   }*/
 
     else if(showusernum.value>6){
     error.style.display = "block";

@@ -124,30 +124,28 @@ def startgame():
     print(request.form.get(f'namenum{1}')) #f-string literal
 
     while f'name{personnum}' in request.form: #name{personnum} are the users unique identifiers 
-            print("hgegdue")
             allthenames.append(request.form[f'name{personnum}'])      #We're getting the variables in the form withrequest.form 
             personnum += 1  
             #totalsongs=int(request.form.get('totalsongs'))   
-            print("This should print 111111111111")  
+            #print("This should print 111111111111")  
     personnum=0
     
     totalsongs=0
     while f'user{personnum}songtotal' in request.form:
             songnum4user.append(request.form.get(f'user{personnum}songtotal'))
-            print("Hello")
-            print(request.form.get(f'user{personnum}songtotal'))
+            #print(request.form.get(f'user{personnum}songtotal'))
             totalsongs+=int(request.form.get(f'user{personnum}songtotal'))
             personnum += 1 
-            print("This should print 2222222222")  
+           # print("This should print 2222222222")  
 
             
             
     for x in range(totalsongs):
         allurls.append(request.form.get(f'namenum{x}')) #Pushing each song URL from 
         thenotes.append(request.form.get(f'notes4song{x}'))
-        print(allurls[x])
+        #print(allurls[x])
         x+=1
-        print("This should print 33333333333")  
+        #print("This should print 33333333333")  
 
     print(totalsongs)
     print(thenotes)
@@ -207,23 +205,35 @@ def startgame():
         cursor = dbsetup.cursor()
         #cursor.execute(f"""DELETE FROM {newdraftname};""")
         #cursor.commit()
+        print(newdraftname)
         for x in range(len(allthenames)):
             songsperuser =  songnum4user[x]# totalsongs//len(allthenames) # Double /:To prevent float TypeError
             for y in range(int(songsperuser)):
-                cursor.execute(f"""
-                UPDATE [{newdraftname}] 
+                query = f"""
+                UPDATE [{newdraftname}]
                 SET 
-                Name = '{allthenames[x]}',
-                SongURL = '{allurls[iterthrsongs]}',
-                Notes = '{thenotes[iterthrsongs]}',
-                EntryNum = {int(iterthrsongs+1)},
-                SongsperUser = {songsperuser},
-                NumofUsers = {len(allthenames)},
-                DraftTitle = '{newdraftname}'
-                WHERE EntryNum = {int(iterthrsongs+1)}""")                
-                '''cursor.execute(f"""INSERT INTO "{newdraftname}" (Name,SongURL,Notes,EntryNum,SongsperUser,NumofUsers,DraftTitle)VALUES(?, ?, ?, ?, ?, ?,?)""",
-                               (allthenames[x], allurls[iterthrsongs], thenotes[iterthrsongs],int(iterthrsongs+1), songsperuser, len(allthenames),newdraftname))'''
-                #print("Name:" + allthenames[x] + "; Song URL:" + allurls[iterthrsongs] + " - " + str(iterthrsongs))
+                Name = ?, 
+                SongURL = ?, 
+                Notes = ?, 
+                EntryNum = ?, 
+                SongsperUser = ?, 
+                NumofUsers = ?, 
+                DraftTitle = ?
+                WHERE EntryNum = ?
+"""
+
+            #Parameterized values > f-strings due to possible SQL injection attack
+                cursor.execute(query, (
+                allthenames[x], 
+                allurls[iterthrsongs], 
+                thenotes[iterthrsongs], 
+                int(iterthrsongs + 1), 
+                songsperuser, 
+                len(allthenames), 
+                newdraftname, 
+                int(iterthrsongs + 1)
+            ))
+
                 iterthrsongs+=1
                 
                 
