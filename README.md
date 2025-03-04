@@ -1,5 +1,11 @@
 # On-Repeat-Tournament
 
+###  CSS Tasks (Assigned to Uriah):
+- Coin Flip pop up
+- Entirety of gameprep.html (All 3 sections)
+- Loading screen that leads to results page
+- Bottom of results page (In a round of 64, the bottom 4 songs are jumbled up)
+
 ### Notes
 - We should have this page display tiers of the songs (and long term it can be ordered by the points garnered)
 - We should save the results in the database via image BUT have a column dedicated to the winner and it's url (and maybe total points)
