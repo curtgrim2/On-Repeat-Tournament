@@ -18,9 +18,8 @@
 - Not allowed to start a database table with a number BUT we can somehow still display it as such (f.e. 12songeduwu)
 
 ### TASKS
-- Add another section in slide3 for notes/time start and stop
+- Add time start and stop
 - Edit total amount of songs within the draft page (slide 3)
-- Allow quotations to be in notes
+- Allow quotations to be in notes (I think this can be done by using [] around {variable} when putting this into the database)
 - Quick access to names and their sections (do the same for results page)
-- Apply song notes to third index in multidimensional array (until then, don't display notes)
 - Change the amount of songs per user on slide 3
