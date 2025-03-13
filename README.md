@@ -5,6 +5,7 @@
 - Entirety of gameprep.html (All 3 sections)
 - Loading screen that leads to results page
 - Bottom of results page (In a round of 64, the bottom 4 songs are jumbled up)
+- Images dont show in results screenshot
 
 ### Notes
 - We should have this page display tiers of the songs (and long term it can be ordered by the points garnered)
