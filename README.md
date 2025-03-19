@@ -24,7 +24,7 @@
   
 - Not allowed to start a database table with a number BUT we can somehow still display it as such (f.e. 12songeduwu)
 
-### TASKS
+### OTHER TASKS (Curtis)
 - Add time start and stop
 - Edit total amount of songs within the draft page (slide 3)
 - Allow quotations to be in notes (I think this can be done by using [] around {variable} when putting this into the database)
