@@ -344,6 +344,10 @@ box-shadow:0px 0px 20px 2px yellow;
 }
 
 #splashscreen{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
     position: fixed;
     top:0;
     left:0;
@@ -354,8 +358,9 @@ box-shadow:0px 0px 20px 2px yellow;
     background-color: black;
     width:100%;
     height:100%;
+    /*
     padding-top:20%;
-    padding-bottom:20%;
+    padding-bottom:20%;*/
 
     text-align:center;
     /*animation:splashloading 2s forwards;*/
@@ -368,9 +373,53 @@ box-shadow:0px 0px 20px 2px yellow;
 }
 
 #remainingsongs{
-background-color: black;
-color:white;
+    border: 1px solid white;
+    width:50%;
+    color:white;
+    margin:5% auto;
 }
+
+#navmenu{
+    background-color: black;
+    position:fixed;
+    padding:1%;
+    text-align:center;
+}
+
+#circle1,#circle2,#circle3,#circle4{
+   /* position: absolute;
+    top:0;*/
+    position: absolute;
+    border-radius: 50%;
+    height:200vw;
+    width:200vw;
+    background-color: #171717;
+    z-index:-1;
+    display:none;
+}
+
+#circle1{    
+        display:block;
+    animation:linear infinite 1.8s decreasecircle;
+
+}
+/*
+circle2{
+    animation:linear infinite 2s decreasecircle;
+
+}*/
+
+@keyframes decreasecircle{
+    from{
+
+    }
+    to{
+        width:0vw;
+        height:0vw;
+        opacity:0;
+    }
+}
+
 
 @keyframes hoveringcoinflip{
 

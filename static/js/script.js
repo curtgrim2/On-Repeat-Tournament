@@ -30,7 +30,7 @@ function toslide2(showusernum){
     totalsongs =  document.getElementById("totalsongs").value;  //parseInt(document.getElementById("songsperuser").value) * parseInt(showusernum.value);
 
     
-    remainingsongs.innerHTML=totalsongs;
+    remainingsongs.innerHTML="Remaining songs to be applied: "+ totalsongs;
 
 
      if(showusernum.value  ==""){
@@ -55,7 +55,7 @@ function toslide2(showusernum){
    }
 
   
-   else {
+   else { //If there are no errors, we can proceed with slide 2's creation
     console.log(showusernum.value);
     slide1.style.display = "none";
     slide2.style.display ="block";
@@ -77,14 +77,41 @@ function toslide2(showusernum){
         song4thisuser.id=`user${x}songtotal`;
         song4thisuser.name=`user${x}songtotal`;
     document.getElementById(node.id).insertAdjacentElement('afterend',song4thisuser);
+
+    document.getElementById(`user${x}songtotal`).addEventListener('input',showremainingsongs); //Checks if song total has been reached based on user input
     } 
 }
+
+
 }
 
+function showremainingsongs(){
+    var songsaccountedfor=0;
+    for(x=0; x<showusernum.value; x++){ 
+        songsaccountedfor=songsaccountedfor + Number(document.getElementById(`user${x}songtotal`).value);
+   
+    }
+    remainingsongs.innerHTML= Number(totalsongs-songsaccountedfor);
+    console.log(Number(remainingsongs.innerHTML),songsaccountedfor);
+    
+    if(Number(remainingsongs.innerHTML)<0){
+        remainingsongs.innerHTML="YOU ARE USING TOO MANY SONGS. REMOVE "+ Math.abs(remainingsongs.innerHTML) + " songs";
+    }
+
+    if(Number(remainingsongs.innerHTML)==0){
+        remainingsongs.innerHTML="GOOD TO GO";
+    }
+}
 
 
 var iterhelp2=0;
 function toslide3(showusernum,enternames){ /*For Youtube URLs */
+
+    if(remainingsongs.innerHTML!="GOOD TO GO"){
+        error.style.display="block";
+        error.innerHTML = "Please check and make sure all songs are allocated correctly";
+    }
+    else{
 
     document.getElementById("isthesavebuttonclicked").value="notclicked";
 
@@ -119,6 +146,14 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
 
        var songstocreate=document.getElementById(`user${x}songtotal`).value;
 
+       var quickfind = document.createElement("a");
+        quickfind.href=`#namenumid${x}`;
+        quickfind.innerHTML= document.getElementById(`nameid${x}`).value;
+        quickfind.style.display="block";
+        quickfind.style.textDecoration="none";
+        quickfind.style.fontWeight="bold";
+       document.getElementById("navmenu").appendChild(quickfind);
+
        for(y=0; y<songstocreate; y++){//for(y=0; y<songsperuser.value; y++){ //Each user gets a certain amount of songs. Here we display them.
 
         var newtotalsongs;
@@ -146,10 +181,10 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         //console.log(`namenum${eacheverysong}`);
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(utubeURLs); 
 
-        var dontuse = document.createElement('input');
+       /* var dontuse = document.createElement('input');
         dontuse.type = "checkbox";
         dontuse.id=`ignoresong${iterhelp2}`;
-        document.getElementById(`namenumid2${iterhelp2}`).appendChild(dontuse);
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(dontuse); */
 
 
         var titleclass = document.createElement("div");
@@ -174,10 +209,9 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         showsongtitle("",`namenum${eacheverysong}`,fortitledisplay);
 
         //EVENT LISTENERS
-        dontuse.addEventListener('change',function(event){
+      /*  dontuse.addEventListener('change',function(event){
                 console.log(event.target.id,"was clicked");
-                //utubeURLs.id=`namenum${eacheverysong}`;
-        });
+        });*/
         utubeURLs.addEventListener('input',function(event){
             var neednameid = event.target.id;
             var fortitledisplay2=neednameid.substring(neednameid.length-1,neednameid.length);
@@ -189,6 +223,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
                             
        }
     }   
+}
 }
 
 
@@ -345,8 +380,7 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
        newdiv.style.width="50%";
        newdiv.style.margin="10px auto 10px auto";
 
-       //newdiv.style.textAlign="center";
-      // newdiv.style.height="30%"; //No height so that it always adjusts to dynamic # of songs
+     //No height so that it always adjusts to dynamic # of songs
        newdiv.style.paddingBottom ="2.5%";
 
 
@@ -355,11 +389,20 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         newdiv.innerHTML=draftnames[0];//Name of the user
        }
        else{ //Used to get each individual name as names repeat in database
-
         newdiv.innerHTML=draftnames[gothrnames];//Name of the user
        }
 
+       var quickfind = document.createElement("a");
+        quickfind.href=`#namenumid${x}`;
+        quickfind.innerHTML= draftnames[gothrnames];
+        quickfind.style.display="block";
+        quickfind.style.textDecoration="none";
+        quickfind.style.fontWeight="bold";
+       document.getElementById("navmenu").appendChild(quickfind);
+
        gothrnames+=draftsong4user[x];
+
+
 
        for(y=0; y<draftsong4user[x]; y++){ 
 
@@ -399,7 +442,6 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(notes);
 
         var fortitledisplay = titleclass.className.substring(titleclass.className.length-1,titleclass.className.length)
-        //console.log(fortitledisplay);
         showsongtitle(drafturls[iterhelp],`namenum${eacheverysong}`,fortitledisplay);
 
 
