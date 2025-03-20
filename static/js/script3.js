@@ -15,6 +15,8 @@ allnotes.unshift(losernotes);
 console.log(listoftiers);
 console.log(namesintiers);
 console.log(allnotes);
+
+//Here is where the tier slots are made
  for(x=1; x<=listoftiers.length; x++){ // for(x=0; listoftiers.length-1>=x; x++){
     var createtier = document.createElement("div");
     createtier.style.margin="0 auto";
@@ -58,41 +60,18 @@ console.log(allnotes);
  }
 
 
-//async function starters(){
  const splashScreen = document.getElementById('splashscreen');
 const mainContent = document.getElementById('results');
-splashScreen.style.display = 'block'; // Hide the splash screen
-mainContent.style.display = 'none'; // Show the main content
-/*   await videoDetails(listoftiers);
-}*/
+splashScreen.style.display = 'flex'; // Show the splash screen
+mainContent.style.display = 'none'; // Hide the main content
 
 console.log(listoftiers);
 videoDetails(listoftiers);
 
-/*
-window.addEventListener('load',()=>{
-const splashScreen = document.getElementById('splashscreen');
-const mainContent = document.getElementById('results');
 
-splashScreen.style.display = 'block'; // Hide the splash screen
-mainContent.style.display = 'none'; // Show the main content
-
-setTimeout(()=>{
-
-    splashScreen.style.display = 'none'; // Hide the splash screen
-    mainContent.style.display = 'block'; // Show the main content
-
-},1); //3 second wait //3000
-}); */
-
-
- 
-
- 
-  async function videoDetails(listoftiers) { //async
-   // return new Promise((resolve) => {
+ //Where the magic happens
+  async function videoDetails(listoftiers) { 
     var urltitles =[];
-           //console.log(vid_id[2]);
            console.log(listoftiers);
            var tiernumber=1;
 
@@ -126,18 +105,17 @@ setTimeout(()=>{
       throw new Error("Network status isn't okay " + response.statusText);
         }
         const video = await response.json();
-        //console.log(video.items[0].snippet.title);
 
         var newtieritem = document.createElement("div");
 
         //urltitles[urlindex++] =video.items[0].snippet.title; //This won't work with API call; "Returns only once"
-        if(tierlength==1){//Winning tier
-
+        if(y==0 && tierlength==1 &&  x==listoftiers.length-1){//Winning tier
+            console.log("Winning Tier",y);
             var tiertitle = document.createElement("div");
             tiertitle.innerHTML ="AND THE WINNER IS...";
             document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
             console.log(namesintiers[namesintiers.length-1]);
-            newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[namesintiers.length-1][0] +"]";
+            newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";//namesintiers[namesintiers.length-1][0] +"]";
             newtieritem.style.textDecoration="underline";
             newtieritem.style.textDecorationColor = "red";
             newtieritem.id=video.items[0].snippet.title + x;
@@ -145,14 +123,19 @@ setTimeout(()=>{
             newtieritem.className="SongsDiv"; 
             //newtieritem.style.backgroundColor="pink";
             newtieritem.style.width="50%";
-
-            
             newtieritem.style.display="inline-block";
-            
-
             newtieritem.style.color ="gold";
-
             document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
+
+            var nametag = document.createElement("span");
+            nametag.innerHTML =  namesintiers[x][y];
+            nametag.style.backgroundColor = "black";
+            nametag.style.borderRadius = "50%";
+            nametag.style.padding=".5% 2%";
+            //nametag.style.textDecoration="none";
+            document.getElementById(newtieritem.id).appendChild(nametag);
+            //document.getElementById(`Tier_${tiernumber}`).appendChild(nametag);
+
 
 
             var thumbnail = document.createElement("img");
@@ -164,6 +147,7 @@ setTimeout(()=>{
             thumbnail.style.display="block";
             //thumbnail.style.margin="0 auto";
             document.getElementById(newtieritem.id).appendChild(thumbnail);//document.getElementById(`Tier_${tiernumber}`).appendChild(thumbnail);
+            y++;
 
 
         }
@@ -192,6 +176,8 @@ setTimeout(()=>{
             newtieritem.style.textDecoration="underline";
             newtieritem.style.display="inline-block";
 
+            
+
 
             if(x==0){
                 newtieritem.style.textDecorationColor = "blue";
@@ -205,8 +191,16 @@ setTimeout(()=>{
             newtieritem.style.position="relative";
             newtieritem.style.textAlign="center";
             newtieritem.className="SongsDiv";
-            
             document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
+
+            var nametag = document.createElement("span");
+            nametag.innerHTML = namesintiers[x][y];
+            nametag.style.backgroundColor = "black";
+            nametag.style.borderRadius = "50%";
+            nametag.style.padding=".5% 2%";
+            //nametag.style.textDecoration="none";
+            document.getElementById(newtieritem.id).appendChild(nametag);
+            //document.getElementById(`Tier_${tiernumber}`).appendChild(nametag);
 
             var thumbnail = document.createElement("img");
             thumbnail.src= video.items[0].snippet.thumbnails.high.url;
@@ -214,6 +208,8 @@ setTimeout(()=>{
             thumbnail.style.height = "30%";
             thumbnail.style.display="block";
             document.getElementById(newtieritem.id).appendChild(thumbnail);//document.getElementById(`Tier_${tiernumber}`).appendChild(thumbnail);
+            y++;
+
         }
         else{ //Inside existing tier
 
@@ -235,10 +231,17 @@ setTimeout(()=>{
             //newtieritem.style.backgroundColor="pink";
             newtieritem.style.width="50%";
             newtieritem.style.display="inline-block";
-
-
             newtieritem.className="SongsDiv";
             document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
+
+            var nametag = document.createElement("span");
+            nametag.innerHTML = namesintiers[x][y];
+            nametag.style.backgroundColor = "black";
+            nametag.style.borderRadius = "50%";
+            nametag.style.padding=".5% 2%";
+            //nametag.style.textDecoration="none";
+            document.getElementById(newtieritem.id).appendChild(nametag);
+            //document.getElementById(`Tier_${tiernumber}`).appendChild(nametag);
 
             var thumbnail = document.createElement("img");
             thumbnail.src= video.items[0].snippet.thumbnails.high.url;
@@ -250,6 +253,8 @@ setTimeout(()=>{
             thumbnail.style.position="relative";
 
             document.getElementById(newtieritem.id).appendChild(thumbnail);//document.getElementById(`Tier_${tiernumber}`).appendChild(thumbnail);
+            y++;
+
 
         }           
 // return video.items[0].snippet.title;
@@ -258,14 +263,18 @@ setTimeout(()=>{
     catch(error){
      console.error("Fetch error:",error);
 }   
-    y++;
+    //y++;
+    console.log("Y checker: ",y);
 }
+console.log("Y Final: ",y);
+
 }
 
 else {
 console.error("Variable is not defined or is not an array:", variable);
 }
 tiernumber++;
+
 }
 
 for(x=0; x<document.getElementsByClassName("SongsDiv").length-listoftiers[0].length;x++){

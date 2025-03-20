@@ -92,7 +92,7 @@ function showremainingsongs(){
    
     }
     remainingsongs.innerHTML= Number(totalsongs-songsaccountedfor);
-    console.log(Number(remainingsongs.innerHTML),songsaccountedfor);
+    //console.log(Number(remainingsongs.innerHTML),songsaccountedfor);
     
     if(Number(remainingsongs.innerHTML)<0){
         remainingsongs.innerHTML="YOU ARE USING TOO MANY SONGS. REMOVE "+ Math.abs(remainingsongs.innerHTML) + " songs";
@@ -178,8 +178,24 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         utubeURLs.placeholder="Enter the URL";
         utubeURLs.style.display ="block";
         utubeURLs.style.width="90%";
-        //console.log(`namenum${eacheverysong}`);
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(utubeURLs); 
+
+        //<iframe id="leftvid" width="100%" height="315" src="" title="YouTube video player" frameborder="0" 
+        // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; ; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+        // allowfullscreen> </iframe> <!-- src="https://www.youtube.com/embed/zm6gHJ3SQIM"--><!--https://www.youtube.com/embed/EpV_WbjyY00-->
+
+        var urlvideo = document.createElement('iframe');
+        urlvideo.id=`video${iterhelp2}`;
+        urlvideo.width="75%";
+        urlvideo.height="25%";
+        urlvideo.src="";
+        urlvideo.title="Youtube Video Player";
+        //Frameborder is depreciated?
+        urlvideo.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; ; web-share";
+        urlvideo.referrerPolicy="strict-origin-when-cross-origin";
+        urlvideo.allowFullscreen="true";
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(urlvideo);
+
 
        /* var dontuse = document.createElement('input');
         dontuse.type = "checkbox";
@@ -215,7 +231,8 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         utubeURLs.addEventListener('input',function(event){
             var neednameid = event.target.id;
             var fortitledisplay2=neednameid.substring(neednameid.length-1,neednameid.length);
-            showsongtitle(event.target.value,event.target.id,fortitledisplay);
+            console.log(fortitledisplay2);
+            showsongtitle(event.target.value,event.target.id,fortitledisplay2);
         });
 
         eacheverysong++;
@@ -422,9 +439,19 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         utubeURLs.style.display ="block";
         utubeURLs.style.width="90%";
         utubeURLs.value = drafturls[iterhelp];
-
-
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(utubeURLs);
+
+        var urlvideo = document.createElement('iframe');
+        urlvideo.id=`video${eacheverysong}`;
+        urlvideo.width="75%";
+        urlvideo.height="25%";
+        urlvideo.src="";
+        urlvideo.title="Youtube Video Player";
+        //Frameborder is depreciated?
+        urlvideo.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; ; web-share";
+        urlvideo.referrerPolicy="strict-origin-when-cross-origin";
+        urlvideo.allowFullscreen="true";
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(urlvideo);
 
         var titleclass = document.createElement("div");
         titleclass.className = `namenum${eacheverysong}`;
@@ -441,17 +468,21 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         notes.value = draftnotes[iterhelp];
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(notes);
 
-        var fortitledisplay = titleclass.className.substring(titleclass.className.length-1,titleclass.className.length)
-        showsongtitle(drafturls[iterhelp],`namenum${eacheverysong}`,fortitledisplay);
+        var fortitledisplay = eacheverysong;//titleclass.className.substring(titleclass.className.length-1,titleclass.className.length);
+        console.log(fortitledisplay);
+        //console.log(drafturls[iterhelp]);
+        //console.log(iterhelp);
+        //console.log(urlvideo.id);
+        //console.log(drafturls[iterhelp]);
+       showsongtitle(drafturls[iterhelp],`namenum${eacheverysong}`,fortitledisplay,urlvideo.id);
 
 
-
-
+        
 
         utubeURLs.addEventListener('input',function(event){
             var neednameid = event.target.id;
             var fortitledisplay2=neednameid.substring(neednameid.length-1,neednameid.length);
-            showsongtitle(event.target.value,event.target.id,fortitledisplay);
+            showsongtitle(event.target.value,event.target.id,fortitledisplay2);
         });
 
 
@@ -562,8 +593,8 @@ otherthing1.addEventListener('click',(event)=>{
     }*/
 }
 
-function showsongtitle(theurl,usethisid,fortitledisplay){
-   
+function showsongtitle(theurl,usethisid,fortitledisplay,urlvideoid){
+            //console.log("theurl:",theurl,";  usethisid: ",usethisid ,"; fortitledisplay:",fortitledisplay );
     //Right here is where we need to have utube values and maybe a for loop with it
             
         const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/; 
@@ -577,8 +608,10 @@ function showsongtitle(theurl,usethisid,fortitledisplay){
         //}
         /*match[0] is the entire url,  match[1] is which exxpression contained the video ID, match[2] is the ID itself*/
                                                     //true    //false
+        //console.log(match[2]);
+
         (match && match[2].length === 11) ? 
-        getVideoDetails(match[2],usethisid,fortitledisplay) : 
+        getVideoDetails(match[2],usethisid,fortitledisplay,urlvideoid) : 
         document.getElementsByClassName(usethisid)[0].innerHTML="PLEASE ENTER VALID YOUTUBE URL"; 
         /*Youtube ID's are always 11 characters long*/ 
     
@@ -586,7 +619,7 @@ function showsongtitle(theurl,usethisid,fortitledisplay){
 
 }
 
-async function getVideoDetails(videoId,usethisid,fortitledisplay){
+async function getVideoDetails(videoId,usethisid,fortitledisplay,urlvideoid){
     const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet,contentDetails,statistics&key=${apiKey}`;
 
     try{
@@ -595,17 +628,26 @@ async function getVideoDetails(videoId,usethisid,fortitledisplay){
             throw new Error("Network status isn't ok:" + response.statusText);
         }
         const data = await response.json();
-       //console.log(document.getElementsByClassName(usethisid)[0]);
 
+        //console.log(usethisid);
        document.getElementsByClassName(usethisid)[0].innerHTML=data.items[0].snippet.title;
+
+       //console.log(usethisid);
+        //console.log(document.getElementById(`video${fortitledisplay}`));
+        //console.log(videoId);
+
+        //console.log(data.items[0].snippet.title," for ", usethisid,"/",urlvideoid);
+        console.log(urlvideoid," vs ",document.getElementById(`video${fortitledisplay}`).id);
+
+
+            document.getElementById(`video${fortitledisplay}`).src ="https://www.youtube.com/embed/" +  videoId;//www.youtube.com/embed/zm6gHJ3SQIM";
+     
 
       /* var titledisplayed = document.createElement("span");
        titledisplayed.innerHTML=data.items[0].snippet.title;
        titledisplayed.id="";
-
-     
         document.getElementById(usethisid).insertAdjacentElement('afterend',titledisplayed);
-        console.log( document.getElementById(usethisid));*/
+        */
 
     
     }
