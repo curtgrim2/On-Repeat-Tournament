@@ -298,6 +298,8 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
     if(whichdraft==1){
         draftnames=draftnames1;
         document.getElementsByName("newdraftname")[0].value=drafttitle1[0];
+        draftsong4user=draftsong4user1;
+
 
     }
     if(whichdraft==2){
