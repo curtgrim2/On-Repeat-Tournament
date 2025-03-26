@@ -30,3 +30,4 @@
 - Allow quotations to be in notes (I think this can be done by using [] around {variable} when putting this into the database)
 - Quick access to names and their sections (do the same for results page)
 - Change the amount of songs per user on slide 3 (remove/add songs)
+- Figure out Table/Draft title logistics
