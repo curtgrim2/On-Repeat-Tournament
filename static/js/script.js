@@ -44,9 +44,9 @@ function toslide2(showusernum){
 
    }*/
 
-    else if(showusernum.value>6){
+    else if(showusernum.value>10){
     error.style.display = "block";
-    error.innerHTML = "TOO MANY USERS - Maximum of 6";
+    error.innerHTML = "TOO MANY USERS - Maximum of 10";
    }
 
    else if(showusernum.value < 0){

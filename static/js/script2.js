@@ -22,20 +22,24 @@ var testusernum = 3;
             var allnames=[];                
             var tiercounter=0;
 
-            //Because of 6 hard coded arrays, Application will have no more than 6 users who can play
+            //Because of 10 hard coded arrays, Application will have no more than 10 users who can play
             var user1songs = [];
             var user2songs = [];
             var user3songs = [];
             var user4songs = [];
             var user5songs = [];
             var user6songs = [];
-            var allusers = [user1songs,user2songs,user3songs,user4songs,user5songs,user6songs];
+            var user7songs =[];
+            var user8songs =[];
+            var user9songs =[];
+            var user10songs =[];
+            var allusers = [user1songs,user2songs,user3songs,user4songs,user5songs,user6songs,user7songs,user8songs,user9songs,user10songs];
 
 
-            var usersnotes =[[],[],[],[],[],[]];
+            var usersnotes =[[],[],[],[],[],[],[],[],[],[]];
 
 
-            //Setting the amount of users that are playing the game (Maximum of 6)
+            //Setting the amount of users that are playing the game (Maximum of 10)
             var setlength = allusers.length;
             for(x=totalusers; x<setlength; x++){
                 allusers.pop();
