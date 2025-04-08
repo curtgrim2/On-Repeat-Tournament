@@ -173,7 +173,6 @@ videoDetails(listoftiers);
             tiertitle.style.color="black";
             //tiertitle.style.textShadow ="2px 2px 5px gold";
             tiertitle.style.backgroundColor="white";
-            //tiertitle.style.wordBreak="break-word";
             tiertitle.style.textAlign="center";
             document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
 
