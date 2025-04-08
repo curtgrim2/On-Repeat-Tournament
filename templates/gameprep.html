@@ -47,7 +47,7 @@
 
                 <div id = "slide2"  onclick="showremainingsongs()">
                     <br/>
-                    Please enter each name of every player:
+                    Please enter the name and total song amount for each player:
                     <div id="enternames">
                         <br/>
                     </div>                   
@@ -133,8 +133,7 @@
 
            }
 
-           //var totaltitles = Object.keys(variables).length;
-           
+            //For Draft Slots           
            totaltitles=0;
             for(var x=1; x<=3; x++){
                 var draft = document.createElement("div");
@@ -143,8 +142,11 @@
                 draft.style.display="inline-block";
                 draft.style.bottom="0";
                 draft.style.padding="3% 0";
+                draft.style.margin="0 1%";
                 draft.style.textAlign="center";
                 draft.style.cursor="pointer";
+                //draft.style.boxShadow="0 0 12px 10px black";
+                //draft.style.className= "slide1drafts";
                 var combine = "drafttitle"+x;
 
                 if(variables[combine]==undefined){

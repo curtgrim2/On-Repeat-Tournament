@@ -64,6 +64,12 @@ function toslide2(showusernum){
     
 
     for(x=0; x<showusernum.value; x++){ 
+
+       if(x!=1){ 
+        var linebreak = document.createElement("br");
+        document.getElementById("enternames").appendChild(linebreak);
+    }
+
         var node  = document.createElement("input");
         node.type = "text";
        node.name = `name${x}`;
@@ -76,7 +82,12 @@ function toslide2(showusernum){
         song4thisuser.type="text";
         song4thisuser.id=`user${x}songtotal`;
         song4thisuser.name=`user${x}songtotal`;
-    document.getElementById(node.id).insertAdjacentElement('afterend',song4thisuser);
+        song4thisuser.style.width="3.5vw";
+        song4thisuser.style.textAlign="center";
+        document.getElementById(node.id).insertAdjacentElement('afterend',song4thisuser);
+
+        var linebreak = document.createElement("br");
+        document.getElementById("enternames").appendChild(linebreak);
 
     document.getElementById(`user${x}songtotal`).addEventListener('input',showremainingsongs); //Checks if song total has been reached based on user input
     } 
@@ -160,7 +171,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         newtotalsongs++;
 
 
-        var songcontain = document.createElement("div");
+        var songcontain = document.createElement("div"); //Song Container
         songcontain.id=`namenumid2${iterhelp2}`;
         //songcontain.style.border="1px black solid";
        // songcontain.style.backgroundColor="silver";
@@ -169,6 +180,10 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         songcontain.style.width="80%";
         songcontain.style.margin="0 auto 10px auto";
         songcontain.style.paddingTop="4%";
+        songcontain.style.display="flex";
+       songcontain.style.flexDirection="column";
+       songcontain.style.alignItems="center"; //Shouldn't it be justify-content?
+       //songcontain.style.justifyContent="center";
         document.getElementById(`namenumid${x}`).appendChild(songcontain);
 
         var utubeURLs  = document.createElement("input");
@@ -177,7 +192,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         utubeURLs.name = `namenum${eacheverysong}`; //Ids ALL songs; Used in Python router
         utubeURLs.placeholder="Enter the URL";
         utubeURLs.style.display ="block";
-        utubeURLs.style.width="90%";
+        utubeURLs.style.width="60%";
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(utubeURLs); 
 
         //<iframe id="leftvid" width="100%" height="315" src="" title="YouTube video player" frameborder="0" 
@@ -219,6 +234,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         notes.placeholder="Optional notes goes here";
         //notes.style.marginBottom="5%";
         notes.style.margin="0 auto 5% auto";
+        notes.style.backgroundColor="black";
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(notes);
 
         var fortitledisplay = titleclass.className.substring(titleclass.className.length-1,titleclass.className.length)
@@ -391,19 +407,19 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
       for( x=0; x<draftnumofusers[0]; x++){  //For each user
         
 
-       var newdiv = document.createElement("div");
+       var newdiv = document.createElement("div"); //User container
        newdiv.id = `namenumid${x}`;
        newdiv.style.backgroundColor = "grey";
-       newdiv.style.display="block";
+       newdiv.style.display="flex";
+       newdiv.style.flexDirection="column";
+
        newdiv.style.margin="10px";
        newdiv.style.width="50%";
        newdiv.style.margin="10px auto 10px auto";
-
      //No height so that it always adjusts to dynamic # of songs
        newdiv.style.paddingBottom ="2.5%";
-
-
        document.getElementById("s3").appendChild(newdiv);
+
        if(x==0){
         newdiv.innerHTML=draftnames[0];//Name of the user
        }
@@ -421,16 +437,18 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
 
        gothrnames+=draftsong4user[x];
 
-
-
        for(y=0; y<draftsong4user[x]; y++){ 
 
-       var songcontain = document.createElement("div");
+       var songcontain = document.createElement("div"); //Song Container
        songcontain.id=`namenumid2${iterhelp2}`;
       songcontain.style.backgroundColor="#9d9e9d";
        songcontain.style.width="80%";
        songcontain.style.margin="0 auto 10px auto";
        songcontain.style.paddingTop="4%";
+       songcontain.style.display="flex";
+       songcontain.style.flexDirection="column";
+       songcontain.style.alignItems="center"; //Shouldn't it be justify-content?
+       //songcontain.style.justifyContent="center";
        document.getElementById(`namenumid${x}`).appendChild(songcontain);
 
         var utubeURLs  = document.createElement("input");
@@ -439,7 +457,7 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         utubeURLs.id = `namenum${eacheverysong}`; 
         utubeURLs.placeholder="Enter the URL";
         utubeURLs.style.display ="block";
-        utubeURLs.style.width="90%";
+        utubeURLs.style.width="60%";
         utubeURLs.value = drafturls[iterhelp];
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(utubeURLs);
 
@@ -466,6 +484,8 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         notes.id = `notes4song${eacheverysong}`;
         notes.name = `notes4song${eacheverysong}`;
         notes.style.width="70%";
+        notes.style.backgroundColor="black";
+        notes.style.color="white";
         notes.placeholder="Optional notes goes here";
         notes.value = draftnotes[iterhelp];
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(notes);
