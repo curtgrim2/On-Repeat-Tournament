@@ -115,14 +115,15 @@ videoDetails(listoftiers);
             tiertitle.innerHTML ="AND THE WINNER IS...";
             document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
             console.log(namesintiers[namesintiers.length-1]);
-            newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";//namesintiers[namesintiers.length-1][0] +"]";
+            newtieritem.innerHTML = video.items[0].snippet.title;// + " ["+ namesintiers[x][y] +"]";
+            //namesintiers[namesintiers.length-1][0] +"]";
             newtieritem.style.textDecoration="underline";
             newtieritem.style.textDecorationColor = "red";
             newtieritem.id=video.items[0].snippet.title + x;
             console.log(newtieritem.id);
             newtieritem.className="SongsDiv"; 
             //newtieritem.style.backgroundColor="pink";
-            newtieritem.style.width="50%";
+            newtieritem.style.width="100%";
             newtieritem.style.display="inline-block";
             newtieritem.style.color ="gold";
             document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
@@ -132,13 +133,14 @@ videoDetails(listoftiers);
             nametag.style.backgroundColor = "black";
             nametag.style.borderRadius = "50%";
             nametag.style.padding=".5% 2%";
+            nametag.style.margin="0 2%";
+            nametag.style.fontSize="2.5vh";
             //nametag.style.textDecoration="none";
             document.getElementById(newtieritem.id).appendChild(nametag);
-            //document.getElementById(`Tier_${tiernumber}`).appendChild(nametag);
-
 
 
             var thumbnail = document.createElement("img");
+            thumbnail.crossOrigin="anonymous";
             thumbnail.src= video.items[0].snippet.thumbnails.high.url;
             console.log(video.items[0].snippet.thumbnails.high.url);
 
@@ -154,25 +156,30 @@ videoDetails(listoftiers);
         else if(y==0){ //Start of a new tier (Not Winning tier)
 
             var tiertitle = document.createElement("div");
+            tiertitle.style.fontSize="2.7vh";
+            tiertitle.style.maxWidth = "50%";
+
+            //tiertitle.style.fontSize="100%";
             
             if(x==0){
                 tiertitle.innerHTML = "COMPLETE LOSERS";
-                tiertitle.style.width="30%";
+                //tiertitle.style.width="30%";
             }
             else{
                 tiertitle.innerHTML = "Tier "+ tiernumber;
-                tiertitle.style.width="10%";
+               // tiertitle.style.width="10%";
 
             }
             tiertitle.style.color="black";
             //tiertitle.style.textShadow ="2px 2px 5px gold";
             tiertitle.style.backgroundColor="white";
+            //tiertitle.style.wordBreak="break-word";
             tiertitle.style.textAlign="center";
             document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
 
-            newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
+            newtieritem.innerHTML = video.items[0].snippet.title;// + " ["+ namesintiers[x][y] +"]";
            // newtieritem.style.backgroundColor="pink";
-            newtieritem.style.width="50%";
+            newtieritem.style.width="100%";
             newtieritem.style.textDecoration="underline";
             newtieritem.style.display="inline-block";
 
@@ -198,11 +205,15 @@ videoDetails(listoftiers);
             nametag.style.backgroundColor = "black";
             nametag.style.borderRadius = "50%";
             nametag.style.padding=".5% 2%";
+            nametag.style.margin="0 2%";
+            nametag.style.fontSize="2.5vh";
+
             //nametag.style.textDecoration="none";
             document.getElementById(newtieritem.id).appendChild(nametag);
             //document.getElementById(`Tier_${tiernumber}`).appendChild(nametag);
 
             var thumbnail = document.createElement("img");
+            thumbnail.crossOrigin="anonymous";
             thumbnail.src= video.items[0].snippet.thumbnails.high.url;
             thumbnail.style.aspectRatio="1";
             thumbnail.style.height = "30%";
@@ -213,7 +224,7 @@ videoDetails(listoftiers);
         }
         else{ //Inside existing tier
 
-            newtieritem.innerHTML = video.items[0].snippet.title + " ["+ namesintiers[x][y] +"]";
+            newtieritem.innerHTML = video.items[0].snippet.title;// + " ["+ namesintiers[x][y] +"]";
 
             newtieritem.style.textDecoration="underline";
             if(x==0){
@@ -229,7 +240,7 @@ videoDetails(listoftiers);
             newtieritem.style.position="relative";
             newtieritem.style.textAlign="center";
             //newtieritem.style.backgroundColor="pink";
-            newtieritem.style.width="50%";
+            newtieritem.style.width="100%";
             newtieritem.style.display="inline-block";
             newtieritem.className="SongsDiv";
             document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
@@ -239,11 +250,15 @@ videoDetails(listoftiers);
             nametag.style.backgroundColor = "black";
             nametag.style.borderRadius = "50%";
             nametag.style.padding=".5% 2%";
+            nametag.style.margin="0 2%";
+            nametag.style.fontSize="2.5vh";
+
             //nametag.style.textDecoration="none";
             document.getElementById(newtieritem.id).appendChild(nametag);
             //document.getElementById(`Tier_${tiernumber}`).appendChild(nametag);
 
             var thumbnail = document.createElement("img");
+            thumbnail.crossOrigin="anonymous";
             thumbnail.src= video.items[0].snippet.thumbnails.high.url;
             thumbnail.style.aspectRatio="1";
             thumbnail.style.height = "30%";
@@ -456,7 +471,7 @@ function screenshot(){
 var resultstitle = prompt("Screenshot Title?","fullresults");
 
 if(resultstitle!=null){
-html2canvas(document.body).then(canvas=>{
+html2canvas(document.body,{useCORS:true}).then(canvas=>{
     var link = document.createElement("a");
     link.download = resultstitle + ".png";
     link.href = canvas.toDataURL();

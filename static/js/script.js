@@ -65,10 +65,10 @@ function toslide2(showusernum){
 
     for(x=0; x<showusernum.value; x++){ 
 
-       if(x!=1){ 
+       /*if(x!=1){ 
         var linebreak = document.createElement("br");
         document.getElementById("enternames").appendChild(linebreak);
-    }
+    }*/
 
         var node  = document.createElement("input");
         node.type = "text";
