@@ -828,10 +828,15 @@ while(winnernotes.length>0){
             flipattemptresult.innerHTML=showtheflip.innerHTML;
             flipattemptresult.style.backgroundColor="white";
             flipattemptresult.style.color="black";
-            flipattemptresult.style.display="block";
+
+            flipattemptresult.style.border="ridge black 2px";
+
+            flipattemptresult.style.display="flex";
+            flipattemptresult.style.justifyContent="center";
+            flipattemptresult.style.alignContent="center";
+            flipattemptresult.style.aspectRatio="1";
             flipattemptresult.style.borderRight="1px black solid";
             flipattemptresult.style.borderRadius="50%";
-            //flipattemptresult.style.width="20%";
             flipattemptresult.style.height="12%";
             flipattemptresult.style.padding="4%";
             flipattemptresult.style.position="absolute";
@@ -839,9 +844,7 @@ while(winnernotes.length>0){
             flipattemptresult.style.left="15%";
            //flipattemptresult.style.boxSizing="border-box";
            flipattemptresult.style.margin="5% auto 5% auto";
-           flipattemptresult.style.textAlign="center";
            flipattemptresult.style.fontSize="2.5vw";
-           flipattemptresult.style.aspectRatio="1";
            flipattemptresult.style.overflow="hidden";
             document.getElementById("trackflips").appendChild(flipattemptresult);
 
@@ -865,10 +868,11 @@ while(winnernotes.length>0){
                     showtheflip.innerHTML="Heads Win!";
                     getwinner.forEach(changecolor=>{
                         if(changecolor.innerHTML=="Heads"){
-                            changecolor.style.backgroundColor="green";
+                            //changecolor.style.backgroundColor="green";
                         }
                         else{
-                            changecolor.style.backgroundColor="red";
+                            //changecolor.style.backgroundColor="red";
+                            changecolor.style.opacity=".1";
                         }
                     });
                 }
@@ -876,19 +880,35 @@ while(winnernotes.length>0){
                     showtheflip.innerHTML="Tails Win!";
                     getwinner.forEach(changecolor=>{
                         if(changecolor.innerHTML=="Tails"){
-                            changecolor.style.backgroundColor="green";
+                            //changecolor.style.backgroundColor="green";
                         }
                         else{
-                            changecolor.style.backgroundColor="red";
+                            //changecolor.style.backgroundColor="red";
+                            changecolor.style.opacity=".1";
+
                         }
                     });
 
                 }
 
+                var flipcoinbutton = document.getElementById("flipcoinagain");
+                flipcoinbutton.style.display = "none";
+
             }
             flipcounter++;
            }
            else{
+     
+            /*
+                flipcoinbutton.style.border = "10px red solid";
+                flipcoinbutton.style.borderTopLeftRadius="20%";
+                flipcoinbutton.style.borderTopRightRadius="10%";
+                flipcoinbutton.style.borderRightRadius="0%";
+                flipcoinbutton.style.borderBottomRightRadius="10%";
+                flipcoinbutton.style.borderBottomRadius="10%";
+                flipcoinbutton.style.borderBottomLeftRadius="10%";
+*/
+
 
            }
 
@@ -903,6 +923,9 @@ while(winnernotes.length>0){
             clearthese.forEach(clearthese=>{
                 trackflips.removeChild(clearthese);
             });
+
+            var flipcoinbutton = document.getElementById("flipcoinagain");
+                flipcoinbutton.style.display = "flex";
           }
 
         /*  function setFullHeight() {

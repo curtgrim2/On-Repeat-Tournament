@@ -148,11 +148,33 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
        newdiv.style.display="block";
        newdiv.style.margin="10px auto 10px auto";
        newdiv.style.width="50%";
+       newdiv.style.border="2px white solid";
        //No height added to have it adjust to the amount of input elements
        newdiv.style.paddingBottom ="2.5%";
        newdiv.style.position ="relative";
        document.getElementById("s3").appendChild(newdiv);
-       newdiv.innerHTML = document.getElementById(`nameid${x}`).value;
+       //newdiv.innerHTML = document.getElementById(`nameid${x}`).value;
+
+
+       var stickyname = document.createElement("div");
+       stickyname.style.position="sticky";
+       stickyname.style.color="gold";
+       stickyname.style.top="0";
+       stickyname.style.left="10%";
+       stickyname.style.width="8vw";
+       stickyname.style.marginLeft="1.5%";
+       stickyname.style.height="3vh";
+       stickyname.style.fontSize="2.5vh";
+       stickyname.style.textAlign="left";
+       //stickyname.style.textShadow="0px 0px 10px black";
+       //stickyname.style.backgroundColor="rgba(0,0,0,.7)";
+
+
+        //Name of the user
+        stickyname.innerHTML=document.getElementById(`nameid${x}`).value;
+        document.getElementById(`namenumid${x}`).appendChild(stickyname);
+    
+
 
 
        var songstocreate=document.getElementById(`user${x}songtotal`).value;
@@ -412,20 +434,48 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
        newdiv.style.backgroundColor = "grey";
        newdiv.style.display="flex";
        newdiv.style.flexDirection="column";
-
-       newdiv.style.margin="10px";
+       newdiv.style.boxShadow="0px 0px 10px 1px #4d4d4d";
+        //newdiv.style.border="2px white solid"
        newdiv.style.width="50%";
-       newdiv.style.margin="10px auto 10px auto";
+
+       //newdiv.style.paddingLeft="2%";
+       newdiv.style.margin="20px auto 20px auto";
+
      //No height so that it always adjusts to dynamic # of songs
        newdiv.style.paddingBottom ="2.5%";
        document.getElementById("s3").appendChild(newdiv);
 
+       var stickyname = document.createElement("div");
+       stickyname.style.position="sticky";
+       stickyname.style.color="black";
+       stickyname.style.top="0";
+       stickyname.style.left="0%";
+       //stickyname.style.width="8vw";
+       stickyname.style.height="3vh";
+       stickyname.style.fontSize="2.5vh";
+       stickyname.style.fontWeight="bolder";
+       stickyname.style.textAlign="left";
+       //stickyname.style.textShadow="0px 0px 10px black";
+       stickyname.style.backgroundColor="rgba(255,255,255,.3)";
+
        if(x==0){
-        newdiv.innerHTML=draftnames[0];//Name of the user
+        //Name of the user
+        //newdiv.innerHTML=draftnames[0];
+        stickyname.innerHTML=draftnames[0];
        }
-       else{ //Used to get each individual name as names repeat in database
-        newdiv.innerHTML=draftnames[gothrnames];//Name of the user
+       else{ 
+        //Name of the user
+
+        //Used to get each individual name as names repeat in database
+        //newdiv.innerHTML=draftnames[gothrnames];
+
+        stickyname.innerHTML=draftnames[gothrnames];
+
        }
+
+       document.getElementById(`namenumid${x}`).appendChild(stickyname);
+
+
 
        var quickfind = document.createElement("a");
         quickfind.href=`#namenumid${x}`;
@@ -441,10 +491,14 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
 
        var songcontain = document.createElement("div"); //Song Container
        songcontain.id=`namenumid2${iterhelp2}`;
-      songcontain.style.backgroundColor="#9d9e9d";
+       songcontain.style.backgroundColor= "#616161";
+      //songcontain.style.backgroundColor="#9d9e9d";
        songcontain.style.width="80%";
        songcontain.style.margin="0 auto 10px auto";
        songcontain.style.paddingTop="4%";
+       songcontain.style.paddingBottom="2%";
+       songcontain.style.border="2px white solid";
+       //songcontain.style.border="5px white groove"
        songcontain.style.display="flex";
        songcontain.style.flexDirection="column";
        songcontain.style.alignItems="center"; //Shouldn't it be justify-content?
@@ -495,7 +549,6 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         //console.log(drafturls[iterhelp]);
         //console.log(iterhelp);
         //console.log(urlvideo.id);
-        //console.log(drafturls[iterhelp]);
        showsongtitle(drafturls[iterhelp],`namenum${eacheverysong}`,fortitledisplay,urlvideo.id);
 
 

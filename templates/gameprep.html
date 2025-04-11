@@ -69,13 +69,17 @@
                     </div>
                     
                     <div id="startsavemenu" >
+                        <div id="draftoptions">Draft Options</div>
                         <button type="submit"  id="updatedraft" onclick="updatedraft1()">UPDATE</button> 
                         <button type="submit"  id="savedraft" onclick="savenewdraft()" >CREATE NEW DRAFT</button> <!--<button type="submit"  id="savedraft" onclick="savenewdraft()">SAVE NEW DRAFT</button> -->
                         <button type="submit" id="deletedraft" >DELETE DRAFT</button>   <!--<button type="submit" id="deletedraft" onclick="otherthing()">Boink DRAFT</button>-->
-                        <button type="submit" onclick="b4send()">START GAME</button> </div>
                         <button onclick="removesongs()">REMOVE SONGS</button>
                     
                 </div>
+
+                <div id="startgamecontainer">                        
+                    <button type="submit" onclick="b4send()" id="startbutton">START GAME</button> </div>
+            </div>
 
                 <div id="errorbox"></div>
 
@@ -171,6 +175,8 @@
 
                 //document.getElementsByTagName("body")[0].appendChild(draft); 
                 document.getElementById("olddrafts").appendChild(draft);
+
+                //document.getElementById("olddrafts").style.zIndex="-1";
 
                 draft.addEventListener('click',function(event){
                     if(event.target.innerHTML=="DRAFT SLOT AVAILABLE"){

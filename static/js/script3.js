@@ -123,7 +123,8 @@ videoDetails(listoftiers);
             console.log(newtieritem.id);
             newtieritem.className="SongsDiv"; 
             //newtieritem.style.backgroundColor="pink";
-            newtieritem.style.width="100%";
+            newtieritem.style.width="75%";
+            newtieritem.style.marginTop="2%";
             newtieritem.style.display="inline-block";
             newtieritem.style.color ="gold";
             document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
@@ -178,7 +179,8 @@ videoDetails(listoftiers);
 
             newtieritem.innerHTML = video.items[0].snippet.title;// + " ["+ namesintiers[x][y] +"]";
            // newtieritem.style.backgroundColor="pink";
-            newtieritem.style.width="100%";
+            newtieritem.style.width="75%";
+            newtieritem.style.marginTop="2%";
             newtieritem.style.textDecoration="underline";
             newtieritem.style.display="inline-block";
 
@@ -239,7 +241,8 @@ videoDetails(listoftiers);
             newtieritem.style.position="relative";
             newtieritem.style.textAlign="center";
             //newtieritem.style.backgroundColor="pink";
-            newtieritem.style.width="100%";
+            newtieritem.style.width="75%";
+            newtieritem.style.marginTop="2%";
             newtieritem.style.display="inline-block";
             newtieritem.className="SongsDiv";
             document.getElementById(`Tier_${tiernumber}`).appendChild(newtieritem);
@@ -320,7 +323,7 @@ addnotes.style.margin="10px 10px";
 /*addnotes.style.paddingTop="1%";
 addnotes.style.paddingBottom="1%";
 addnotes.style.paddingLeft="1%";*/
-addnotes.style.width="33%";
+addnotes.style.width="25%";
 
 //document.getElementById(everydiv[x].id).appendChild(addnotes);
 document.getElementById(everydiv[x].id).insertAdjacentElement('afterend',addnotes);
