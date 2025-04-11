@@ -2,12 +2,9 @@
 
 ###  CSS Tasks (Assigned to Uriah):
 - Coin Flip pop up
-  - Use vw units for fontSize for perfect circle
-  - Use display:flex to center text within circle
   - Use transform:rotateX/transform:rotateY to show coin flipping animation
   - Draw image for heads/tail sides
 - Entirety of gameprep.html (All 3 sections)
-- Loading screen that leads to results page
 - Bottom of results page (In a round of 64, the bottom 4 songs are jumbled up)
 - Arrows (animation) pointing at video when video is playing
     - Dotted arrows that grows to a certain point and then repeats
