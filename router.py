@@ -104,9 +104,9 @@ def home():
         tablenum+=1  
     #print(names1)
 
-    return render_template('gameprep.html',draftnames=names1,drafturls=url1,draftnotes=notes1,songsperuser=songsperuser1,numofusers=numofusers1,drafttitle1=drafttitle1,draftsong4user1=draftsong4user1,
-                           draftnames2=names2,drafturls2=url2,draftnotes2=notes2,songsperuser2=songsperuser2,numofusers2=numofusers2,drafttitle2=drafttitle2,draftsong4user2=draftsong4user2,
-                            draftnames3=names3,drafturls3=url3,draftnotes3=notes3,songsperuser3=songsperuser3,numofusers3=numofusers3,drafttitle3=drafttitle3,draftsong4user3=draftsong4user3)
+    return render_template('gameprep.html',draftnames=names1,drafturls=url1,draftnotes=json.dumps(notes1),songsperuser=songsperuser1,numofusers=numofusers1,drafttitle1=drafttitle1,draftsong4user1=draftsong4user1,
+                           draftnames2=names2,drafturls2=url2,draftnotes2=json.dumps(notes2),songsperuser2=songsperuser2,numofusers2=numofusers2,drafttitle2=drafttitle2,draftsong4user2=draftsong4user2,
+                            draftnames3=names3,drafturls3=url3,draftnotes3=json.dumps(notes3),songsperuser3=songsperuser3,numofusers3=numofusers3,drafttitle3=drafttitle3,draftsong4user3=draftsong4user3)
 
 
 #@app.route('/',methods=["GET","POST"])
@@ -210,7 +210,7 @@ def startgame():
             songsperuser =  songnum4user[x]# totalsongs//len(allthenames) # Double /:To prevent float TypeError
             for y in range(int(songsperuser)):
                 query = f"""
-                UPDATE [{newdraftname}]
+                UPDATE [{newdraftname}] 
                 SET 
                 Name = ?, 
                 SongURL = ?, 
@@ -220,7 +220,7 @@ def startgame():
                 NumofUsers = ?, 
                 DraftTitle = ?
                 WHERE EntryNum = ?
-"""
+""".format(newdraftname)
 
             #Parameterized values > f-strings due to possible SQL injection attack
                 cursor.execute(query, (
@@ -278,9 +278,9 @@ def testarea():
 
 if __name__ == "__main__":
     #Testing version
-    app.run(debug=True)
+    ##app.run(debug=True)
     
     #Production version
-    '''from waitress import serve
+    from waitress import serve
     print("Running on http://localhost:8000/")
-    serve(app, host="localhost", port=8000)'''
+    serve(app, host="localhost", port=8000)

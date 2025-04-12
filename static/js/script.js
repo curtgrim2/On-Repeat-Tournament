@@ -544,8 +544,18 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         notes.value = draftnotes[iterhelp];
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(notes);
 
+       /* var optstarttime = document.createElement("input");
+        optstarttime.type="text";
+        optstarttime.id=`starttimenum${eacheverysong}`;
+        optstarttime.name=`starttimenum${eacheverysong}`;
+        optstarttime.style.width="20%";
+        optstarttime.placeholder="Start Time?"; */
+
+
+
+
         var fortitledisplay = eacheverysong;//titleclass.className.substring(titleclass.className.length-1,titleclass.className.length);
-        console.log(fortitledisplay);
+        //console.log(fortitledisplay);
         //console.log(drafturls[iterhelp]);
         //console.log(iterhelp);
         //console.log(urlvideo.id);
@@ -704,18 +714,9 @@ async function getVideoDetails(videoId,usethisid,fortitledisplay,urlvideoid){
         }
         const data = await response.json();
 
-        //console.log(usethisid);
        document.getElementsByClassName(usethisid)[0].innerHTML=data.items[0].snippet.title;
 
-       //console.log(usethisid);
-        //console.log(document.getElementById(`video${fortitledisplay}`));
-        //console.log(videoId);
-
-        //console.log(data.items[0].snippet.title," for ", usethisid,"/",urlvideoid);
-        console.log(urlvideoid," vs ",document.getElementById(`video${fortitledisplay}`).id);
-
-
-            document.getElementById(`video${fortitledisplay}`).src ="https://www.youtube.com/embed/" +  videoId;//www.youtube.com/embed/zm6gHJ3SQIM";
+       document.getElementById(`video${fortitledisplay}`).src ="https://www.youtube.com/embed/" +  videoId;//www.youtube.com/embed/zm6gHJ3SQIM";
      
 
       /* var titledisplayed = document.createElement("span");
