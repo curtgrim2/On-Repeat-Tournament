@@ -153,8 +153,16 @@ var testusernum = 3;
                 document.getElementById("leftvid").src = "//www.youtube.com/embed/" + leftvidID;
                 document.getElementById("rightvid").src = "//www.youtube.com/embed/" + rightvidID;
 
-                getVideoDetails("left",leftvidID);
-                getVideoDetails("right",rightvidID);//Uses Youtube API to show title of songs on the song selection buttons
+                var takeoutstart1 = leftvidID.indexOf("?");
+                var takeoutstart2 = rightvidID.indexOf("?");
+
+                 var leftvidID2 = takeoutstart1!==-1 ? leftvidID.substring(0,takeoutstart1): leftvidID;
+                 var rightvidID2 = takeoutstart2!==-1 ? rightvidID.substring(0,takeoutstart2): rightvidID;
+
+
+
+                getVideoDetails("left",leftvidID2);
+                getVideoDetails("right",rightvidID2);//Uses Youtube API to show title of songs on the song selection buttons
 
                 console.log("usersongs1:" + usersongs1 + "usersongs2" + usersongs2);
 
@@ -404,8 +412,16 @@ var testusernum = 3;
                
                 document.getElementById("leftvid").src = "//www.youtube.com/embed/" + leftvidID;
                 document.getElementById("rightvid").src = "//www.youtube.com/embed/" + rightvidID;
-                getVideoDetails("left",leftvidID);
-                getVideoDetails("right",rightvidID);
+
+                var takeoutstart1 = leftvidID.indexOf("?");
+                var takeoutstart2 = rightvidID.indexOf("?");
+
+                 var leftvidID2 = takeoutstart1!==-1 ? leftvidID.substring(0,takeoutstart1): leftvidID;
+                 var rightvidID2 = takeoutstart2!==-1 ? rightvidID.substring(0,takeoutstart2): rightvidID;
+
+
+                getVideoDetails("left",leftvidID2);
+                getVideoDetails("right",rightvidID2);
                 /*document.getElementById("leftname").innerHTML = newusernames[usersongs1];
                 document.getElementById("rightname").innerHTML = newusernames[usersongs2];*/
                 
@@ -727,8 +743,16 @@ while(winnernotes.length>0){
                
                 document.getElementById("leftvid").src = "//www.youtube.com/embed/" + leftvidID;
                 document.getElementById("rightvid").src = "//www.youtube.com/embed/" + rightvidID;
-                getVideoDetails("left",leftvidID);
-                getVideoDetails("right",rightvidID);
+
+
+                var takeoutstart1 = leftvidID.indexOf("?");
+                var takeoutstart2 = rightvidID.indexOf("?");
+
+                 var leftvidID2 = takeoutstart1!==-1 ? leftvidID.substring(0,takeoutstart1): leftvidID;
+                 var rightvidID2 = takeoutstart2!==-1 ? rightvidID.substring(0,takeoutstart2): rightvidID;
+
+                getVideoDetails("left",leftvidID2);
+                getVideoDetails("right",rightvidID2);
                 console.log("usersongs1: " + usersongs1 + ";usersongs2: " + usersongs2);
                 document.getElementById("leftname").innerHTML = users_name[usersongs1];
                 document.getElementById("rightname").innerHTML = users_name[usersongs2];
@@ -763,11 +787,25 @@ while(winnernotes.length>0){
 
             function createvideoID(theurl){
             
-                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/; 
+                const regExp =  /(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})(?:.*?[?&]start=(\d+))?/;
+                // /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/; 
                 const match = theurl.match(regExp); 
                 /*match[0] is the entire url,  match[1] is which exxpression contained the video ID, match[2] is the ID itself*/
+                //console.log(match[2]);
+                if (match && match[1].length === 11) {
+
+                var returnthis="";
+                if(match[2]!=undefined){
+                     returnthis = match[1] + "?start=" + match[2];
+                     //console.log("String added");
+                }
+                else{
+                     returnthis=match[1];
+                     //console.log("Left alone");
+                }
             
-                return (match && match[2].length === 11) ? match[2] : null; /*Youtube ID's are always 11 characters long*/ 
+                return (match && match[1].length === 11) ? returnthis : null; /*Youtube ID's are always 11 characters long*/ //return (match && match[2].length === 11)
+            }
             
         }
 

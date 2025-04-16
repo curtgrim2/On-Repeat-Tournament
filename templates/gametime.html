@@ -79,6 +79,7 @@
     thenotes =JSON.parse('{{ thenotes | tojson | safe }}');
     songnum4user=JSON.parse('{{songnum4user | tojson | safe}}');
     totalsongs=JSON.parse('{{totalsongs | tojson | safe}}');
+    optstarttime= JSON.parse('{{optstarttime | tojson | safe}}');
 </script>
 
 <script src="{{ url_for('static', filename='js/script2.js') }}"></script> 

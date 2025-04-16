@@ -120,6 +120,7 @@ def startgame():
     allurls = []
     thenotes=[]
     songnum4user=[]
+    optstarttime=[]
     
     print(request.form.get(f'namenum{1}')) #f-string literal
 
@@ -143,6 +144,16 @@ def startgame():
     for x in range(totalsongs):
         allurls.append(request.form.get(f'namenum{x}')) #Pushing each song URL from 
         thenotes.append(request.form.get(f'notes4song{x}'))
+        check4starttime=request.form.get(f'starttimenum{x}')
+        optstarttime.append(check4starttime)
+        
+        if check4starttime != "":
+           index=check4starttime.find(':')
+           if index!=-1:
+            og_mins=check4starttime[:index] #getting everything b4 the colon
+            newtime= (int(og_mins) * 60) + int(check4starttime[index+1:])
+            print("The total amount of seconds is "+ str(newtime))
+            allurls[x]=allurls[x] + "?start=" + str(newtime)
         #print(allurls[x])
         x+=1
         #print("This should print 33333333333")  
@@ -153,7 +164,8 @@ def startgame():
     if request.form.get("checkdraftbut")=="notclicked":   #Officially start the game
         print("Song num per user should be right here:")
         print(songnum4user)
-        return render_template('gametime.html',totalusers = int(request.form.get("numofusers")),allnames=allthenames,utubeurls=allurls,thenotes=thenotes,songnum4user=songnum4user,totalsongs=totalsongs) 
+        return render_template('gametime.html',totalusers = int(request.form.get("numofusers")),allnames=allthenames,utubeurls=allurls,
+                               thenotes=thenotes,songnum4user=songnum4user,totalsongs=totalsongs,optstarttime=optstarttime) 
         #,songspereach=request.form.get("songspereach")
     
     elif request.form.get("checkdraftbut")=="createnewdraft": #Create new draft
@@ -278,7 +290,7 @@ def testarea():
 
 if __name__ == "__main__":
     #Testing version
-    ##app.run(debug=True)
+    #app.run(debug=True)
     
     #Production version
     from waitress import serve

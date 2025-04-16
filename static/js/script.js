@@ -255,9 +255,40 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         notes.style.width="70%";
         notes.placeholder="Optional notes goes here";
         //notes.style.marginBottom="5%";
-        notes.style.margin="0 auto 5% auto";
+        //notes.style.margin="0 auto 5% auto";
         notes.style.backgroundColor="black";
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(notes);
+
+        var container = document.createElement("div");
+        container.style.width="100%";
+        container.id=`optcontain${eacheverysong}`;
+        container.style.display="inline-block";
+        container.style.textAlign="center";
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(container);
+
+        var opttimelabel = document.createElement("span");
+        opttimelabel.innerHTML="Start Time?";
+        opttimelabel.style.color="white";
+        opttimelabel.style.textShadow="0px 0px 1px black";
+        opttimelabel.style.fontSize="2vh";
+        document.getElementById(`optcontain${eacheverysong}`).appendChild(opttimelabel);
+
+
+        var optstarttime = document.createElement("input");
+        optstarttime.type="text";
+        optstarttime.id=`starttimenum${eacheverysong}`;
+        optstarttime.name=`starttimenum${eacheverysong}`;
+        optstarttime.style.width="10%";
+        optstarttime.placeholder="0:00"; //"Start Time? (Format i.e. 0:00)";
+        optstarttime.style.textAlign="center";
+        optstarttime.className="optstarttime";
+        /*optstarttime.textContent = `
+        .optstarttime::before {
+          content: "D C";
+          color: blue;
+        }
+      `;*/
+      document.getElementById(`optcontain${eacheverysong}`).appendChild(optstarttime)
 
         var fortitledisplay = titleclass.className.substring(titleclass.className.length-1,titleclass.className.length)
         showsongtitle("",`namenum${eacheverysong}`,fortitledisplay);
@@ -544,12 +575,37 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         notes.value = draftnotes[iterhelp];
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(notes);
 
-       /* var optstarttime = document.createElement("input");
+        var container = document.createElement("div");
+        container.style.width="100%";
+        container.id=`optcontain${eacheverysong}`;
+        container.style.display="inline-block";
+        container.style.textAlign="center";
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(container);
+
+        var opttimelabel = document.createElement("span");
+        opttimelabel.innerHTML="Start Time?";
+        opttimelabel.style.color="white";
+        opttimelabel.style.textShadow="0px 0px 1px black";
+        opttimelabel.style.fontSize="2vh";
+        document.getElementById(`optcontain${eacheverysong}`).appendChild(opttimelabel);
+
+
+        var optstarttime = document.createElement("input");
         optstarttime.type="text";
         optstarttime.id=`starttimenum${eacheverysong}`;
         optstarttime.name=`starttimenum${eacheverysong}`;
-        optstarttime.style.width="20%";
-        optstarttime.placeholder="Start Time?"; */
+        optstarttime.style.width="10%";
+        optstarttime.placeholder="0:00"; //"Start Time? (Format i.e. 0:00)";
+        optstarttime.style.textAlign="center";
+        optstarttime.className="optstarttime";
+        /*optstarttime.textContent = `
+        .optstarttime::before {
+          content: "D C";
+          color: blue;
+        }
+      `;*/
+      document.getElementById(`optcontain${eacheverysong}`).appendChild(optstarttime);
+    //document.getElementById(`notes4song${eacheverysong}`).insertAdjacentElement('afterend',optstarttime); 
 
 
 
@@ -602,7 +658,7 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", function (event) {
         
         if(document.getElementById("isthesavebuttonclicked").value!="createnewdraft" && document.getElementById("isthesavebuttonclicked").value!="clicked"){
-        //if(document.getElementsByName("checkdraftbut")[0].value!="createnewdraft"){
+
             console.log(document.getElementsByName("checkdraftbut")[0].value);
         var totalempty = 0; // Reset totalempty for this submission
         for (var x = 0; x < totalsongs; x++) {
@@ -627,6 +683,18 @@ document.addEventListener("DOMContentLoaded", function () {
             error.style.display = "block";
             error.innerHTML = `No empty URL boxes. There are ${totalempty} empty boxes`;  
         }
+
+        for (var x = 0; x < totalsongs; x++) {
+            var y = document.getElementById(`starttimenum${x}`);
+            if(y.value==="string" || y.value!=""){
+                event.preventDefault();
+                error.style.display="block";
+                error.innerHTML=`Incorrect format for timestamp #${x+1}`;
+            }
+            
+        }
+
+
 
     }
     });
