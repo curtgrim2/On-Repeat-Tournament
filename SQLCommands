@@ -49,4 +49,6 @@ USE o_r_tournament;
 SELECT table_name FROM INFORMATION_SCHEMA.TABLES;
 SELECT * FROM o_r_tournament.dbo.newuwufufu;
 
+ALTER TABLE o_r_tournament.dbo.Ari_vs_Stevie DROP COLUMN StartTime
+
 
