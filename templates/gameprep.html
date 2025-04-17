@@ -131,7 +131,7 @@
                 document.getElementById("olddrafts").innerHTML="OLD DRAFT AVAILABLE";
             }*/
 
-           const variables = {
+           const draftslots = {
             drafttitle1:drafttitle1[0],
             drafttitle2:drafttitle2[0],
             drafttitle3:drafttitle3[0],
@@ -152,9 +152,9 @@
                 draft.style.cursor="pointer";
                 //draft.style.boxShadow="0 0 12px 10px black";
                 //draft.style.className= "slide1drafts";
-                var combine = "drafttitle"+x;
+                var draftnum = "drafttitle"+x;
 
-                if(variables[combine]==undefined){
+                if(draftslots[draftnum]==undefined){
                     draft.innerHTML= "DRAFT SLOT AVAILABLE";
                     draft.style.backgroundColor="rgba(0,0,0,0)";
                     draft.style.border="white 2px dashed";
@@ -163,7 +163,7 @@
                 }
                 else{
                     draft.style.border="white 1px solid";
-                    draft.innerHTML=variables[combine];
+                    draft.innerHTML=draftslots[draftnum];
                     totaltitles++;
 
                 }

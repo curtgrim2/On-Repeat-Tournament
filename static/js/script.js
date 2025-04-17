@@ -526,7 +526,7 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
       //songcontain.style.backgroundColor="#9d9e9d";
        songcontain.style.width="80%";
        songcontain.style.margin="0 auto 10px auto";
-       songcontain.style.paddingTop="4%";
+       songcontain.style.paddingTop="1%";
        songcontain.style.paddingBottom="2%";
        songcontain.style.border="2px white solid";
        //songcontain.style.border="5px white groove"
@@ -557,6 +557,22 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         urlvideo.referrerPolicy="strict-origin-when-cross-origin";
         urlvideo.allowFullscreen="true";
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(urlvideo);
+
+
+        var songid = document.createElement("div");
+        songid.innerHTML = y+1;
+        songid.style.color="black";
+        songid.style.fontSize="1.5vw";
+        //songid.style.backgroundColor="pink";
+        songid.style.width="90%";
+        songid.style.textAlign="right";
+        songid.style.position="sticky";
+        songid.style.top="0";
+        songid.style.right="10";
+        //document.getElementById(`namenumid${x}`).appendChild(songid);
+        //document.getElementById(`namenumid2${iterhelp2}`).appendChild(songid);
+        document.getElementById(`namenumid2${iterhelp2}`).insertAdjacentElement('afterbegin',songid);
+
 
         var titleclass = document.createElement("div");
         titleclass.className = `namenum${eacheverysong}`;
