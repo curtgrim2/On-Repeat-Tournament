@@ -35,6 +35,7 @@ def home():
     numofusers1=[]
     drafttitle1=[]
     draftsong4user1=[]
+    draftstarttime1 =[]
     
     names2=[]
     url2=[]
@@ -44,6 +45,8 @@ def home():
     numofusers2=[]
     drafttitle2=[]
     draftsong4user2=[]
+    draftstarttime2 = []
+
 
     
     names3=[]
@@ -54,6 +57,8 @@ def home():
     numofusers3=[]
     drafttitle3=[]
     draftsong4user3=[]
+    draftstarttime3 =[]
+
 
 
     
@@ -76,6 +81,8 @@ def home():
                  numofusers1.append(row[6])
                  drafttitle1.append(row[7]) 
                  draftsong4user1.append(row[8])
+                 draftstarttime1.append(row[9])
+
     
         elif tablenum==2:
              for row in cursor:
@@ -88,6 +95,8 @@ def home():
                 numofusers2.append(row[6])
                 drafttitle2.append(row[7])     
                 draftsong4user2.append(row[8])
+                draftstarttime2.append(row[9])
+
 
         elif tablenum==3:
              for row in cursor:
@@ -99,14 +108,15 @@ def home():
                 numofusers3.append(row[6])
                 drafttitle3.append(row[7])     
                 draftsong4user3.append(row[8])
-    
+                draftstarttime3.append(row[9])
+
    
         tablenum+=1  
     #print(names1)
 
-    return render_template('gameprep.html',draftnames=names1,drafturls=url1,draftnotes=json.dumps(notes1),songsperuser=songsperuser1,numofusers=numofusers1,drafttitle1=drafttitle1,draftsong4user1=draftsong4user1,
-                           draftnames2=names2,drafturls2=url2,draftnotes2=json.dumps(notes2),songsperuser2=songsperuser2,numofusers2=numofusers2,drafttitle2=drafttitle2,draftsong4user2=draftsong4user2,
-                            draftnames3=names3,drafturls3=url3,draftnotes3=json.dumps(notes3),songsperuser3=songsperuser3,numofusers3=numofusers3,drafttitle3=drafttitle3,draftsong4user3=draftsong4user3)
+    return render_template('gameprep.html',draftnames=names1,drafturls=url1,draftnotes=json.dumps(notes1),songsperuser=songsperuser1,numofusers=numofusers1,drafttitle1=drafttitle1,draftsong4user1=draftsong4user1,draftstarttime1=draftstarttime1,
+                           draftnames2=names2,drafturls2=url2,draftnotes2=json.dumps(notes2),songsperuser2=songsperuser2,numofusers2=numofusers2,drafttitle2=drafttitle2,draftsong4user2=draftsong4user2,draftstarttime2=draftstarttime2,
+                            draftnames3=names3,drafturls3=url3,draftnotes3=json.dumps(notes3),songsperuser3=songsperuser3,numofusers3=numofusers3,drafttitle3=drafttitle3,draftsong4user3=draftsong4user3,draftstarttime3=draftstarttime3)
 
 
 #@app.route('/',methods=["GET","POST"])
@@ -165,7 +175,7 @@ def startgame():
         print("Song num per user should be right here:")
         print(songnum4user)
         return render_template('gametime.html',totalusers = int(request.form.get("numofusers")),allnames=allthenames,utubeurls=allurls,
-                               thenotes=thenotes,songnum4user=songnum4user,totalsongs=totalsongs,optstarttime=optstarttime) 
+                               thenotes=json.dumps(thenotes),songnum4user=songnum4user,totalsongs=totalsongs,optstarttime=json.dumps(optstarttime)) 
         #,songspereach=request.form.get("songspereach")
     
     elif request.form.get("checkdraftbut")=="createnewdraft": #Create new draft
@@ -176,14 +186,14 @@ def startgame():
             newdraftname = request.form.get("newdraftname").replace(" ","_")
             
             cursor.execute(f"""CREATE TABLE "{newdraftname}"(UserNum int IDENTITY(1,1) PRIMARY KEY,Name nvarchar(50) NOT NULL,SongURL nvarchar(255),Notes nvarchar(255),
-            EntryNum int,SongsperUser int,NumofUsers int,DraftTitle nvarchar(255),SpecificUserSongNum int);""")
+            EntryNum int,SongsperUser int,NumofUsers int,DraftTitle nvarchar(255),SpecificUserSongNum int),StartTime nvarchar(255);""")
             cursor.commit()
             
             for x in range(int(request.form.get("numofusers"))):
                           songsperuser = songnum4user[x]#totalsongs//len(allthenames) # Double /:To prevent float TypeError
                           for y in range(int(songsperuser)):
-                              cursor.execute(f"""INSERT INTO "{newdraftname}"(Name,SongURL,Notes,EntryNum,SongsperUser,NumofUsers,DraftTitle)VALUES(?, ?, ?, ?, ?, ?,?)""",
-                                             (allthenames[x], allurls[iterthrsongs], thenotes[iterthrsongs],int(iterthrsongs+1), songsperuser, len(allthenames),newdraftname))
+                              cursor.execute(f"""INSERT INTO "{newdraftname}"(Name,SongURL,Notes,EntryNum,SongsperUser,NumofUsers,DraftTitle,StartTime)VALUES(?, ?, ?, ?, ?, ?,?,?)""",
+                                             (allthenames[x], allurls[iterthrsongs], thenotes[iterthrsongs],int(iterthrsongs+1), songsperuser, len(allthenames),newdraftname,optstarttime[iterthrsongs]))
                               iterthrsongs+=1
 
             placement=1
@@ -209,16 +219,19 @@ def startgame():
         iterthrsongs=0
         entrynum=1
         print("Draft save button Clicked")
-        print(allurls)
+        '''print(allurls)
         print(allthenames)
-        print(totalsongs)
+        print(totalsongs)'''
         newdraftname = request.form.get("newdraftname").replace(" ","_")
         
         cursor = dbsetup.cursor()
         #cursor.execute(f"""DELETE FROM {newdraftname};""")
         #cursor.commit()
         print(newdraftname)
+        print("Let see the time stamps:")
+
         for x in range(len(allthenames)):
+            print(optstarttime[iterthrsongs])
             songsperuser =  songnum4user[x]# totalsongs//len(allthenames) # Double /:To prevent float TypeError
             for y in range(int(songsperuser)):
                 query = f"""
@@ -230,7 +243,8 @@ def startgame():
                 EntryNum = ?, 
                 SongsperUser = ?, 
                 NumofUsers = ?, 
-                DraftTitle = ?
+                DraftTitle = ?,
+                StartTime =?
                 WHERE EntryNum = ?
 """.format(newdraftname)
 
@@ -243,6 +257,7 @@ def startgame():
                 songsperuser, 
                 len(allthenames), 
                 newdraftname, 
+                optstarttime[iterthrsongs],
                 int(iterthrsongs + 1)
             ))
 

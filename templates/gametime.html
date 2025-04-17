@@ -76,10 +76,11 @@
     var totalusers = JSON.parse('{{ totalusers | tojson | safe }}');
     allnames=JSON.parse('{{ allnames | tojson | safe }}');
     utubeurls=JSON.parse('{{ utubeurls | tojson | safe }}');
-    thenotes =JSON.parse('{{ thenotes | tojson | safe }}');
+    thenotes =JSON.parse({{ thenotes | tojson | safe }});
     songnum4user=JSON.parse('{{songnum4user | tojson | safe}}');
+    console.log(songnum4user);
     totalsongs=JSON.parse('{{totalsongs | tojson | safe}}');
-    optstarttime= JSON.parse('{{optstarttime | tojson | safe}}');
+    optstarttime= JSON.parse({{optstarttime | tojson | safe}});
 </script>
 
 <script src="{{ url_for('static', filename='js/script2.js') }}"></script> 

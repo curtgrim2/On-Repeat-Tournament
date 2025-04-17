@@ -368,6 +368,7 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         draftnames=draftnames1;
         document.getElementsByName("newdraftname")[0].value=drafttitle1[0];
         draftsong4user=draftsong4user1;
+        draftstarttime = draftstarttime1;
 
 
     }
@@ -380,6 +381,7 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         drafttitle = drafttitle2;
         document.getElementsByName("newdraftname")[0].value=drafttitle2[0];
         draftsong4user=draftsong4user2;
+        draftstarttime=draftstarttime2;
 
 
     }
@@ -393,17 +395,20 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         drafttitle = drafttitle3;
         document.getElementsByName("newdraftname")[0].value=drafttitle3[0];
         draftsong4user=draftsong4user3;
+        draftstarttime=draftstarttime3;
+
 
 
     }
 
-    console.log(whichdraft);
+   /* console.log(whichdraft);
     console.log(draftnames1);
     console.log(draftnumofusers);
     console.log(draftsongsperuser);
     console.log(drafturls);
     console.log(draftnotes);
     console.log(draftsong4user);
+    console.log(draftstarttime);*/
 
 
     
@@ -612,6 +617,14 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         optstarttime.name=`starttimenum${eacheverysong}`;
         optstarttime.style.width="10%";
         optstarttime.placeholder="0:00"; //"Start Time? (Format i.e. 0:00)";
+      if(draftstarttime[eacheverysong]== 'undefined' || draftstarttime[eacheverysong]==null){ 
+        }
+        else{
+            //console.log(draftstarttime[eacheverysong]);
+            optstarttime.value = draftstarttime[eacheverysong];
+
+
+        }
         optstarttime.style.textAlign="center";
         optstarttime.className="optstarttime";
         /*optstarttime.textContent = `
@@ -702,11 +715,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         for (var x = 0; x < totalsongs; x++) {
             var y = document.getElementById(`starttimenum${x}`);
-            if(y.value==="string" || y.value!=""){
+          /*  if(y.value==="string" && y.value!=""){
                 event.preventDefault();
                 error.style.display="block";
                 error.innerHTML=`Incorrect format for timestamp #${x+1}`;
-            }
+            }*/
             
         }
 
