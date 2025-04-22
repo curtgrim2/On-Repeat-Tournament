@@ -17,7 +17,6 @@
 - Use Raspberry Pi instead Google cloud console for cloud database and user connectivity?
   
 ### OTHER TASKS (Curtis)
-- Add specific song number for each user (position:sticky) on slide 3
 - Add stop time?
 - Edit total amount of songs within the draft page (slide 3) + Change the amount of songs per user (remove/add songs)
 - Quick access to names and their sections (do the same for results page)
