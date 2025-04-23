@@ -239,6 +239,12 @@ border-color: white;
 font-size:2.5vw;
 cursor:pointer;
 }
+#draftslabel{
+    width:20%;
+    text-align:left;
+    font-size:3vw;
+   
+}
 
 #olddrafts{
     display:flex;
@@ -247,6 +253,12 @@ cursor:pointer;
     bottom:0;
     width: 100%;
     font-size:1.6vw;
+    border-top-left-radius:10%;
+    border-top-right-radius:10%;
+
+    /*border-top-right-radius:20%;*/
+    /*border-top-right-radius:50px;*/
+    background-color: rgba(0,0,0,.7);
 
    /* position: fixed;
     bottom:0;
@@ -265,12 +277,7 @@ cursor:pointer;
 .slide1drafts{
     background-color: red;
 }
-/*
-#olddrafts:hover{
-    cursor: pointer;
-    background-color: green;
 
-}*/
 
 #errorbox{
     position:fixed;

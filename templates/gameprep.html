@@ -21,7 +21,6 @@
                 <!-- <input input id ="increase" class="numofusersbutton" type="button" value = "+" onclick="changenumofusers('add')"> -->
                  
                 <!-- <div>What is the maximum number of songs per person? </div> 
-                 
                  <div>(MUST BE AN EVEN NUMBER)</div>                   
                  <input id="songsperuser" type ="text" name="songspereach"> -->
                  <input id="songsperuser" type ="hidden" name="songspereach">
@@ -83,18 +82,21 @@
 
                 <div id="errorbox"></div>
 
-               <div id="olddrafts" ></div>
 
                <input type="hidden" id="draftsave" />
                <input type="hidden" value="notclicked" name="checkdraftbut" id="isthesavebuttonclicked" />
                <input type="hidden" name="newdraftname" value="DefaultDraft"/>
+
+
                
          </form>    
         </div>
-        
+        <div id="olddrafts"><div id="draftslabel">Drafts:</div></div>
+
+
         <script src="{{ url_for('static', filename='js/script.js') }}"></script></script>
         <script>
-             draftnames1 = JSON.parse('{{draftnames | tojson | safe}}');
+            draftnames1 = JSON.parse('{{draftnames | tojson | safe}}');
             console.log(draftnames1);
             var drafturls= JSON.parse('{{drafturls | tojson | safe}}');
             var draftsongsperuser=JSON.parse('{{songsperuser | tojson | safe}}');
@@ -147,7 +149,8 @@
            totaltitles=0;
             for(var x=1; x<=3; x++){
                 var draft = document.createElement("div");
-                draft.style.backgroundColor="black";
+                draft.style.backgroundColor="rgba(255,255,255,.1)";
+                draft.style.color="white";
                 draft.style.position="relative";
                 draft.style.display="inline-block";
                 draft.style.bottom="0";
@@ -155,9 +158,13 @@
                 draft.style.margin="0 1%";
                 draft.style.textAlign="center";
                 draft.style.cursor="pointer";
-                //draft.style.boxShadow="0 0 12px 10px black";
+                draft.style.zIndex="2";
+                //draft.style.boxShadow="0 0 5px 1px white";
                 //draft.style.className= "slide1drafts";
                 var draftnum = "drafttitle"+x;
+                draft.id=x;
+                draft.className="selectdrafts";
+                draft.style.width="20%";
 
                 if(draftslots[draftnum]==undefined){
                     draft.innerHTML= "DRAFT SLOT AVAILABLE";
@@ -167,17 +174,14 @@
                    
                 }
                 else{
-                    draft.style.border="white 1px solid";
+                    //draft.style.border="white 1px solid";
+                    draft.style.borderTop="white 4px solid";
                     draft.innerHTML=draftslots[draftnum];
                     totaltitles++;
 
                 }
 
-
-                draft.style.color="white";
-                draft.id=x;
-                draft.className="selectdrafts";
-                draft.style.width="20%";
+                
 
                 //document.getElementsByTagName("body")[0].appendChild(draft); 
                 document.getElementById("olddrafts").appendChild(draft);
@@ -195,6 +199,66 @@
 
             } 
 
+            console.log( document.getElementById("olddrafts").querySelectorAll("div"));
+
+           document.getElementById("olddrafts").childNodes[1].addEventListener('mouseenter',function(event){
+               // if(event.target.id!='draftslabel' && event.target.id!='olddrafts'){
+                            event.target.style.backgroundColor="rgba(255,255,255,.4)";
+                            event.target.style.fontWeight="bolder";
+                            event.target.style.textDecoration="underline";
+                            event.target.style.color="black";
+                            //event.target.style.transition=".5s";
+                            /*event.target.style.position="absolute"
+                            event.target.style.top="0";
+                            event.target.style.zIndex="2";
+                            event.target.style.height="150%";*/
+                            //document.getElementById("olddrafts").style.position="relative";
+                            
+
+            });
+
+            document.getElementById("olddrafts").childNodes[1].addEventListener('mouseleave',function(event){
+                event.target.style.backgroundColor="rgba(255,255,255,.1)";
+                event.target.style.color="white";
+                event.target.style.fontSize="1.6vw";
+                event.target.style.fontWeight="normal";
+                event.target.style.textDecoration="none";
+                event.target.style.position="static";
+            });
+
+
+
+            document.getElementById("olddrafts").childNodes[2].addEventListener('mouseenter',function(event){
+                            event.target.style.backgroundColor="rgba(255,255,255,.4)";
+                            event.target.style.fontWeight="bolder";
+                            event.target.style.textDecoration="underline";
+                            event.target.style.color="black";
+            });
+            document.getElementById("olddrafts").childNodes[2].addEventListener('mouseleave',function(event){
+                event.target.style.backgroundColor="rgba(255,255,255,.1)";
+                event.target.style.color="white";
+                event.target.style.fontSize="1.6vw";
+                event.target.style.fontWeight="normal";
+                event.target.style.textDecoration="none";
+
+            });
+
+
+
+            document.getElementById("olddrafts").childNodes[3].addEventListener('mouseenter',function(event){
+                            event.target.style.backgroundColor="rgba(255,255,255,.4)";
+                            event.target.style.fontWeight="bolder";
+                            event.target.style.textDecoration="underline";
+                            event.target.style.color="black";
+            });
+            document.getElementById("olddrafts").childNodes[3].addEventListener('mouseleave',function(event){
+                event.target.style.backgroundColor="rgba(255,255,255,.1)";
+                event.target.style.color="white";
+                event.target.style.fontSize="1.6vw";
+                event.target.style.fontWeight="normal";
+                event.target.style.textDecoration="none";
+
+            });
 
             console.log(totaltitles);
             

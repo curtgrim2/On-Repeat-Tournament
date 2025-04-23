@@ -135,6 +135,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
     slide1.style.display = "none";
     slide2.style.display ="none";
     slide3.style.display ="block";
+    olddrafts.style.display="none";
     error.style.display = "none";
     deletedraftbutton.style.display="none";
 
@@ -454,7 +455,7 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
     slide1.style.display = "none";
     slide2.style.display ="none";
     slide3.style.display ="block";
-    //olddrafts.style.display="none";
+    olddrafts.style.display="none";
     errorbox.style.display="none";
     updatebutt.style.display="block";
     eacheverysong=0;

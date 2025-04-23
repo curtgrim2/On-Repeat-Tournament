@@ -68,6 +68,7 @@ def home():
     for table in tables:
         table_name = table[0]
         alltables.append(table_name)
+        
         cursor.execute(f"SELECT * FROM {table_name};")
         print(table_name)
         if tablenum==1:
@@ -119,7 +120,6 @@ def home():
                             draftnames3=names3,drafturls3=url3,draftnotes3=json.dumps(notes3),songsperuser3=songsperuser3,numofusers3=numofusers3,drafttitle3=drafttitle3,draftsong4user3=draftsong4user3,draftstarttime3=draftstarttime3)
 
 
-#@app.route('/',methods=["GET","POST"])
 @app.route('/startgame',methods=['POST','GET'])
 
 
@@ -137,22 +137,19 @@ def startgame():
     while f'name{personnum}' in request.form: #name{personnum} are the users unique identifiers 
             allthenames.append(request.form[f'name{personnum}'])      #We're getting the variables in the form withrequest.form 
             personnum += 1  
-            #totalsongs=int(request.form.get('totalsongs'))   
-            #print("This should print 111111111111")  
+            
     personnum=0
-    
     totalsongs=0
+    
     while f'user{personnum}songtotal' in request.form:
             songnum4user.append(request.form.get(f'user{personnum}songtotal'))
-            #print(request.form.get(f'user{personnum}songtotal'))
             totalsongs+=int(request.form.get(f'user{personnum}songtotal'))
             personnum += 1 
-           # print("This should print 2222222222")  
 
             
             
     for x in range(totalsongs):
-        allurls.append(request.form.get(f'namenum{x}')) #Pushing each song URL from 
+        allurls.append(request.form.get(f'namenum{x}')) 
         thenotes.append(request.form.get(f'notes4song{x}'))
         check4starttime=request.form.get(f'starttimenum{x}')
         optstarttime.append(check4starttime)
@@ -162,18 +159,16 @@ def startgame():
            if index!=-1:
             og_mins=check4starttime[:index] #getting everything b4 the colon
             newtime= (int(og_mins) * 60) + int(check4starttime[index+1:])
-            print("The total amount of seconds is "+ str(newtime))
+            #print("The total amount of seconds is "+ str(newtime))
             allurls[x]=allurls[x] + "?start=" + str(newtime)
-        #print(allurls[x])
         x+=1
-        #print("This should print 33333333333")  
 
     print(totalsongs)
     print(thenotes)
     
     if request.form.get("checkdraftbut")=="notclicked":   #Officially start the game
-        print("Song num per user should be right here:")
-        print(songnum4user)
+        #print("Song num per user should be right here:")
+        #print(songnum4user)
         return render_template('gametime.html',totalusers = int(request.form.get("numofusers")),allnames=allthenames,utubeurls=allurls,
                                thenotes=json.dumps(thenotes),songnum4user=songnum4user,totalsongs=totalsongs,optstarttime=json.dumps(optstarttime)) 
         #,songspereach=request.form.get("songspereach")
@@ -279,35 +274,22 @@ def startgame():
 def showresults():
     print("Going to results page")
     #print(request.form.get('winnertiers'))
-    print(request.form.get("bottomtier"))
-    
-    
+    #print(request.form.get("bottomtier"))
     eachtier = request.form.get('winnertiers')
-    
     '''for x in request.form.get('winnertiers'):
         print(x)'''
     return render_template('resultspage.html',listoftiers=eachtier,namesintiers=request.form.get('winnernames'),
                            bottomtier=request.form.get("bottomtier"),lowtiernames=request.form.get("bottomnames"),
                            allnotes=request.form.get("notesforresults"),losernotes=request.form.get('losernotes'));   
 
-
- 
-    
-'''@app.route("/startgame")
-def thegame():
-    return'''
-    
-@app.route("/testarea")
-def testarea():
-        return render_template('testtournament.html')
     
 
 
 if __name__ == "__main__":
     #Testing version
-    #app.run(debug=True)
+    app.run(debug=True)
     
     #Production version
-    from waitress import serve
+    '''from waitress import serve
     print("Running on http://localhost:8000/")
-    serve(app, host="localhost", port=8000)
+    serve(app, host="localhost", port=8000)'''

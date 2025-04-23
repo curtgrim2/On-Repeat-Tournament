@@ -116,8 +116,10 @@ videoDetails(listoftiers);
             document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
             console.log(namesintiers[namesintiers.length-1]);
             newtieritem.innerHTML = video.items[0].snippet.title;// + " ["+ namesintiers[x][y] +"]";
+
             //namesintiers[namesintiers.length-1][0] +"]";
-            newtieritem.style.textDecoration="underline";
+
+            //newtieritem.style.textDecoration="underline";
             newtieritem.style.textDecorationColor = "red";
             newtieritem.id=video.items[0].snippet.title + x;
             console.log(newtieritem.id);
@@ -181,7 +183,7 @@ videoDetails(listoftiers);
            // newtieritem.style.backgroundColor="pink";
             newtieritem.style.width="75%";
             newtieritem.style.marginTop="2%";
-            newtieritem.style.textDecoration="underline";
+            //newtieritem.style.textDecoration="underline";
             newtieritem.style.display="inline-block";
 
             
@@ -227,7 +229,7 @@ videoDetails(listoftiers);
 
             newtieritem.innerHTML = video.items[0].snippet.title;// + " ["+ namesintiers[x][y] +"]";
 
-            newtieritem.style.textDecoration="underline";
+            //newtieritem.style.textDecoration="underline";
             if(x==0){
                 newtieritem.style.textDecorationColor = "blue";
 
@@ -323,7 +325,9 @@ addnotes.style.margin="10px 10px";
 /*addnotes.style.paddingTop="1%";
 addnotes.style.paddingBottom="1%";
 addnotes.style.paddingLeft="1%";*/
-addnotes.style.width="25%";
+addnotes.style.fontSize="1.5vw";
+addnotes.style.maxWidth="20%";
+//addnotes.style.width="2.5vw";
 
 //document.getElementById(everydiv[x].id).appendChild(addnotes);
 document.getElementById(everydiv[x].id).insertAdjacentElement('afterend',addnotes);
@@ -421,8 +425,9 @@ var defeatedby = document.createElement("div");
 defeatedby.style.marginBottom="5%";
 defeatedby.style.textAlign="left";
 defeatedby.innerHTML = "Defeated By "+ "\"" +urltitles[titlecounter++] + "\""; 
+defeatedby.style.textDecoration="underline";
 defeatedby.className="thedefeated";
-defeatedby.style.textDecoration="none";
+//defeatedby.style.textDecoration="none";
 //Have to go backwards because urltitles tier results are in reverse? (FALSE but is it changing?)
 
 
