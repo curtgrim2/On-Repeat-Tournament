@@ -18,7 +18,8 @@
   
 ### OTHER TASKS (Curtis)
 - IoT (Have program progress itself)
+  - Including adding stop time
 - Pop up that goes to Youtube; Can click on a video and then program takes the url and applies it
-- Add stop time?
+- Responsiveness
 - Edit total amount of songs within the draft page (slide 3) + Change the amount of songs per user (remove/add songs)
 - Quick access to names and their sections (do the same for results page)
