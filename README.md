@@ -17,6 +17,8 @@
 - Use Raspberry Pi instead Google cloud console for cloud database and user connectivity?
   
 ### OTHER TASKS (Curtis)
+- IoT (Have program progress itself)
+- Pop up that goes to Youtube; Can click on a video and then program takes the url and applies it
 - Add stop time?
 - Edit total amount of songs within the draft page (slide 3) + Change the amount of songs per user (remove/add songs)
 - Quick access to names and their sections (do the same for results page)
