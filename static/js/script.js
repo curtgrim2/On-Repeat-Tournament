@@ -143,6 +143,11 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
 
  /*For each name, take the number of songs and ask them to insert Youtube URL into each textbox */
       for( x=0; x<showusernum.value; x++){ //For loop for each user
+
+
+
+
+        
        var newdiv = document.createElement("div");
        newdiv.id = `namenumid${x}`;
        newdiv.style.backgroundColor = "grey";
@@ -159,16 +164,16 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
 
        var stickyname = document.createElement("div");
        stickyname.style.position="sticky";
-       stickyname.style.color="gold";
+       stickyname.style.color="black";
        stickyname.style.top="0";
-       stickyname.style.left="10%";
-       stickyname.style.width="8vw";
-       stickyname.style.marginLeft="1.5%";
+       stickyname.style.left="0%";
+       //stickyname.style.width="8vw";
        stickyname.style.height="3vh";
        stickyname.style.fontSize="2.5vh";
+       stickyname.style.fontWeight="bolder";
        stickyname.style.textAlign="left";
        //stickyname.style.textShadow="0px 0px 10px black";
-       //stickyname.style.backgroundColor="rgba(0,0,0,.7)";
+       stickyname.style.backgroundColor="rgba(255,255,255,.3)";
 
 
         //Name of the user
@@ -194,20 +199,23 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         newtotalsongs++;
 
 
+
         var songcontain = document.createElement("div"); //Song Container
-        songcontain.id=`namenumid2${iterhelp2}`;
-        //songcontain.style.border="1px black solid";
+       songcontain.id=`namenumid2${iterhelp2}`;
+      songcontain.style.backgroundColor="#6b6b6b"; //#9d9e9d
+      //songcontain.style.border="1px black solid";
        // songcontain.style.backgroundColor="silver";
        //songcontain.style.boxShadow="0px 0px 10px 1px black";
-       songcontain.style.backgroundColor="#9d9e9d";
-        songcontain.style.width="80%";
-        songcontain.style.margin="0 auto 10px auto";
-        songcontain.style.paddingTop="4%";
-        songcontain.style.display="flex";
+       songcontain.style.width="80%";
+       songcontain.style.margin="0 auto 10px auto";
+       songcontain.style.paddingTop="1%";
+       songcontain.style.paddingBottom="2%";
+       songcontain.style.border="2px white solid";
+       songcontain.style.display="flex";
        songcontain.style.flexDirection="column";
        songcontain.style.alignItems="center"; //Shouldn't it be justify-content?
-       //songcontain.style.justifyContent="center";
-        document.getElementById(`namenumid${x}`).appendChild(songcontain);
+       document.getElementById(`namenumid${x}`).appendChild(songcontain);
+
 
         var utubeURLs  = document.createElement("input");
         utubeURLs.type = "text";
@@ -233,6 +241,21 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         urlvideo.referrerPolicy="strict-origin-when-cross-origin";
         urlvideo.allowFullscreen="true";
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(urlvideo);
+
+
+        var songid = document.createElement("div");
+        songid.innerHTML = "#"+ (y+1);
+        songid.style.color="black";
+        songid.style.fontSize="1.5vw";
+        //songid.style.backgroundColor="pink";
+        songid.style.width="90%";
+        songid.style.textAlign="right";
+        songid.style.position="sticky";
+        songid.style.top="0";
+        songid.style.right="10";
+        //document.getElementById(`namenumid${x}`).appendChild(songid);
+        //document.getElementById(`namenumid2${iterhelp2}`).appendChild(songid);
+        document.getElementById(`namenumid2${iterhelp2}`).insertAdjacentElement('afterbegin',songid);
 
 
        /* var dontuse = document.createElement('input');
@@ -528,14 +551,14 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
 
        var songcontain = document.createElement("div"); //Song Container
        songcontain.id=`namenumid2${iterhelp2}`;
-       songcontain.style.backgroundColor= "#616161";
-      //songcontain.style.backgroundColor="#9d9e9d";
+       //songcontain.style.backgroundColor= "#616161";
+      songcontain.style.backgroundColor="#6b6b6b";
        songcontain.style.width="80%";
        songcontain.style.margin="0 auto 10px auto";
        songcontain.style.paddingTop="1%";
        songcontain.style.paddingBottom="2%";
        songcontain.style.border="2px white solid";
-       //songcontain.style.border="5px white groove"
+       //songcontain.style.border="7px #9fa19f groove";
        songcontain.style.display="flex";
        songcontain.style.flexDirection="column";
        songcontain.style.alignItems="center"; //Shouldn't it be justify-content?
@@ -566,7 +589,7 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
 
 
         var songid = document.createElement("div");
-        songid.innerHTML = y+1;
+        songid.innerHTML = "#"+ (y+1);
         songid.style.color="black";
         songid.style.fontSize="1.5vw";
         //songid.style.backgroundColor="pink";

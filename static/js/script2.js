@@ -105,6 +105,7 @@ var testusernum = 3;
             var keepwinnernotes=[];
             var losernotes=[];
             var counter=0;
+            var counter2=1;
             var numofsongsleft=forcurrround;//var numofsongsleft=totalusers*songsperuser;
             const totalsongs2 = forcurrround;
             var totalrounds = 3;
@@ -117,7 +118,7 @@ var testusernum = 3;
             var allusers2 = allusers;
             console.log(allusers2);
 
-            document.getElementById("displayround").innerHTML = "Round of " + currround;
+            document.getElementById("displayround").innerHTML = "Round of " + currround + " (" + counter2 +"/"+currround/2 + ")";
 
             //Set up initial First Matchup
 
@@ -183,6 +184,7 @@ var testusernum = 3;
 
             function thelogic(theanswer,songselector1,songselector2){ // function thelogic(theanswer,songselector1,songselector2)
                 counter=counter+2; //Keeping track of how many songs we went through in the round
+                counter2++;
                 console.log("AllUsers");
                 console.log(allusers2);
             console.log("Counter:" + counter + ", Current Round:" +currround);
@@ -270,8 +272,9 @@ var testusernum = 3;
                     }
 
                 if(currround!=counter){ //To move on to the next round
-                    document.getElementById("displayround").innerHTML = "Round of " + currround;
-                   /* console.log("Number of songs remaining is " + numofsongsleft);                                                      
+                    //counter2=1;
+                    document.getElementById("displayround").innerHTML = "Round of " + currround + " (" + counter2 +"/"+currround/2 + ")";
+                    /* console.log("Number of songs remaining is " + numofsongsleft);                                                      
                     console.log("AllUsers");
                     console.log(allusers2);
                     console.log("Check length: " +allusers2.length);*/
@@ -438,7 +441,8 @@ var testusernum = 3;
                 console.log("TO THE NEXT ROUND");
                 numofsongsleft=numofsongsleft/2;
                 currround = currround/2;
-                document.getElementById("displayround").innerHTML = "Round of " + currround;                
+                counter2=1;
+                document.getElementById("displayround").innerHTML = "Round of " + currround + " (" + counter2 +"/"+currround/2 + ")";
 
                 var findsong=0;
                 var theuser = 0;
@@ -558,6 +562,7 @@ var testusernum = 3;
 
                     winners=[]; //Need to store/record old winners before clearing this out (long term)
                     counter=0;
+                   // counter2=1;
 
                 //users_name=newusernames  //Change this?
                 
