@@ -17,6 +17,8 @@
 - Use Raspberry Pi instead Google cloud console for cloud database and user connectivity?
   
 ### OTHER TASKS (Curtis)
+- Create Phone app for voters
+- Spotify link setup for the website?
 - IoT (Have program progress itself)
   - Including adding stop time
 - Pop up that goes to Youtube; Can click on a video and then program takes the url and applies it
