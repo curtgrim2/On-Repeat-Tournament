@@ -154,7 +154,7 @@ def startgame():
         check4starttime=request.form.get(f'starttimenum{x}')
         optstarttime.append(check4starttime)
         
-        if check4starttime != "":
+        if check4starttime != "":  #Should we use RegExp to check correct format for the time?
            index=check4starttime.find(':')
            if index!=-1:
             og_mins=check4starttime[:index] #getting everything b4 the colon

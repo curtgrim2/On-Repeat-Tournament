@@ -49,7 +49,7 @@ function toslide2(showusernum){
     error.innerHTML = "TOO MANY USERS - Maximum of 10";
    }
 
-   else if(showusernum.value < 0){
+   else if(showusernum.value <= 0){
     error.style.display = "block";
     error.innerHTML = "Must have at least 1 user";
    }
@@ -64,11 +64,6 @@ function toslide2(showusernum){
     
 
     for(x=0; x<showusernum.value; x++){ 
-
-       /*if(x!=1){ 
-        var linebreak = document.createElement("br");
-        document.getElementById("enternames").appendChild(linebreak);
-    }*/
 
         var node  = document.createElement("input");
         node.type = "text";
@@ -95,6 +90,8 @@ function toslide2(showusernum){
 
 
 }
+
+
 
 function showremainingsongs(){
     var songsaccountedfor=0;
