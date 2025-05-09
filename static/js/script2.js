@@ -36,6 +36,9 @@ var testusernum = 3;
             var allusers = [user1songs,user2songs,user3songs,user4songs,user5songs,user6songs,user7songs,user8songs,user9songs,user10songs];
 
 
+            export const totalusers2 = {totalusernum:totalusers}
+
+
             var usersnotes =[[],[],[],[],[],[],[],[],[],[]];
 
 

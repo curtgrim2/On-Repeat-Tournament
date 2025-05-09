@@ -132,6 +132,24 @@
             var draftsong4user3 = JSON.parse('{{draftsong4user3 | tojson | safe}}');
             var draftstarttime3 = JSON.parse('{{draftstarttime3 | tojson | safe}}');
 
+            var draftnames4 = JSON.parse('{{draftnames4 | tojson | safe}}');
+            var drafturls4= JSON.parse('{{drafturls4 | tojson | safe}}');
+            var draftsongsperuser4=JSON.parse('{{songsperuser4 | tojson | safe}}');
+            var draftnumofusers4=JSON.parse('{{numofusers4 | tojson | safe}}');
+            var draftnotes4 =JSON.parse({{draftnotes4 | tojson | safe}});
+            var drafttitle4 =JSON.parse('{{drafttitle4 | tojson | safe}}');
+            var draftsong4user4 = JSON.parse('{{draftsong4user4 | tojson | safe}}');
+            var draftstarttime4 = JSON.parse('{{draftstarttime4 | tojson | safe}}');
+
+            var draftnames5 = JSON.parse('{{draftnames5 | tojson | safe}}');
+            var drafturls5= JSON.parse('{{drafturls5 | tojson | safe}}');
+            var draftsongsperuser5=JSON.parse('{{songsperuser5 | tojson | safe}}');
+            var draftnumofusers5=JSON.parse('{{numofusers5 | tojson | safe}}');
+            var draftnotes5 =JSON.parse({{draftnotes5 | tojson | safe}});
+            var drafttitle5 =JSON.parse('{{drafttitle5 | tojson | safe}}');
+            var draftsong4user5 = JSON.parse('{{draftsong4user5 | tojson | safe}}');
+            var draftstarttime5 = JSON.parse('{{draftstarttime5 | tojson | safe}}');
+
              
             
           /*  if(draftnames != null || draftnames != "" ){
@@ -147,7 +165,7 @@
 
             //For Draft Slots           
            totaltitles=0;
-            for(var x=1; x<=3; x++){
+            for(var x=1; x<=5; x++){  //For the if statement, I'm just hardcoding the max amount of slots I'm allowing the program to have
                 var draft = document.createElement("div");
                 draft.style.backgroundColor="rgba(255,255,255,.1)";
                 draft.style.color="white";

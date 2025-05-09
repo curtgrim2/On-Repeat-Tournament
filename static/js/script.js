@@ -417,9 +417,31 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         document.getElementsByName("newdraftname")[0].value=drafttitle3[0];
         draftsong4user=draftsong4user3;
         draftstarttime=draftstarttime3;
+    }
 
 
+    if(whichdraft==4){
+        draftnames = draftnames4;
+        draftnumofusers = draftnumofusers4;
+        draftsongsperuser =draftsongsperuser4;
+        drafturls = drafturls4;
+        draftnotes = draftnotes4;
+        drafttitle = drafttitle4;
+        document.getElementsByName("newdraftname")[0].value=drafttitle4[0];
+        draftsong4user=draftsong4user4;
+        draftstarttime=draftstarttime4;
+    }
 
+    if(whichdraft==5){
+        draftnames = draftnames5;
+        draftnumofusers = draftnumofusers5;
+        draftsongsperuser =draftsongsperuser5;
+        drafturls = drafturls5;
+        draftnotes = draftnotes5;
+        drafttitle = drafttitle5;
+        document.getElementsByName("newdraftname")[0].value=drafttitle5[0];
+        draftsong4user=draftsong4user5;
+        draftstarttime=draftstarttime5;
     }
 
    /* console.log(whichdraft);

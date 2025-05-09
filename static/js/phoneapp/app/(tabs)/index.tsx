@@ -21,21 +21,26 @@ const sendinvote = (thevote:string) =>{
       <View style={styles.buttcont}>
           <TouchableOpacity style ={styles.leftbutton} onPress={()=>sendinvote("Left")}>
               <Text style={styles.buttontext}>Left</Text>
+              <Text style ={{color:'white',marginTop:20}}>Click to take back vote</Text>
             </TouchableOpacity> 
 
             <TouchableOpacity style={styles.rightbutton}onPress={()=>sendinvote("Right")}>
               <Text style={styles.buttontext} > Right Video</Text>
+              <Text style={{color:'white',marginTop:20}}>Click to take back vote</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity>
-            </TouchableOpacity>
+            
+
+            
             </View>
-            <TouchableOpacity style={styles.bottomlabel}>
 
-            <Text>
+            <View style={styles.blcont}>
+            <TouchableOpacity style={styles.bottomlabel}>
+            <Text style={styles.bottomtext}>
                 Take back vote
             </Text>           
    </TouchableOpacity>
+   </View>
           </View>
     
   );
@@ -44,11 +49,12 @@ const sendinvote = (thevote:string) =>{
 const styles = StyleSheet.create({
   buttcont:{
 flexDirection:'row',
-backgroundColor:'yellow',
 height:"75%",
 /*justifyContent:'center',
 alignItems:'center'*/
 },
+
+
   label:{
     backgroundColor:'black',
     color:'white',
@@ -58,21 +64,36 @@ alignItems:'center'*/
     fontSize:50,
 
   },
+  bottomtext:{
+    textAlign:'center',
+    fontSize:30,
+  },
+
+  blcont:{
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+    height:'20%',
+  },
   bottomlabel:{
     backgroundColor:'grey',
-    textAlign:'center'
+    textAlign:'center',
+    width:"100%",
+    height:'100%',
   },
   body1:{
     width:'100%',
-    backgroundColor:'purple',
+    backgroundColor:'#9b95a3',
     textAlign:'center',
     height:'100%',
+    
+
   },
   leftbutton:{
     backgroundColor:'black',
     color:'white',
     /*borderRadius:500/2,*/
-    width:400,
+    width:'40%',
     height:300,
     position:'fixed',
     top:"20%",
@@ -85,7 +106,7 @@ alignItems:'center'*/
     backgroundColor:'black',
     color:'white',
    /* borderRadius:500/2,*/
-    width:400,
+    width:'40%',
     height:300,
     position:'fixed',
     right:0,
