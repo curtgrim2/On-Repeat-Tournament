@@ -783,7 +783,7 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
 document.getElementById("savedraft").addEventListener('click',(event)=>{
-    if(totaltitles==3){
+    if(totaltitles==5){ //5 = Max number of slots
         alert("FULL DRAFT SLOT; Please delete a draft");
         event.preventDefault();
     }

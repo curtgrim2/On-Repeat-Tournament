@@ -36,7 +36,7 @@ var testusernum = 3;
             var allusers = [user1songs,user2songs,user3songs,user4songs,user5songs,user6songs,user7songs,user8songs,user9songs,user10songs];
 
 
-            export const totalusers2 = {totalusernum:totalusers}
+            //export const totalusers2 = {totalusernum:totalusers}
 
 
             var usersnotes =[[],[],[],[],[],[],[],[],[],[]];
@@ -892,7 +892,20 @@ while(winnernotes.length>0){
            flipattemptresult.style.margin="5% auto 5% auto";
            flipattemptresult.style.fontSize="2.5vw";
            flipattemptresult.style.overflow="hidden";
+           flipattemptresult.style.transition="transform 1s ease";
+
+           flipattemptresult.id=flipcounter;
+
+
             document.getElementById("trackflips").appendChild(flipattemptresult);
+
+            setTimeout(()=>{
+                flipattemptresult.style.transform="rotateY(360deg)";
+
+            },5);
+
+            //animatecoin(flipattemptresult.id);
+
 
             
             if(flipcounter==2){
@@ -957,6 +970,12 @@ while(winnernotes.length>0){
 
 
            }
+
+          }
+
+          function animatecoin(id){
+            //document.getElementById(id).style.transition="transform 5s ease";
+            //.getElementById(id).style.transform="rotateY(180deg)";
 
           }
 
