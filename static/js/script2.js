@@ -904,9 +904,6 @@ while(winnernotes.length>0){
 
             },5);
 
-            //animatecoin(flipattemptresult.id);
-
-
             
             if(flipcounter==2){
                 var itsheads=0;
@@ -973,11 +970,6 @@ while(winnernotes.length>0){
 
           }
 
-          function animatecoin(id){
-            //document.getElementById(id).style.transition="transform 5s ease";
-            //.getElementById(id).style.transform="rotateY(180deg)";
-
-          }
 
           function closecoinflip(){
             document.getElementById("coinflip_contain").style.display="none";

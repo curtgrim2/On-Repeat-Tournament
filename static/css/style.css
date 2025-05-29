@@ -54,14 +54,36 @@ form{
 }
 
 #slide1,#slide2{
-    background-color:grey ;/*rgb(232, 232, 232);*/
-    /*border:5px rgb(107, 106, 106) double;*/
+    display:flex;
+    justify-content:center;
+    flex-direction: column;
+    background-color:grey ;
     width:50%;
     min-height:50%;
     margin:0 auto 0 auto;
     text-align: center;
     overflow: hidden;
 }
+
+#showusernum{
+    margin:0 auto;
+}
+
+#totalsongs{
+    width:25%;
+    text-align: center;
+    margin:0 auto;
+}
+
+/*
+#slide2{
+    background-color:grey ;
+    width:50%;
+    min-height:50%;
+    margin:0 auto 0 auto;
+    text-align: center;
+    overflow: hidden;
+} */
 
 #enternames{
     display:block;
