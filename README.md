@@ -1,9 +1,6 @@
 # On-Repeat-Tournament
 
 ###  CSS Tasks (Assigned to Uriah):
-- Coin Flip pop up
-  - Use transform:rotateX/transform:rotateY to show coin flipping animation
-  - Draw image for heads/tail sides
 - slide3 draft UI vs non draft UI
 - Arrows (animation) pointing at video when video is playing
     - Dotted arrows that grows to a certain point and then repeats
