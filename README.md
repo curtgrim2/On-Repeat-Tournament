@@ -14,10 +14,6 @@
 - Use Raspberry Pi instead Google cloud console for cloud database and user connectivity?
   
 ### OTHER TASKS (Curtis)
-- Need to make sure user can't just submit a space/ " " to bypass the "How many users are participating" input on slide1
-     - Trim whitespace?
-     - Regular Expression?
-     - Check if input is a number?
 - Create Phone app for voters
 - Spotify link setup for the website?
 - IoT (Have program progress itself)
