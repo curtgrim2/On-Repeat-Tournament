@@ -8,6 +8,7 @@ import {receivevotes} from './phoneapp.js';
 
 export default function HomeScreen() {
 
+// npx expo start
 
 const sendinvote = (thevote:string) =>{
   receivevotes(thevote);

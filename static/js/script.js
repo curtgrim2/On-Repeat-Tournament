@@ -278,6 +278,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         //notes.style.marginBottom="5%";
         //notes.style.margin="0 auto 5% auto";
         notes.style.backgroundColor="black";
+        notes.style.color="white";
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(notes);
 
         var container = document.createElement("div");
@@ -736,13 +737,10 @@ document.addEventListener("DOMContentLoaded", function () {
         for (var x = 0; x < totalsongs; x++) {
             const inputElement = document.getElementsByName(`namenum${x}`)[0]; // Select the input element by name
 
-            if (inputElement) {
+            if (inputElement && document.getElementsByName("checkdraftbut")[0].value!="deletethisdraft") {
                 const inputValue = inputElement.value; // Get the value of the input
-                //console.log(`Input value for namenum${x}:`, inputValue);
-
                 if (inputValue === "") {
                     totalempty++;
-                    //console.log(`namenum${x} is empty.`);
                     event.preventDefault(); // Prevent default form submission behavior
 
                 }
@@ -751,7 +749,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
         
-        if(totalempty>0){
+        if(totalempty>0 && document.getElementsByName("checkdraftbut")[0].value!="deletethisdraft") { //deletethisdraft
             error.style.display = "block";
             error.innerHTML = `No empty URL boxes. There are ${totalempty} empty boxes`;  
         }
@@ -811,11 +809,7 @@ otherthing1.addEventListener('click',(event)=>{
 
   function topython(){
     document.getElementById("isthesavebuttonclicked").value="deletethisdraft";
-    /*var confirmation = confirm("Are you sure you want to delete this draft?");
-   
-   if(confirmation==false){
-        return false;
-    }*/
+    console.log("Has reached back here");
 }
 
 function showsongtitle(theurl,usethisid,fortitledisplay,urlvideoid){

@@ -171,7 +171,10 @@
                 draft.style.backgroundColor="rgba(255,255,255,.1)";
                 draft.style.color="white";
                 draft.style.position="relative";
-                draft.style.display="inline-block";
+
+                draft.style.right=(100/x)%6 +"%";
+
+                draft.style.display="block";
                 draft.style.bottom="0";
                 draft.style.padding="3% 0";
                 draft.style.margin="0 1%";
@@ -295,6 +298,9 @@
                             event.target.style.fontWeight="bolder";
                             event.target.style.textDecoration="underline";
                             event.target.style.color="black";
+                            event.target.style.display="block";
+                            event.target.style.position="absolute";
+                            event.target.style.height="10vh";
                         }
             });
             document.getElementById("olddrafts").childNodes[4].addEventListener('mouseleave',function(event){

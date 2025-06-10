@@ -271,6 +271,7 @@ cursor:pointer;
 
 #olddrafts{
     display:flex;
+    position: absolute;
     justify-content: center;    
     position:fixed;
     bottom:0;

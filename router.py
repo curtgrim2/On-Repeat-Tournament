@@ -90,7 +90,7 @@ def home():
     for table in tables:
         table_name = table[0]
         alltables.append(table_name)
-        
+        print(table_name)
         cursor.execute(f"SELECT * FROM {table_name};")
         print(table_name)
         if tablenum==1:
