@@ -90,7 +90,14 @@
                
          </form>    
         </div>
-        <div id="olddrafts"><div id="draftslabel">Drafts:</div></div>
+
+        <div id="draftslabel"> <div id="olddrafts"></div></div>
+       <!--<div id="background4drafts"></div>--> 
+
+
+
+
+
 
 
         <script src="{{ url_for('static', filename='js/script.js') }}"></script></script>
@@ -170,14 +177,16 @@
                 var draft = document.createElement("div");
                 draft.style.backgroundColor="rgba(255,255,255,.1)";
                 draft.style.color="white";
-                draft.style.position="relative";
+                //draft.style.right=(100/x)%6 +"%";
+                draft.style.display="inline-block";
+               draft.style.alignItems="center";
+               draft.style.justifyContent="center"
+                draft.style.flexDirection="row";
+                //draft.style.bottom="0";
 
-                draft.style.right=(100/x)%6 +"%";
-
-                draft.style.display="block";
-                draft.style.bottom="0";
-                draft.style.padding="3% 0";
+                //draft.style.padding="3% 0";
                 draft.style.margin="0 1%";
+                
                 draft.style.textAlign="center";
                 draft.style.cursor="pointer";
                 draft.style.zIndex="2";
@@ -186,7 +195,8 @@
                 var draftnum = "drafttitle"+x;
                 draft.id=x;
                 draft.className="selectdrafts";
-                draft.style.width="20%";
+                draft.style.width="14%";
+                draft.style.height="50%";
 
                 if(draftslots[draftnum]==undefined){
                     draft.innerHTML= "DRAFT SLOT AVAILABLE";
@@ -207,7 +217,6 @@
 
                 //document.getElementsByTagName("body")[0].appendChild(draft); 
                 document.getElementById("olddrafts").appendChild(draft);
-
                 //document.getElementById("olddrafts").style.zIndex="-1";
 
                 draft.addEventListener('click',function(event){
@@ -224,23 +233,43 @@
             console.log( document.getElementById("olddrafts").querySelectorAll("div"));
 
 
+               document.getElementById("olddrafts").childNodes[0].addEventListener('mouseenter',function(event){ 
+               // if(event.target.id!='draftslabel' && event.target.id!='olddrafts'){
+                if(event.target.innerHTML != "DRAFT SLOT AVAILABLE"){
+                            //event.target.style.backgroundColor="rgba(255,255,255,.4)";
+                            event.target.style.backgroundColor="green";
+                            event.target.style.fontWeight="bolder";
+                            event.target.style.textDecoration="underline";
+                            event.target.style.color="black";
+                            event.target.style.height="100%";
+                            event.target.style.borderTop="green 5px solid";
+                            event.target.style.transition=".2s";
+
+                            }
+            });
+
+            document.getElementById("olddrafts").childNodes[0].addEventListener('mouseleave',function(event){
+                event.target.style.backgroundColor="rgba(255,255,255,.1)";
+                event.target.style.color="white";
+                event.target.style.fontSize="1.6vw";
+                event.target.style.fontWeight="normal";
+                event.target.style.textDecoration="none";
+                event.target.style.borderTop="white 5px solid";
+                event.target.style.height="50%";
+                event.target.style.borderTop="5px white solid";
+            });
+
+
            document.getElementById("olddrafts").childNodes[1].addEventListener('mouseenter',function(event){ 
                // if(event.target.id!='draftslabel' && event.target.id!='olddrafts'){
                 if(event.target.innerHTML != "DRAFT SLOT AVAILABLE"){event.target.style.backgroundColor="rgba(255,255,255,.4)";
                             event.target.style.fontWeight="bolder";
                             event.target.style.textDecoration="underline";
                             event.target.style.color="black";
-                           /*event.target.style.position="relative";
-                           event.target.style.width="150%";*/
-                            //event.target.style.transition=".5s";
-                            /*event.target.style.position="absolute"
-                            event.target.style.top="0";
-                            event.target.style.zIndex="2";
-                            event.target.style.height="150%";*/
-                            //document.getElementById("olddrafts").style.position="relative";
+                            event.target.style.height="100%";
+                            event.target.style.borderTop="5px green solid";
+                            event.target.style.transition=".2s";
                             }
-                            
-
             });
 
             document.getElementById("olddrafts").childNodes[1].addEventListener('mouseleave',function(event){
@@ -250,16 +279,23 @@
                 event.target.style.fontWeight="normal";
                 event.target.style.textDecoration="none";
                 event.target.style.position="static";
+                event.target.style.height="50%";
+                event.target.style.borderTop="5px white solid";
             });
 
 
 
-            document.getElementById("olddrafts").childNodes[2].addEventListener('mouseenter',function(event){
-                if(event.target.innerHTML != "DRAFT SLOT AVAILABLE"){
+             document.getElementById("olddrafts").childNodes[2].addEventListener('mouseenter',function(event){
+                if(event.target.innerHTML != "DRAFT SLOT AVAILABLE"){ 
                     event.target.style.backgroundColor="rgba(255,255,255,.4)";
                             event.target.style.fontWeight="bolder";
                             event.target.style.textDecoration="underline";
-                            event.target.style.color="black";}
+                            event.target.style.color="black";
+                            event.target.style.height="100%";
+                            event.target.style.borderTop="5px green solid";
+                            event.target.style.transition=".2s";
+
+                        }
             });
             document.getElementById("olddrafts").childNodes[2].addEventListener('mouseleave',function(event){
                 if(event.target.innerHTML != "DRAFT SLOT AVAILABLE"){
@@ -267,7 +303,11 @@
                 event.target.style.color="white";
                 event.target.style.fontSize="1.6vw";
                 event.target.style.fontWeight="normal";
-                event.target.style.textDecoration="none";}
+                event.target.style.textDecoration="none";
+                event.target.style.height="50%";
+                event.target.style.borderTop="5px white solid";
+
+            }
 
             });
 
@@ -278,7 +318,11 @@
                     event.target.style.backgroundColor="rgba(255,255,255,.4)";
                             event.target.style.fontWeight="bolder";
                             event.target.style.textDecoration="underline";
-                            event.target.style.color="black";}
+                            event.target.style.color="black";
+                            event.target.style.height="100%";
+                            event.target.style.borderTop="5px green solid";
+                            event.target.style.transition=".2s";
+                        }
             });
             document.getElementById("olddrafts").childNodes[3].addEventListener('mouseleave',function(event){
                 if(event.target.innerHTML != "DRAFT SLOT AVAILABLE"){
@@ -286,21 +330,26 @@
                 event.target.style.color="white";
                 event.target.style.fontSize="1.6vw";
                 event.target.style.fontWeight="normal";
-                event.target.style.textDecoration="none";}
+                event.target.style.textDecoration="none";
+                event.target.style.height="50%";
+                event.target.style.borderTop="5px white solid";
+
+            }
 
             });
 
 
 
-            document.getElementById("olddrafts").childNodes[4].addEventListener('mouseenter',function(event){
+            document.getElementById("olddrafts").childNodes[4].addEventListener('mouseenter',function(event){ //WHERE THE UNAVAILABLE IS RN
                 if(event.target.innerHTML != "DRAFT SLOT AVAILABLE"){
                     event.target.style.backgroundColor="rgba(255,255,255,.4)";
                             event.target.style.fontWeight="bolder";
                             event.target.style.textDecoration="underline";
                             event.target.style.color="black";
-                            event.target.style.display="block";
-                            event.target.style.position="absolute";
-                            event.target.style.height="10vh";
+                            event.target.style.height="100%";
+                            event.target.style.height="5px green solid";
+                            event.target.style.transition=".2s";
+
                         }
             });
             document.getElementById("olddrafts").childNodes[4].addEventListener('mouseleave',function(event){
@@ -310,18 +359,24 @@
                 event.target.style.fontSize="1.6vw";
                 event.target.style.fontWeight="normal";
                 event.target.style.textDecoration="none";
+                event.target.style.height="10%";
+                event.target.style.borderTop="5px white solid";
+
+
             }
 
             });
 
 
-            document.getElementById("olddrafts").childNodes[5].addEventListener('mouseenter',function(event){
+          /*  document.getElementById("olddrafts").childNodes[5].addEventListener('mouseenter',function(event){
                         if(event.target.innerHTML != "DRAFT SLOT AVAILABLE"){
-                            console.log("testing");
                             event.target.style.backgroundColor="rgba(255,255,255,.4)";
                             event.target.style.fontWeight="bolder";
                             event.target.style.textDecoration="underline";
-                            event.target.style.color="black";}
+                            event.target.style.color="black";
+                            event.target.style.height="80%";
+
+                        }
             });
             document.getElementById("olddrafts").childNodes[5].addEventListener('mouseleave',function(event){
                 if(event.target.innerHTML != "DRAFT SLOT AVAILABLE"){
@@ -329,9 +384,12 @@
                 event.target.style.color="white";
                 event.target.style.fontSize="1.6vw";
                 event.target.style.fontWeight="normal";
-                event.target.style.textDecoration="none";}
+                event.target.style.textDecoration="none";
+                event.target.style.height="5vh";
 
-            });
+                        }
+
+            });*/
 
             console.log(totaltitles);
             
