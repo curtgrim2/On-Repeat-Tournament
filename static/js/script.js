@@ -18,6 +18,7 @@ var slide3 = document.getElementById("slide3");
 slide3.style.display ="none";
 
 var olddrafts = document.getElementById("olddrafts");
+var draftscontainer = document.getElementById("draftscontainer");
 var draftslabel = document.getElementById("draftslabel");
 var updatebutt = document.getElementById("updatedraft");
 updatebutt.style.display="none";
@@ -134,6 +135,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
     slide2.style.display ="none";
     slide3.style.display ="block";
     olddrafts.style.display="none";
+    draftscontainer.style.display="none";
     draftslabel.style.display="none";
     error.style.display = "none";
     deletedraftbutton.style.display="none";
@@ -501,6 +503,7 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
     slide2.style.display ="none";
     slide3.style.display ="block";
     olddrafts.style.display="none";
+    draftscontainer.style.display="none";
     draftslabel.style.display="none";
     errorbox.style.display="none";
     updatebutt.style.display="block";

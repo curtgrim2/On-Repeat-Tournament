@@ -91,7 +91,8 @@
          </form>    
         </div>
 
-        <div id="draftslabel"> <div id="olddrafts"></div></div>
+        <div id="draftslabel">Drafts</div>
+        <div id="draftscontainer"> <div id="olddrafts"></div></div>
        <!--<div id="background4drafts"></div>--> 
 
 
@@ -200,8 +201,9 @@
 
                 if(draftslots[draftnum]==undefined){
                     draft.innerHTML= "DRAFT SLOT AVAILABLE";
-                    draft.style.backgroundColor="rgba(0,0,0,0)";
+                    //draft.style.backgroundColor="rgba(0,0,0,0)";
                     //draft.style.border="white 2px dashed";
+                    draft.style.borderTop="white 4px dashed";
                     draft.style.cursor="not-allowed";
                    
                 }
@@ -217,7 +219,6 @@
 
                 //document.getElementsByTagName("body")[0].appendChild(draft); 
                 document.getElementById("olddrafts").appendChild(draft);
-                //document.getElementById("olddrafts").style.zIndex="-1";
 
                 draft.addEventListener('click',function(event){
                     if(event.target.innerHTML=="DRAFT SLOT AVAILABLE"){
@@ -234,13 +235,13 @@
 
 
                document.getElementById("olddrafts").childNodes[0].addEventListener('mouseenter',function(event){ 
-               // if(event.target.id!='draftslabel' && event.target.id!='olddrafts'){
+               // if(event.target.id!='draftscontainer' && event.target.id!='olddrafts'){
                 if(event.target.innerHTML != "DRAFT SLOT AVAILABLE"){
                             //event.target.style.backgroundColor="rgba(255,255,255,.4)";
-                            event.target.style.backgroundColor="green";
+                            event.target.style.backgroundColor="rgba(0, 128, 34,.4)";
                             event.target.style.fontWeight="bolder";
                             event.target.style.textDecoration="underline";
-                            event.target.style.color="black";
+                            event.target.style.color="white";
                             event.target.style.height="100%";
                             event.target.style.borderTop="green 5px solid";
                             event.target.style.transition=".2s";
@@ -249,19 +250,18 @@
             });
 
             document.getElementById("olddrafts").childNodes[0].addEventListener('mouseleave',function(event){
-                event.target.style.backgroundColor="rgba(255,255,255,.1)";
-                event.target.style.color="white";
+                event.target.style.backgroundColor="rgba(255,255,255,.4)";
+                event.target.style.color="black";
                 event.target.style.fontSize="1.6vw";
                 event.target.style.fontWeight="normal";
                 event.target.style.textDecoration="none";
-                event.target.style.borderTop="white 5px solid";
+                event.target.style.borderTop="yellow 5px solid";
                 event.target.style.height="50%";
-                event.target.style.borderTop="5px white solid";
             });
 
 
            document.getElementById("olddrafts").childNodes[1].addEventListener('mouseenter',function(event){ 
-               // if(event.target.id!='draftslabel' && event.target.id!='olddrafts'){
+               // if(event.target.id!='draftscontainer' && event.target.id!='olddrafts'){
                 if(event.target.innerHTML != "DRAFT SLOT AVAILABLE"){event.target.style.backgroundColor="rgba(255,255,255,.4)";
                             event.target.style.fontWeight="bolder";
                             event.target.style.textDecoration="underline";
