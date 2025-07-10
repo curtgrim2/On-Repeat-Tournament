@@ -227,6 +227,22 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         utubeURLs.style.width="60%";
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(utubeURLs); 
 
+        var entertitle = document.createElement("input");
+        entertitle.type = "text";
+        entertitle.placeholder="Enter Song name + Artist";
+        entertitle.style.display="block";
+        entertitle.style.width="60%";
+        entertitle.id=`titlenum${eacheverysong}`;
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(entertitle); 
+
+        var search4title = document.createElement("input");
+         search4title.type="button";
+         search4title.value="Search Title";
+         search4title.id=eacheverysong;
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(search4title); 
+
+
+
         //<iframe id="leftvid" width="100%" height="315" src="" title="YouTube video player" frameborder="0" 
         // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; ; web-share" referrerpolicy="strict-origin-when-cross-origin" 
         // allowfullscreen> </iframe> <!-- src="https://www.youtube.com/embed/zm6gHJ3SQIM"--><!--https://www.youtube.com/embed/EpV_WbjyY00-->
@@ -314,15 +330,13 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
           color: blue;
         }
       `;*/
-      document.getElementById(`optcontain${eacheverysong}`).appendChild(optstarttime)
+      document.getElementById(`optcontain${eacheverysong}`).appendChild(optstarttime);
 
         var fortitledisplay = titleclass.className.substring(titleclass.className.length-1,titleclass.className.length)
         showsongtitle("",`namenum${eacheverysong}`,fortitledisplay);
 
         //EVENT LISTENERS
-      /*  dontuse.addEventListener('change',function(event){
-                console.log(event.target.id,"was clicked");
-        });*/
+     
         utubeURLs.addEventListener('input',function(event){
             var neednameid = event.target.id;
             var fortitledisplay2=neednameid.substring(neednameid.length-1,neednameid.length);
@@ -330,12 +344,21 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
             showsongtitle(event.target.value,event.target.id,fortitledisplay2);
         });
 
+        search4title.addEventListener('click',function (event){
+            var thetitle = document.getElementById(`titlenum${event.target.id}`)
+            console.log("This is the title ",thetitle.value);
+            getVideoTitle(thetitle.value);
+        });
+
+        
+
         eacheverysong++;
         iterhelp2++;
                             
        }
     }   
 }
+
 }
 
 
@@ -831,17 +854,32 @@ function showsongtitle(theurl,usethisid,fortitledisplay,urlvideoid){
             const match = theurl.match(regExp); 
 
         //}
-        /*match[0] is the entire url,  match[1] is which exxpression contained the video ID, match[2] is the ID itself*/
-                                                    //true    //false
+        /*match[0] is the entire url,  match[1] is which exxpression contained the video ID, match[2] is the ID itself*/                                                
         //console.log(match[2]);
 
         (match && match[2].length === 11) ? 
         getVideoDetails(match[2],usethisid,fortitledisplay,urlvideoid) : 
         document.getElementsByClassName(usethisid)[0].innerHTML="PLEASE ENTER VALID YOUTUBE URL"; 
         /*Youtube ID's are always 11 characters long*/ 
-    
-    //Check above
 
+}
+
+async function getVideoTitle(query){
+    const apiUrl2=`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${apiKey}&maxResults=1&type=video`;
+    try{
+        const response = await fetch(apiUrl2);
+        if(!response.ok){
+            throw new Error("Network status isn't ok:"+response.statusText);
+        }
+        const results = await response.json();
+
+        console.log("Title should be here");
+
+        console.log(results.items[0].snippet.title);
+    }
+    catch{
+
+    }
 }
 
 async function getVideoDetails(videoId,usethisid,fortitledisplay,urlvideoid){
