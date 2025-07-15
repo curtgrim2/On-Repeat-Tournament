@@ -345,9 +345,11 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         });
 
         search4title.addEventListener('click',function (event){
+            var neednameid = event.target.id;
             var thetitle = document.getElementById(`titlenum${event.target.id}`)
+            var fortitledisplay2=neednameid.substring(neednameid.length-1,neednameid.length);
             console.log("This is the title ",thetitle.value);
-            getVideoTitle(thetitle.value);
+            getVideoTitle(thetitle.value,event.target.id,fortitledisplay2);
         });
 
         
@@ -401,6 +403,8 @@ function changenumofusers(addorsubtract){
     }
 }
 
+
+
 iterhelp2=0;
 function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
 
@@ -418,8 +422,6 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         document.getElementsByName("newdraftname")[0].value=drafttitle1[0];
         draftsong4user=draftsong4user1;
         draftstarttime = draftstarttime1;
-
-
     }
     if(whichdraft==2){
         draftnames = draftnames2;
@@ -431,8 +433,6 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         document.getElementsByName("newdraftname")[0].value=drafttitle2[0];
         draftsong4user=draftsong4user2;
         draftstarttime=draftstarttime2;
-
-
     }
 
     if(whichdraft==3){
@@ -624,6 +624,21 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         utubeURLs.value = drafturls[iterhelp];
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(utubeURLs);
 
+        var entertitle = document.createElement("input");
+        entertitle.type = "text";
+        entertitle.placeholder="Enter Song name + Artist";
+        entertitle.style.display="block";
+        entertitle.style.width="60%";
+        entertitle.id=`titlenum${eacheverysong}`;
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(entertitle); 
+
+        var search4title = document.createElement("input");
+         search4title.type="button";
+         search4title.value="Search Title";
+         search4title.id=eacheverysong;
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(search4title); 
+
+
         var urlvideo = document.createElement('iframe');
         urlvideo.id=`video${eacheverysong}`;
         urlvideo.width="75%";
@@ -720,15 +735,19 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
        showsongtitle(drafturls[iterhelp],`namenum${eacheverysong}`,fortitledisplay,urlvideo.id);
 
 
-        
-
         utubeURLs.addEventListener('input',function(event){
             var neednameid = event.target.id;
             var fortitledisplay2=neednameid.substring(neednameid.length-1,neednameid.length);
             showsongtitle(event.target.value,event.target.id,fortitledisplay2);
         });
 
-
+         search4title.addEventListener('click',function (event){
+            var neednameid = event.target.id;
+            var thetitle = document.getElementById(`titlenum${event.target.id}`)
+            console.log("This is the title ",thetitle.value);
+            var fortitledisplay2=neednameid.substring(neednameid.length-1,neednameid.length);
+            getVideoTitle(thetitle.value,event.target.id,fortitledisplay2);
+        });
 
         eacheverysong++;//console.log(document.getElementById(`namenum${eacheverysong++}`));
         iterhelp++;
@@ -736,21 +755,8 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
                             
        }
     } 
-
 }
 
-
-/*
-var inputs = document.querySelectorAll('input'); // Select all input elements
-
-inputs.forEach((input) => {
-    input.addEventListener('input', (event) => {
-        console.log("jendek");
-    console.log(event.target.value);
-    //showsongtitle(event.target.value,`namenum${eacheverysong}`);
-    });
-});
-*/
 
 
 
@@ -848,12 +854,9 @@ function showsongtitle(theurl,usethisid,fortitledisplay,urlvideoid){
         const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/; 
         if(theurl==undefined){
            theurl="";
-
         }
-        //if(regExp!=null){
             const match = theurl.match(regExp); 
 
-        //}
         /*match[0] is the entire url,  match[1] is which exxpression contained the video ID, match[2] is the ID itself*/                                                
         //console.log(match[2]);
 
@@ -864,7 +867,7 @@ function showsongtitle(theurl,usethisid,fortitledisplay,urlvideoid){
 
 }
 
-async function getVideoTitle(query){
+async function getVideoTitle(query,usethisidnum,fortitledisplay){
     const apiUrl2=`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${apiKey}&maxResults=1&type=video`;
     try{
         const response = await fetch(apiUrl2);
@@ -872,10 +875,21 @@ async function getVideoTitle(query){
             throw new Error("Network status isn't ok:"+response.statusText);
         }
         const results = await response.json();
+        console.log("Title should be here"); //        showsongtitle("",`namenum${eacheverysong}`,fortitledisplay);
+        document.getElementsByClassName(`namenum${usethisidnum}`)[0].innerHTML=results.items[0].snippet.title;
+        document.getElementById(`video${fortitledisplay}`).src ="https://www.youtube.com/embed/" +  results.items[0].id.videoId;
+        document.getElementById(`namenum${fortitledisplay}`).value = "https://www.youtube.com/watch?v=" +  results.items[0].id.videoId;
 
-        console.log("Title should be here");
+
+
 
         console.log(results.items[0].snippet.title);
+        //results.items[0].id.videoId
+        //document.getElementsByClassName(usethisid)[0].innerHTML=results.items[0].snippet.title;
+        console.log( document.getElementsByClassName(usethisid)[0].innerHTML)
+
+
+        var forurl = 'https://www.youtube.com/watch?v=${results.items[0].id.videoId}';
     }
     catch{
 
