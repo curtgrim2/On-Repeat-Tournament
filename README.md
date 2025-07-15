@@ -5,15 +5,16 @@
     - Dotted arrows that grows to a certain point and then repeats
 
 ### Notes
-- We should have this page display tiers of the songs (and long term it can be ordered by the points garnered)
+- Maybe a potential points system in the future
+- Have a way to go backwards on a result (like leewufufu)
 - Save who is top 4  and make a new table that checks for this in the database?
 - Make a table that saves past 12 winners (for the year?)
 - Have all time rankings?
-- Use Raspberry Pi instead Google cloud console for cloud database and user connectivity?
 - Wanted to have a GUI that allows users to go to Spotify page and pull songs from On Repeat playlist BUT web scraping is prohibited.
   
 ### OTHER TASKS (Curtis)
 - Create Phone app for voters
+- Use Raspberry Pi instead Google cloud console for cloud database and user connectivity?
 - IoT (Have program progress itself)
   - Including adding stop time
 - Edit total amount of songs within the draft page (slide 3) + Change the amount of songs per user (remove/add songs)
