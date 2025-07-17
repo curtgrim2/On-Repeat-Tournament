@@ -227,6 +227,12 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         utubeURLs.style.width="60%";
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(utubeURLs); 
 
+        var ordiv = document.createElement("div");
+        ordiv.innerHTML = "OR";
+        ordiv.style.display="block";
+        ordiv.style.color="black";
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(ordiv);
+
         var entertitle = document.createElement("input");
         entertitle.type = "text";
         entertitle.placeholder="Enter Song name + Artist";
@@ -346,7 +352,8 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
 
         search4title.addEventListener('click',function (event){
             var neednameid = event.target.id;
-            var thetitle = document.getElementById(`titlenum${event.target.id}`)
+            var thetitle = document.getElementById(`titlenum${event.target.id}`);
+            console.log(thetitle);
             var fortitledisplay2=neednameid.substring(neednameid.length-1,neednameid.length);
             console.log("This is the title ",thetitle.value);
             getVideoTitle(thetitle.value,event.target.id,fortitledisplay2);
@@ -624,6 +631,13 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         utubeURLs.value = drafturls[iterhelp];
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(utubeURLs);
 
+         var ordiv = document.createElement("div");
+        ordiv.innerHTML = "OR";
+        ordiv.style.display="block";
+        ordiv.style.color="black";
+        ordiv.style.textShadow="0px 0px 2px white";
+        document.getElementById(`namenumid2${iterhelp2}`).appendChild(ordiv);
+
         var entertitle = document.createElement("input");
         entertitle.type = "text";
         entertitle.placeholder="Enter Song name + Artist";
@@ -877,19 +891,18 @@ async function getVideoTitle(query,usethisidnum,fortitledisplay){
         const results = await response.json();
         console.log("Title should be here"); //        showsongtitle("",`namenum${eacheverysong}`,fortitledisplay);
         document.getElementsByClassName(`namenum${usethisidnum}`)[0].innerHTML=results.items[0].snippet.title;
+
+        console.log("fortitledisplay",fortitledisplay,"--usethisid",usethisidnum);
+
         document.getElementById(`video${fortitledisplay}`).src ="https://www.youtube.com/embed/" +  results.items[0].id.videoId;
-        document.getElementById(`namenum${fortitledisplay}`).value = "https://www.youtube.com/watch?v=" +  results.items[0].id.videoId;
-
-
-
+        document.getElementById(`namenum${usethisidnum}`).value = "https://www.youtube.com/watch?v=" +  results.items[0].id.videoId;
 
         console.log(results.items[0].snippet.title);
         //results.items[0].id.videoId
         //document.getElementsByClassName(usethisid)[0].innerHTML=results.items[0].snippet.title;
-        console.log( document.getElementsByClassName(usethisid)[0].innerHTML)
+        console.log( document.getElementsByClassName(usethisid)[0].innerHTML);
 
-
-        var forurl = 'https://www.youtube.com/watch?v=${results.items[0].id.videoId}';
+        //var forurl = 'https://www.youtube.com/watch?v=${results.items[0].id.videoId}';
     }
     catch{
 

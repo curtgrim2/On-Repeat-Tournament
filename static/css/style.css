@@ -286,7 +286,8 @@ cursor:pointer;
     background-color:rgba(0,0,0,.7);
     font-size:3vw;
     /*z-index:-1;*/
-    border-top:solid green 5px;
+    border-top:solid blue 5px;
+    transition:.5s;
    
 } 
 

@@ -240,6 +240,7 @@ def startgame():
 
             placement=1
             for x in songnum4user:
+                print(placement)
                 cursor.execute(f"""UPDATE "{newdraftname}" SET SpecificUserSongNum={x} WHERE EntryNum={placement};""")
                 placement+=1
                 
@@ -261,16 +262,13 @@ def startgame():
         iterthrsongs=0
         entrynum=1
         print("Draft save button Clicked")
-        '''print(allurls)
-        print(allthenames)
-        print(totalsongs)'''
         newdraftname = request.form.get("newdraftname").replace(" ","_")
-        
         cursor = dbsetup.cursor()
         #cursor.execute(f"""DELETE FROM {newdraftname};""")
         #cursor.commit()
         print(newdraftname)
         print("Let see the time stamps:")
+        print(allthenames)
 
         for x in range(len(allthenames)):
             print(optstarttime[iterthrsongs])
@@ -334,9 +332,9 @@ def showresults():
 
 if __name__ == "__main__":
     #Testing version
-    #app.run(debug=True)
+    app.run(debug=True)
     
     #Production version
-    from waitress import serve
+    '''from waitress import serve
     print("Running on http://localhost:8000/")
-    serve(app, host="localhost", port=8000)
+    serve(app, host="localhost", port=8000)'''

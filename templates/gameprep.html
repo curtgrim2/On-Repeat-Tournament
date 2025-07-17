@@ -212,7 +212,6 @@
                     draft.style.borderTop="white 4px solid";
                     draft.innerHTML=draftslots[draftnum];
                     totaltitles++;
-
                 }
 
                 
@@ -246,6 +245,9 @@
                             event.target.style.borderTop="green 5px solid";
                             event.target.style.transition=".2s";
 
+                            document.getElementById("draftscontainer").style.borderTopColor="green";
+
+
                             }
             });
 
@@ -257,6 +259,11 @@
                 event.target.style.textDecoration="none";
                 event.target.style.borderTop="yellow 5px solid";
                 event.target.style.height="50%";
+
+                //document.getElementById("draftscontainer").style.transition=".7s";
+                document.getElementById("draftscontainer").style.borderTopColor="blue";
+
+
             });
 
 
