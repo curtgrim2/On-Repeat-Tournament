@@ -18,4 +18,5 @@
 - IoT (Have program progress itself)
   - Including adding stop time
 - Edit total amount of songs within the draft page (slide 3) + Change the amount of songs per user (remove/add songs)
-- Quick access to names and their sections (do the same for results page)
+- Quick access to names and their sections (do the same for results page
+- Allow for Twitter(X)/Tik Tok videos to be used
