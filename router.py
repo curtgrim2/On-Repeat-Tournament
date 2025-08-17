@@ -87,12 +87,13 @@ def home():
     alltables=[]
     tablenum = 1
 
+    print("All drafts/tables:")
     for table in tables:
         table_name = table[0]
         alltables.append(table_name)
         print(table_name)
         cursor.execute(f"SELECT * FROM {table_name};")
-        print(table_name)
+        #print(table_name)
         if tablenum==1:
             for row in cursor:
                 # print(table_name, row[1])
@@ -332,9 +333,9 @@ def showresults():
 
 if __name__ == "__main__":
     #Testing version
-    app.run(debug=True)
+    #app.run(debug=True)
     
     #Production version
-    '''from waitress import serve
+    from waitress import serve
     print("Running on http://localhost:8000/")
-    serve(app, host="localhost", port=8000)'''
+    serve(app, host="localhost", port=8000)

@@ -303,8 +303,8 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         notes.placeholder="Optional notes goes here";
         //notes.style.marginBottom="5%";
         //notes.style.margin="0 auto 5% auto";
-        notes.style.backgroundColor="black";
-        notes.style.color="white";
+        notes.style.backgroundColor="white";
+        notes.style.color="black";
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(notes);
 
         var container = document.createElement("div");
@@ -626,6 +626,8 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         utubeURLs.name = `namenum${eacheverysong}`; 
         utubeURLs.id = `namenum${eacheverysong}`; 
         utubeURLs.placeholder="Enter the URL";
+        utubeURLs.style.backgroundColor="black";
+        utubeURLs.style.color="white";
         utubeURLs.style.display ="block";
         utubeURLs.style.width="60%";
         utubeURLs.value = drafturls[iterhelp];
@@ -692,8 +694,8 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         notes.id = `notes4song${eacheverysong}`;
         notes.name = `notes4song${eacheverysong}`;
         notes.style.width="70%";
-        notes.style.backgroundColor="black";
-        notes.style.color="white";
+        notes.style.backgroundColor="white";
+        notes.style.color="black";
         notes.placeholder="Optional notes goes here";
         notes.value = draftnotes[iterhelp];
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(notes);
