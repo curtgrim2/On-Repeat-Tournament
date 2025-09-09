@@ -9,7 +9,7 @@ app.secret_key = 'supersecretkey'  # Required for session management
 app.config['SESSION_TYPE'] = 'filesystem'  # Store session data on the server's filesystem
 
 dbsetup = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};" 
-                         "Server=LAPTIZZY\SQLEXPRESS;" 
+                         "Server=localhost\SQLEXPRESS2;"  #"Server=LAPTIZZY\SQLEXPRESS;" 
                          "Database=o_r_tournament;"
                          "Trusted_Connection=yes;") #Format must be exactly like this, down to the spacing and new lines
 
@@ -160,6 +160,7 @@ def home():
    
         tablenum+=1  
     #print(names1)
+    print(names5)
 
     return render_template('gameprep.html',draftnames=names1,drafturls=url1,draftnotes=json.dumps(notes1),songsperuser=songsperuser1,numofusers=numofusers1,drafttitle1=drafttitle1,draftsong4user1=draftsong4user1,draftstarttime1=draftstarttime1,
                            draftnames2=names2,drafturls2=url2,draftnotes2=json.dumps(notes2),songsperuser2=songsperuser2,numofusers2=numofusers2,drafttitle2=drafttitle2,draftsong4user2=draftsong4user2,draftstarttime2=draftstarttime2,
@@ -193,6 +194,7 @@ def startgame():
     
     while f'user{personnum}songtotal' in request.form:
             songnum4user.append(request.form.get(f'user{personnum}songtotal'))
+            print(songnum4user)
             totalsongs+=int(request.form.get(f'user{personnum}songtotal'))
             personnum += 1 
 
@@ -260,6 +262,16 @@ def startgame():
         return redirect('/')
             
     else:  #Update original draft
+        
+        print("Here is the checkbox result: ")
+        zzz=1
+        print(request.form.get(f"checkbox{zzz}"))
+        print(totalsongs)
+        
+        
+                
+        
+        
         iterthrsongs=0
         entrynum=1
         print("Draft save button Clicked")
@@ -267,14 +279,15 @@ def startgame():
         cursor = dbsetup.cursor()
         #cursor.execute(f"""DELETE FROM {newdraftname};""")
         #cursor.commit()
-        print(newdraftname)
-        print("Let see the time stamps:")
-        print(allthenames)
+        
+
 
         for x in range(len(allthenames)):
-            print(optstarttime[iterthrsongs])
-            songsperuser =  songnum4user[x]# totalsongs//len(allthenames) # Double /:To prevent float TypeError
+           # print(optstarttime[iterthrsongs])
+            #print("Next name: "+allthenames[x])
+            songsperuser =  songnum4user[x] # Double /:To prevent float TypeError
             for y in range(int(songsperuser)):
+
                 query = f"""
                 UPDATE [{newdraftname}] 
                 SET 
@@ -287,8 +300,8 @@ def startgame():
                 DraftTitle = ?,
                 StartTime =?
                 WHERE EntryNum = ?
-""".format(newdraftname)
-
+"""#.format(newdraftname)
+                #print(str(allthenames[x]) + "; Song number: "+ str(y))
             #Parameterized values > f-strings due to possible SQL injection attack
                 cursor.execute(query, (
                 allthenames[x], 
@@ -304,16 +317,35 @@ def startgame():
 
                 iterthrsongs+=1
                 
+        
+        for x in range(totalsongs):
+            checkbox= request.form.get(f"checkbox{x}")
+            if(checkbox=="on"):
+                cursor.execute(f"""DELETE FROM "{newdraftname}" WHERE EntryNum ={x+1};""")
+                print(f"""DELETE FROM "{newdraftname}" WHERE EntryNum ={x+1};""")   
+        print(songnum4user)
+
+        print("Let see the time stamps:")
+        print(allthenames)
+        
+        
+        cursor.execute(f""";WITH CTE AS(SELECT "EntryNum",ROW_NUMBER() OVER (ORDER BY "EntryNum") AS "ReSeq" FROM "{newdraftname}")
+        UPDATE CTE SET "EntryNum" = "ReSeq" """) #Re listing Entry Num so that there are no gaps
+        
+        placement = 1
                 
+        for x in songnum4user: #Refreshing number of songs per user
+                cursor.execute(f"""UPDATE "{newdraftname}" SET SpecificUserSongNum={x} WHERE EntryNum={placement};""")              
+                #print(f"""UPDATE "{newdraftname}" SET SpecificUserSongNum={x} WHERE EntryNum={placement};""")
+                placement+=1  
+                  
+                    
         cursor.commit()    
         cursor.close()
         return redirect('/')
-        
+    
+    
             
-            
-        
-        
-        
         
  
 @app.route('/showresults',methods=['GET','POST'])       
@@ -333,9 +365,9 @@ def showresults():
 
 if __name__ == "__main__":
     #Testing version
-    #app.run(debug=True)
+    app.run(debug=True)
     
     #Production version
-    from waitress import serve
+    '''from waitress import serve
     print("Running on http://localhost:8000/")
-    serve(app, host="localhost", port=8000)
+    serve(app, host="localhost", port=8000)'''

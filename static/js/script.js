@@ -1,10 +1,10 @@
-const apiKey =  'AIzaSyBc9Y9VMDPAaILM7erb5kwBhJ_B8knnKQk'
+ const apiKey =  'AIzaSyBc9Y9VMDPAaILM7erb5kwBhJ_B8knnKQk'
 
 
 var inc = document.getElementById("increase");
 var dec = document.getElementById("decrease");
 let numofusers = document.getElementById("showusernum");
-var error = document.getElementById("errorbox");
+var errorbox = document.getElementById("errorbox");
 var deletedraftbutton =  document.getElementById("deletedraft");
 /*changingvalue = 2;
 numofusers.innerHTML=changingvalue;*/
@@ -30,30 +30,22 @@ function toslide2(showusernum){
 
    // var songperuser = document.getElementById("songsperuser").value
     totalsongs =  document.getElementById("totalsongs").value;  //parseInt(document.getElementById("songsperuser").value) * parseInt(showusernum.value);
-
     
     remainingsongs.innerHTML="Remaining songs to be applied: "+ totalsongs;
 
-
      if(showusernum.value  ==""){
-        error.style.display = "block";
-        error.innerHTML = "Values cannot be empty!";
+        errorbox.style.display = "block";
+        errorbox.innerHTML = "Values cannot be empty!";
    }
 
-   /* else if(totalsongs%2!==0){
-    error.style.display = "block";
-    error.innerHTML = "TOTAL AMOUNT OF SONGS MUST BE EVEN";
-
-   }*/
-
     else if(showusernum.value>10){
-    error.style.display = "block";
-    error.innerHTML = "TOO MANY USERS - Maximum of 10";
+    errorbox.style.display = "block";
+    errorbox.innerHTML = "TOO MANY USERS - Maximum of 10";
    }
 
    else if(showusernum.value <= 0){
-    error.style.display = "block";
-    error.innerHTML = "Must have at least 1 user";
+    errorbox.style.display = "block";
+    errorbox.innerHTML = "Must have at least 1 user";
    }
 
   
@@ -61,7 +53,7 @@ function toslide2(showusernum){
     console.log(showusernum.value);
     slide1.style.display = "none";
     slide2.style.display ="block";
-    error.style.display = "none";
+    errorbox.style.display = "none";
 
     
 
@@ -75,13 +67,13 @@ function toslide2(showusernum){
         node.placeholder="Enter name here";
         document.getElementById("enternames").appendChild(node);
 
-        var song4thisuser = document.createElement('input');
-        song4thisuser.type="text";
-        song4thisuser.id=`user${x}songtotal`;
-        song4thisuser.name=`user${x}songtotal`;
-        song4thisuser.style.width="3.5vw";
-        song4thisuser.style.textAlign="center";
-        document.getElementById(node.id).insertAdjacentElement('afterend',song4thisuser);
+        var songnum4user = document.createElement('input');
+        songnum4user.type="text";
+        songnum4user.id=`user${x}songtotal`;
+        songnum4user.name=`user${x}songtotal`;
+        songnum4user.style.width="3.5vw";
+        songnum4user.style.textAlign="center";
+        document.getElementById(node.id).insertAdjacentElement('afterend',songnum4user);
 
         var linebreak = document.createElement("br");
         document.getElementById("enternames").appendChild(linebreak);
@@ -89,7 +81,6 @@ function toslide2(showusernum){
     document.getElementById(`user${x}songtotal`).addEventListener('input',showremainingsongs); //Checks if song total has been reached based on user input
     } 
 }
-
 
 }
 
@@ -118,8 +109,8 @@ var iterhelp2=0;
 function toslide3(showusernum,enternames){ /*For Youtube URLs */
 
     if(remainingsongs.innerHTML!="GOOD TO GO"){
-        error.style.display="block";
-        error.innerHTML = "Please check and make sure all songs are allocated correctly";
+        errorbox.style.display="block";
+        errorbox.innerHTML = "Please check and make sure all songs are allocated correctly";
     }
     else{
 
@@ -137,7 +128,7 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
     olddrafts.style.display="none";
     draftscontainer.style.display="none";
     draftslabel.style.display="none";
-    error.style.display = "none";
+    errorbox.style.display = "none";
     deletedraftbutton.style.display="none";
 
     eacheverysong=0;
@@ -417,7 +408,6 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
 
     document.getElementById("isthesavebuttonclicked").value="notclicked";
 
-
     var draftbox = document.querySelectorAll(".selectdrafts");
     draftbox.forEach(draftbox=>{
     draftbox.style.display="none";
@@ -499,25 +489,43 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
     for(x=0; x<draftnumofusers[0]; x++){ 
         var node  = document.createElement("input");
         node.type = "text";
-        //console.log("HELLO");
        node.name = `name${x}`;
        node.id=`nameid${x}`; //Dynamically hard coding unique names and id(Not used) for each user
         node.className = "allnames2";
         node.placeholder="Enter name here";
 
+        console.log(draftnames);
+        console.log(draftnames[gothrnames] + "Total users:" + draftnumofusers[0]); 
         node.value = draftnames[gothrnames]; //node.value = draftnames[x];
-        gothrnames+=draftsong4user[x];
-        //console.log(gothrnames);
-
+        console.log(draftnotes);
         document.getElementById("enternames").appendChild(node);
 
-        var song4thisuser = document.createElement('input');
-        song4thisuser.type="hidden";
-        song4thisuser.id=`user${x}songtotal`;
-        song4thisuser.name=`user${x}songtotal`;
-        song4thisuser.value=draftsong4user[x];
-        document.getElementById('form').appendChild(song4thisuser);
-        console.log(song4thisuser.value);
+       
+        var quickfind = document.createElement("a");
+        quickfind.href=`#namenumid${x}`;
+        quickfind.innerHTML= draftnames[gothrnames];
+        quickfind.style.display="inline-block";
+        quickfind.style.textDecoration="none";
+        quickfind.style.fontWeight="bold";
+       document.getElementById("navmenu").appendChild(quickfind);
+
+        var songnum4user = document.createElement('input');
+        songnum4user.type="text";///song4thisuser.type="hidden";
+        songnum4user.id=`user${x}songtotal`;
+        songnum4user.name=`user${x}songtotal`;
+        songnum4user.value=draftsong4user[x];
+        songnum4user.style.textAlign='center';
+        songnum4user.style.width='4vw';
+        songnum4user.style.display='inline-block';
+        document.getElementById('navmenu').appendChild(songnum4user);//document.getElementById('form').appendChild(song4thisuser);
+
+
+       var linebreak = document.createElement("br");
+       document.getElementById("navmenu").appendChild(linebreak);
+
+        gothrnames+=draftsong4user[x];
+
+
     } 
 
     gothrnames=0;
@@ -551,15 +559,14 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
        newdiv.style.display="flex";
        newdiv.style.flexDirection="column";
        newdiv.style.boxShadow="0px 0px 10px 1px #4d4d4d";
-        //newdiv.style.border="2px white solid"
        newdiv.style.width="50%";
 
-       //newdiv.style.paddingLeft="2%";
        newdiv.style.margin="20px auto 20px auto";
 
      //No height so that it always adjusts to dynamic # of songs
        newdiv.style.paddingBottom ="2.5%";
        document.getElementById("s3").appendChild(newdiv);
+
 
        var stickyname = document.createElement("div");
        stickyname.style.position="sticky";
@@ -586,20 +593,17 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         //newdiv.innerHTML=draftnames[gothrnames];
 
         stickyname.innerHTML=draftnames[gothrnames];
-
        }
 
        document.getElementById(`namenumid${x}`).appendChild(stickyname);
 
-
-
-       var quickfind = document.createElement("a");
+      /* var quickfind = document.createElement("a");
         quickfind.href=`#namenumid${x}`;
         quickfind.innerHTML= draftnames[gothrnames];
-        quickfind.style.display="block";
+        quickfind.style.display="inline-block";
         quickfind.style.textDecoration="none";
         quickfind.style.fontWeight="bold";
-       document.getElementById("navmenu").appendChild(quickfind);
+       document.getElementById("navmenu").appendChild(quickfind);*/
 
        gothrnames+=draftsong4user[x];
 
@@ -620,6 +624,7 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
        songcontain.style.alignItems="center"; //Shouldn't it be justify-content?
        //songcontain.style.justifyContent="center";
        document.getElementById(`namenumid${x}`).appendChild(songcontain);
+
 
         var utubeURLs  = document.createElement("input");
         utubeURLs.type = "text";
@@ -670,6 +675,7 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
 
         var songid = document.createElement("div");
         songid.innerHTML = "#"+ (y+1);
+        songid.id=`Song#${eacheverysong}-id`;
         songid.style.color="black";
         songid.style.fontSize="1.5vw";
         //songid.style.backgroundColor="pink";
@@ -677,10 +683,20 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         songid.style.textAlign="right";
         songid.style.position="sticky";
         songid.style.top="0";
-        songid.style.right="10";
+        songid.style.right="0";
         //document.getElementById(`namenumid${x}`).appendChild(songid);
         //document.getElementById(`namenumid2${iterhelp2}`).appendChild(songid);
         document.getElementById(`namenumid2${iterhelp2}`).insertAdjacentElement('afterbegin',songid);
+
+
+         var selectsong = document.createElement('input');
+         selectsong.type = "checkbox";
+         selectsong.id= `checkbox${eacheverysong}`;
+        selectsong.name= `checkbox${eacheverysong}`;
+         selectsong.style.position="relative";
+         selectsong.style.float="left"; // THE KEY
+         //selectsong.style.textAlign="left";
+         document.getElementById(`Song#${eacheverysong}-id`).insertAdjacentElement('afterbegin',selectsong);
 
 
         var titleclass = document.createElement("div");
@@ -781,7 +797,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form"); // Select the form
     form.addEventListener("submit", function (event) {
         
+        //Starting the game
         if(document.getElementById("isthesavebuttonclicked").value!="createnewdraft" && document.getElementById("isthesavebuttonclicked").value!="clicked"){
+            console.log("Let me see something");
 
             console.log(document.getElementsByName("checkdraftbut")[0].value);
         var totalempty = 0; // Reset totalempty for this submission
@@ -792,7 +810,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const inputValue = inputElement.value; // Get the value of the input
                 if (inputValue === "") {
                     totalempty++;
-                    event.preventDefault(); // Prevent default form submission behavior
+                    event.preventDefault(); 
 
                 }
             } else {
@@ -801,33 +819,54 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         
         if(totalempty>0 && document.getElementsByName("checkdraftbut")[0].value!="deletethisdraft") { //deletethisdraft
-            error.style.display = "block";
-            error.innerHTML = `No empty URL boxes. There are ${totalempty} empty boxes`;  
+            errorbox.style.display = "block";
+            errorbox.innerHTML = `No empty URL boxes. There are ${totalempty} empty boxes`;  
         }
 
         for (var x = 0; x < totalsongs; x++) {
             var y = document.getElementById(`starttimenum${x}`);
-          /*  if(y.value==="string" && y.value!=""){
-                event.preventDefault();
-                error.style.display="block";
-                error.innerHTML=`Incorrect format for timestamp #${x+1}`;
-            }*/
             
         }
-
-
-
     }
+
+        //Update existing draft if statement
+    else if(document.getElementById("isthesavebuttonclicked").value=="clicked" && document.getElementById("isthesavebuttonclicked").value!="createnewdraft"){
+
+      // event.preventDefault();
+    var songsaccountedfor=0;
+    for(x=0; x<showusernum.value; x++){ 
+        songsaccountedfor=songsaccountedfor + Number(document.getElementById(`user${x}songtotal`).value);
+   
+    }
+    remainingsongs.innerHTML= Number(totalsongs-songsaccountedfor);
+    
+    if(songsaccountedfor>totalsongs){
+        errorbox.innerHTML="YOU ARE USING TOO MANY SONGS. REMOVE "+ Math.abs(remainingsongs.innerHTML) + " SONG(S)";
+        errorbox.style.display="block";
+        //remainingsongs.style.display="block";
+        event.preventDefault();
+        console.log(totalsongs);
+    }
+
+    if(Number(songsaccountedfor)<totalsongs){
+        errorbox.innerHTML="MORE SONGS NEEDED; Please increase song count by "+remainingsongs.innerHTML;
+        errorbox.style.display="block";
+        //remainingsongs.style.display="block";
+        event.preventDefault();
+    }
+
+    if(Number(remainingsongs.innerHTML)==0){
+        remainingsongs.innerHTML="GOOD TO GO";
+    }    }
     });
 });
 
 
 
  async function updatedraft1(){ //Don't think this needs to be double spaced
-    //var confirmation = confirm("Are you sure you want to delete this draft?");
+
     document.getElementById("isthesavebuttonclicked").value="clicked"; //This triggers first before getting sent to python router
-    console.log("Hello?");
-    
+
 
 }
 
@@ -836,6 +875,28 @@ document.getElementById("savedraft").addEventListener('click',(event)=>{
         alert("FULL DRAFT SLOT; Please delete a draft");
         event.preventDefault();
     }
+
+document.getElementById("updatedraft").addEventListener('click',(event)=>{
+        var songsaccountedfor=0;
+    for(x=0; x<showusernum.value; x++){ 
+        songsaccountedfor=songsaccountedfor + Number(document.getElementById(`user${x}songtotal`).value);
+   
+    }
+    remainingsongs.innerHTML= Number(totalsongs-songsaccountedfor);
+    //console.log(Number(remainingsongs.innerHTML),songsaccountedfor);
+    
+    if(Number(remainingsongs.innerHTML)<0){
+        //remainingsongs.innerHTML="YOU ARE USING TOO MANY SONGS. REMOVE "+ Math.abs(remainingsongs.innerHTML) + " songs";
+        event.preventDefault();
+        errorbox.style.display="block";
+        errorbox.innerHTML="TOO MANY SONGS";
+    }
+
+    if(Number(remainingsongs.innerHTML)==0){
+    }
+})
+
+
 });
 
 async function savenewdraft(){
@@ -849,7 +910,6 @@ otherthing1.addEventListener('click',(event)=>{
     var confirmation = confirm("Are you sure you want to delete this draft?");
     if(confirmation==false){
         event.preventDefault();
-        console.log("STOP FIGHTING");
     }
     else{
         topython();
@@ -941,7 +1001,7 @@ async function getVideoDetails(videoId,usethisid,fortitledisplay,urlvideoid){
   }
 
   function b4send(){
-    error.style.display="none";
+    errorbox.style.display="none";
     document.getElementById("isthesavebuttonclicked").value="notclicked";
     
   }

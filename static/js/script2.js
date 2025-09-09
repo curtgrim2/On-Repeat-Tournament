@@ -179,7 +179,10 @@ var testusernum = 3;
 
             //Continuing Tournament
 
-            function thewinneris(theanswer){ //Called whenever left or right song button is pressed
+            //Called whenever left or right song button is pressed
+            //OR for automation, call this whenever you get all the votes from users; 
+            //the data we get back should be left or right/total amount of voters who voted
+            function thewinneris(theanswer){  
                 thelogic(theanswer,getSong1(),getSong2());             
             }
 
