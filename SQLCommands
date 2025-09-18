@@ -55,5 +55,7 @@ SELECT EntryNum FROM "test" WHERE UserNum=2 AND Name='John'
 
 UPDATE "test" SET SongURL='',Notes='',EntryNum=NULL,SongsperUser=NULL,NumofUsers=NULL,SpecificUserSongNum=NULL,StartTime='' WHERE EntryNum=1
 
+SELECT EntryNum,Name from "test" WHERE Name='George' ORDER BY EntryNum DESC
+
 
 
