@@ -51,4 +51,9 @@ SELECT * FROM o_r_tournament.dbo.Ari_vs_Stevie;
 
 ALTER TABLE o_r_tournament.dbo.Ari_vs_Stevie DROP COLUMN StartTime
 
+SELECT EntryNum FROM "test" WHERE UserNum=2 AND Name='John'
+
+UPDATE "test" SET SongURL='',Notes='',EntryNum=NULL,SongsperUser=NULL,NumofUsers=NULL,SpecificUserSongNum=NULL,StartTime='' WHERE EntryNum=1
+
+
 
