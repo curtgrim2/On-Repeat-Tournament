@@ -1,6 +1,6 @@
  const apiKey =  'AIzaSyBc9Y9VMDPAaILM7erb5kwBhJ_B8knnKQk'
 
-
+var checkboxtrack = [];
 var inc = document.getElementById("increase");
 var dec = document.getElementById("decrease");
 let numofusers = document.getElementById("showusernum");
@@ -479,12 +479,24 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
     console.log(draftstarttime);*/
 
 
-    
+     var foroldsongsperuser = JSON.stringify(draftsong4user);
+    document.querySelector("input[name=oldsongsperuser]").value=foroldsongsperuser; 
+            //document.querySelector("input[name='checkboxtrack']").value= jsonstring;
+
 
 
 
     var gothrnames=0;
     totalsongs = parseInt(draftnumofusers) * parseInt(draftsongsperuser); //CHANGE THIS?!!?!?
+    //console.log(totalsongs," = ",draftnumofusers,"*",draftsongsperuser);
+    totalsongs=0;
+    for(let x=0;x<draftsong4user.length;x++){
+        if(draftsong4user[x]!=null){
+            totalsongs=totalsongs+ parseInt(draftsong4user[x]);
+        }
+    }
+
+    console.log(totalsongs);
 
     for(x=0; x<draftnumofusers[0]; x++){ 
         var node  = document.createElement("input");
@@ -509,7 +521,7 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         quickfind.style.fontWeight="bold";
        document.getElementById("navmenu").appendChild(quickfind);
 
-        var songnum4user = document.createElement('input');
+        var songnum4user = document.createElement('input'); //Inputs for potentially changing song number
         songnum4user.type="text";///song4thisuser.type="hidden";
         songnum4user.id=`user${x}songtotal`;
         songnum4user.name=`user${x}songtotal`;
@@ -691,12 +703,51 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
 
          var selectsong = document.createElement('input');
          selectsong.type = "checkbox";
-         selectsong.id= `checkbox${eacheverysong}`;
-        selectsong.name= `checkbox${eacheverysong}`;
+         selectsong.id= `checkbox-${eacheverysong}`;
+        selectsong.name= `checkbox-${eacheverysong}`;
          selectsong.style.position="relative";
          selectsong.style.float="left"; // THE KEY
          //selectsong.style.textAlign="left";
          document.getElementById(`Song#${eacheverysong}-id`).insertAdjacentElement('afterbegin',selectsong);
+
+
+
+         //var checkboxtrack = [];
+         const checkboxclick = document.getElementById(`checkbox-${eacheverysong}`);
+
+         checkboxclick.addEventListener('click',function(event){
+
+                var getcheckboxnum = event.target.id;
+                var dashindex = getcheckboxnum.indexOf('-');
+                var whichsongnum =getcheckboxnum.substring(dashindex+1,getcheckboxnum.length);
+                //getcheckboxnum.substring(dashindex,getcheckboxnum.length);
+                console.log(whichsongnum);
+
+              /*  for(){
+                    if(document.getElementsByName(`checkbox-${whichsongnum}`)[0].checked==false){
+
+                    }
+                } */
+
+                if(document.getElementsByName(`checkbox-${whichsongnum}`)[0].checked==true){
+            checkboxtrack.push(whichsongnum);
+            checkboxtrack = [...new Set(checkboxtrack)]; //Removes duplicates
+            //console.log("Checked");
+            console.log(document.getElementsByName(`checkbox-${whichsongnum}`)[0].checked);
+
+                }
+                else{
+                        console.log("UnChecked");
+                        checkboxtrack.pop(whichsongnum);
+                }
+
+
+                 console.log(checkboxtrack);
+                 //console.log(document.getElementsByName(`checkbox-${whichsongnum}`));
+
+                 //Get rid of
+                
+         });
 
 
         var titleclass = document.createElement("div");
@@ -792,6 +843,8 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
 
 
 
+
+
 //Error checking before starting game
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form"); // Select the form
@@ -855,8 +908,127 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
     }
 
+    /* I'm thinking we could compare the number of names on the side with the songs that were selected and see if they match up;
+    Maybe we can do this by:
+     Iterating through the applicable draftnames variable and iterating through the amount of times a name shows up and then removing the selected indexs of the songs that match
+     with the names positioned where the songs would be (checkbox)
+      vs  
+      Getting the songs on the sides total by using applicable draftnumofusers to then go through each song amount input to create new list to compare with */
+
+
+//checkboxtrack
+console.log("checkboxtrack");
+console.log(checkboxtrack);
+
+console.log(draftnames);
+var newnames_songs=[];
+newnames_songs= [...draftnames];
+var itrhelp3=0;
+for(let z=0; z<checkboxtrack.length;z++){
+    for(let x=0;x<draftnumofusers[0];x++){ //For each user?
+        //console.log(draftnames);
+
+if(draftnames[checkboxtrack[itrhelp3]]==undefined){
+
+}
+
+else{
+    console.log(draftnames[checkboxtrack[itrhelp3]]);
+
+    console.log(draftnames.indexOf(draftnames[checkboxtrack[itrhelp3]]));
+    newnames_songs.splice(draftnames.indexOf(draftnames[checkboxtrack[itrhelp3]]),1);
+}
+itrhelp3++;
+    }
+}
+console.log(newnames_songs);
+
+var jsonstring=JSON.stringify(checkboxtrack);
+document.querySelector("input[name='checkboxtrack']").value= jsonstring;
+
+//vs
+
+    var navsongamount = []; 
+   for(let x=0; x<draftnumofusers[0];x++){ //Need to actually get access to the array
+        navsongamount[x]=document.getElementById(`user${x}songtotal`).value;
+        console.log(navsongamount[x]);
+   }
+
+   var nametotals = [];
+//Continuation of part 1
+var totaloccurences = newnames_songs.reduce((alloccur,thename)=>{ //Counts the amout the amount of occurences of each name in updated draftnames copy
+    alloccur[thename]=(alloccur[thename]||+0)+1;
+
+//nametotals.push((alloccur[thename]||+0)+1);
+
+    return alloccur
+},{});
+
+console.log(nametotals);
+
+console.log(totaloccurences);
+/*
+totaloccurences = Object.values(totaloccurences);
+console.log(totaloccurences); */
+
+
+//event.preventDefault(); //Delete this
+
+
+var iterhelp4=0;
+var toJson = [];
+for(let y=0; y<draftnumofusers[0];y++){
+    if(draftsong4user[y]<navsongamount[y]){
+
+        console.log("Need more songs for user:",draftnames[iterhelp4]);
+        toJson.push(draftnames[iterhelp4]);
+        console.log(toJson);
+        //forpyinsert.value=draftnames[iterhelp4];
+
+        //We need to now take draftnames[iterhelp4] and put each value of it into a hidden array list to then access it on the python side for line 343 in a where statement;
+        //The issue is, 
+
+        totaloccurences[draftnames[iterhelp4]]+=1;
+        //var addsong = Number(navsongamount[y])-Number(draftsong4user[y]);        
+    }
+
+    iterhelp4+=draftsong4user[y];
+}
+
+ jsonstring = JSON.stringify(toJson);
+/*var forpyinsert = document.createElement('input');
+forpyinsert.type= "hidden";
+forpyinsert.name=`pyinsert#${y}`;
+forpyinsert.value=jsonstring;
+document.getElementById("form").appendChild(forpyinsert);*/
+
+document.querySelector("input[name='pyinsert']").value= jsonstring; //"document.getElementsByName("pyinsert").value"does not work!!
+console.log(document.getElementsByName("pyinsert").value);
+//event.preventDefault();
+
+console.log(totaloccurences);
+
+   //Now Compare! (navsongamount vs totaloccurences)
+
+   
+totaloccurences = Object.values(totaloccurences);
+
+console.log(totaloccurences); 
+console.log(navsongamount);
+
+for(let x=0; x<navsongamount.length;x++){
+    if(navsongamount[x]!=totaloccurences[x]){
+        event.preventDefault();
+        console.log("Index ",x);
+        console.log(navsongamount[x]," vs ", totaloccurences[x]);
+        console.log("Incorrect user removal; Please try again");
+    }
+}
+
+   //event.preventDefault();
+
     if(Number(remainingsongs.innerHTML)==0){
-        remainingsongs.innerHTML="GOOD TO GO";
+       // remainingsongs.innerHTML="GOOD TO GO";
     }    }
     });
 });

@@ -81,8 +81,6 @@ def home():
     draftsong4user5=[]
     draftstarttime5 =[]
 
-
-
     
     alltables=[]
     tablenum = 1
@@ -91,9 +89,8 @@ def home():
     for table in tables:
         table_name = table[0]
         alltables.append(table_name)
-        print(table_name)
-        cursor.execute(f"SELECT * FROM {table_name};")
         #print(table_name)
+        cursor.execute(f"SELECT * FROM {table_name} ORDER BY EntryNum;")
         if tablenum==1:
             for row in cursor:
                 # print(table_name, row[1])
@@ -160,7 +157,7 @@ def home():
    
         tablenum+=1  
     #print(names1)
-    print(names5)
+    #print(names5)
 
     return render_template('gameprep.html',draftnames=names1,drafturls=url1,draftnotes=json.dumps(notes1),songsperuser=songsperuser1,numofusers=numofusers1,drafttitle1=drafttitle1,draftsong4user1=draftsong4user1,draftstarttime1=draftstarttime1,
                            draftnames2=names2,drafturls2=url2,draftnotes2=json.dumps(notes2),songsperuser2=songsperuser2,numofusers2=numofusers2,drafttitle2=drafttitle2,draftsong4user2=draftsong4user2,draftstarttime2=draftstarttime2,
@@ -194,14 +191,15 @@ def startgame():
     
     while f'user{personnum}songtotal' in request.form:
             songnum4user.append(request.form.get(f'user{personnum}songtotal'))
-            print(songnum4user)
+            #print(songnum4user)
+            print(request.form.get(f'user{personnum}songtotal'))
             totalsongs+=int(request.form.get(f'user{personnum}songtotal'))
             personnum += 1 
 
             
             
     for x in range(totalsongs):
-        allurls.append(request.form.get(f'namenum{x}')) 
+        allurls.append(request.form.get(f'namenum{x}')) #We need to change namenum variable name
         thenotes.append(request.form.get(f'notes4song{x}'))
         check4starttime=request.form.get(f'starttimenum{x}')
         optstarttime.append(check4starttime)
@@ -215,8 +213,7 @@ def startgame():
             allurls[x]=allurls[x] + "?start=" + str(newtime)
         x+=1
 
-    print(totalsongs)
-    print(thenotes)
+    #print("Total Amount of Songs:",totalsongs)
     
     if request.form.get("checkdraftbut")=="notclicked":   #Officially start the game
         return render_template('gametime.html',totalusers = int(request.form.get("numofusers")),allnames=allthenames,utubeurls=allurls,
@@ -263,31 +260,203 @@ def startgame():
             
     else:  #Update original draft
         
-        print("Here is the checkbox result: ")
+        '''print("Here is the checkbox result: ")
         zzz=1
-        print(request.form.get(f"checkbox{zzz}"))
-        print(totalsongs)
+        print(request.form.get(f"checkbox-{zzz}"))
+        print(totalsongs)'''
         
         
                 
+        print(allurls)
         
         
         iterthrsongs=0
+        iterthrurls=0
         entrynum=1
         print("Draft save button Clicked")
         newdraftname = request.form.get("newdraftname").replace(" ","_")
         cursor = dbsetup.cursor()
-        #cursor.execute(f"""DELETE FROM {newdraftname};""")
-        #cursor.commit()
         
-
-
-        for x in range(len(allthenames)):
-           # print(optstarttime[iterthrsongs])
-            #print("Next name: "+allthenames[x])
+        songreference = request.form["oldsongsperuser"]
+        songreference =json.loads(songreference)
+        #print(songreference[0])
+        
+        checkbox= request.form["checkboxtrack"]
+        allcheckbox=json.loads(checkbox)
+        try:
+            print("")
+            print("Deleted song index:",allcheckbox[0])
+            
+        except:
+            print("")
+            
+            
+        info4delete =[]
+        print(allthenames)
+        for x in range(len(allthenames)):#for each user
             songsperuser =  songnum4user[x] # Double /:To prevent float TypeError
-            for y in range(int(songsperuser)):
+            print("")
+            print(allthenames[x],"'s ",int(songsperuser))
 
+            for y in range(int(songsperuser)): #For each new song for user x
+                for z in range(len(allcheckbox)): #For total amount of songs to be "deleted"
+                    if iterthrurls == (int(allcheckbox[z])):  #if current song number/total songs == checked index/song selected
+                        
+                        #Above used to be iterthrsongs but now I need to find a way to make sure iterthrsongs does an extra one 
+                        
+                        if songreference[x]> int(songsperuser): #if old song amount for user is greater than new song amount   
+                            #When user is losing a song, skip the the next url on the url list  
+                                        
+                            #if songreference[x]> int(songsperuser)#iterthrsongs> int(songsperuser) or
+                            
+                            print("Old Song reference:",songreference[x],' ; New Song Total:',int(songsperuser))
+                            print("Checkbox selected:",allcheckbox[0],"; iterthrsongs:",iterthrsongs,"; Current User Song",y )
+                            #print(songreference[x], " - ", int(songsperuser))
+                            
+                            temp2= songreference[x] - int(songsperuser) #Wpuldn't this always be skipping just 1?
+                            #iterthrsongs=temp2+ int(songsperuser)
+                            
+                            iterthrurls=iterthrurls+abs(temp2)
+                            print("(Skipping URL)URL increased to ",iterthrurls)
+                            print("Skip ",temp2)
+                            
+                        if songreference[x]< int(songsperuser) and songreference[x]!="None": #gaining a song
+                            print("ALTERNATE")
+                            print("Old Song reference:",songreference[x],' ; New Song Total:',int(songsperuser))
+                            print("Checkbox selected:",allcheckbox[0],"; iterthrsongs:",iterthrsongs,"; Current User Song",y )
+                            
+                            temp2= songreference[x] - int(songsperuser) #Wpuldn't this always be skipping just 1?
+                            
+                            iterthrurls=iterthrurls+abs(temp2) #temp2 will be a negative value
+                            print("(Skipping URL)URL increased to ",iterthrurls)
+                            print("Skip ",temp2)
+       
+                        if songreference[x]==int(songsperuser):#if we are on the next user but the current itersongs has a song that nexts to be deleted from previous
+                            print("")
+                            iterthrurls=iterthrurls+1 #temp2 will be a negative value
+                            print("(Skipping URL)URL increased to ",iterthrurls)
+                            print("Skip ",1)
+                                             
+                if y== (int(songsperuser)-1) and ( "z" in locals() and iterthrurls != int(allcheckbox[z])): #if current song is the last song for current user x #The last song for user
+                    
+                    #Protection potentially against putting in a song that the user actually wanted deleted but would we then have to turn the corresponding else statemnent into a 
+                    #if to protect against it also? 
+                    #The ""z" in locals()" checksif z exists/has been used
+                    
+                    if songreference[x]< int(songsperuser): #if new song amount for user is bigger than the old song amount 
+                        #Conversely, When user gains a song = Put in a blank entry
+                        
+                        #This nested if statement ensures every new/blank entry will be the last entry in for the user in the database
+                        query = f"""
+                        UPDATE [{newdraftname}] 
+                        SET 
+                        Name = ?, 
+                        SongURL = ?, 
+                        Notes = ?, 
+                        EntryNum = ?, 
+                        SongsperUser = ?, 
+                        NumofUsers = ?, 
+                        DraftTitle = ?,
+                        StartTime =?
+                        WHERE EntryNum = ?
+            """#.format(newdraftname)
+                        #print(str(allthenames[x]) + "; Song number: "+ str(y))
+                    #Parameterized values > f-strings due to possible SQL injection attack
+                        cursor.execute(query, (
+                        allthenames[x], #
+                        "", ##
+                        "", ##
+                        int(iterthrsongs + 1), 
+                        songsperuser, 
+                        len(allthenames), 
+                        newdraftname, 
+                        "", ##
+                        int(iterthrsongs + 1)
+                    ))
+                        
+                        print("")
+                        print(f"""Blank Song for {allthenames[x]} at EntryNum={iterthrsongs+1}""")
+                        
+                        iterthrsongs+=1
+                        #iterthrurls+=1
+                        
+                        #There might need to be another if condition for an empty url string?
+                        
+                        #iterthrurls-=1 #Had to get rid of this because the url  should be staying in place; Previous turn already progressed the url to the next song/user
+                        
+                        
+                    else: #The last song for user
+                        query = f"""
+                        UPDATE [{newdraftname}] 
+                        SET 
+                        Name = ?, 
+                        SongURL = ?, 
+                        Notes = ?, 
+                        EntryNum = ?, 
+                        SongsperUser = ?, 
+                        NumofUsers = ?, 
+                        DraftTitle = ?,
+                        StartTime =?
+                        WHERE EntryNum = ?
+            """#.format(newdraftname)
+                        #print(str(allthenames[x]) + "; Song number: "+ str(y))
+                    #Parameterized values > f-strings due to possible SQL injection attack
+                        cursor.execute(query, (
+                        allthenames[x], #
+                        allurls[iterthrurls], ##
+                        thenotes[iterthrsongs], ##
+                        int(iterthrsongs + 1), 
+                        songsperuser, 
+                        len(allthenames), 
+                        newdraftname, 
+                        optstarttime[iterthrsongs], ##
+                        int(iterthrsongs + 1)
+                    ))
+                        
+                        print(f"""SET Name={allthenames[x]} WHERE EntryNum={int(iterthrsongs + 1)} AND URL={allurls[iterthrurls]} """)
+                        
+                        iterthrsongs+=1
+                        iterthrurls+=1 
+                        print("(Last Update 4 this User) URL increased to ",iterthrurls)
+
+                else: #Put the actually update in this else statement
+                    #print("Current Name:",allthenames[x],"Song Amount=",y)
+                    query = f"""
+                    UPDATE [{newdraftname}] 
+                    SET 
+                    Name = ?, 
+                    SongURL = ?, 
+                    Notes = ?, 
+                    EntryNum = ?, 
+                    SongsperUser = ?, 
+                    NumofUsers = ?, 
+                    DraftTitle = ?,
+                    StartTime =?
+                    WHERE EntryNum = ?
+        """#.format(newdraftname)
+                    #print(str(allthenames[x]) + "; Song number: "+ str(y))
+                #Parameterized values > f-strings due to possible SQL injection attack
+                    cursor.execute(query, (
+                    allthenames[x], #
+                    allurls[iterthrurls], ##
+                    thenotes[iterthrsongs], ##
+                    int(iterthrsongs + 1), 
+                    songsperuser, 
+                    len(allthenames), 
+                    newdraftname, 
+                    optstarttime[iterthrsongs], ##
+                    int(iterthrsongs + 1)
+                ))
+                    
+                    print(f"""SET Name={allthenames[x]} WHERE EntryNum={int(iterthrsongs + 1)} AND URL={allurls[iterthrurls]}""")
+                    
+                    iterthrsongs+=1
+                    iterthrurls+=1
+                    print("(Main Update)URL increased to ",iterthrurls)
+
+                
+                
+            '''if songreference[x]< int(songsperuser): #Conversely, When user gains a song
                 query = f"""
                 UPDATE [{newdraftname}] 
                 SET 
@@ -300,44 +469,111 @@ def startgame():
                 DraftTitle = ?,
                 StartTime =?
                 WHERE EntryNum = ?
-"""#.format(newdraftname)
+    """#.format(newdraftname)
                 #print(str(allthenames[x]) + "; Song number: "+ str(y))
             #Parameterized values > f-strings due to possible SQL injection attack
                 cursor.execute(query, (
-                allthenames[x], 
-                allurls[iterthrsongs], 
-                thenotes[iterthrsongs], 
+                allthenames[x], #
+                "", ##
+                "", ##
                 int(iterthrsongs + 1), 
                 songsperuser, 
                 len(allthenames), 
                 newdraftname, 
-                optstarttime[iterthrsongs],
+                "", ##
                 int(iterthrsongs + 1)
             ))
-
-                iterthrsongs+=1
                 
+                print(f"""Blank Song for {allthenames[x]}""")
+                
+                iterthrsongs+=1
+                #iterthrurls-=1'''
+                    
+                    
+                    
+                    
+                    
+
+            '''if songreference[x]> int(songsperuser) and songreference[x]!="None":
+                
+                print(songreference[x],'>',int(songsperuser))
+                print(songreference[x], " - ", int(songsperuser))
+                temp2= songreference[x] - int(songsperuser)
+                #iterthrsongs=temp2+ int(songsperuser)
+                iterthrsongs=iterthrsongs+temp2
+                print("Skip ",temp2)'''
+
+            #else:            
+                #iterthrsongs+=1
+
+                
+                    
+  
+        insertnum=0      
+        print("")
+        print("CHECK RIGHT HERE")
+        testthis=request.form['pyinsert']
+        addnewrow = json.loads(testthis)
         
-        for x in range(totalsongs):
-            checkbox= request.form.get(f"checkbox{x}")
-            if(checkbox=="on"):
-                cursor.execute(f"""DELETE FROM "{newdraftname}" WHERE EntryNum ={x+1};""")
-                print(f"""DELETE FROM "{newdraftname}" WHERE EntryNum ={x+1};""")   
+        if addnewrow==True:
+            print(addnewrow[0])
+        
+        
+        
+        
+        ''' checkbox= request.form["checkboxtrack"]
+            allcheckbox=json.loads(checkbox)'''
+        
+        '''for x in allcheckbox:
+            temp = int(x)
+            cursor.execute(f"""DELETE FROM "{newdraftname}" WHERE EntryNum ={temp+1};""")
+            print(f"""DELETE FROM "{newdraftname}" WHERE EntryNum ={temp+1};""")'''
+        
+        
+        '''for x in addnewrow: #        while f'pyinsert#{insertnum}' in request.form:
+            cursor.execute(f"""INSERT INTO "{newdraftname}"(Name,SongURL,Notes,EntryNum,SongsperUser,NumofUsers,DraftTitle,SpecificUserSongNum,StartTime) 
+                           VALUES( ?, ?, ?, ?,?,?,?,?,?)   """, #VALUES(?, ?, ?, ?, ?,?,?,?,?) WHERE Name="{request.form.get(f'pyinsert#{insertnum}')}"   """,
+                            (x,"","","",songsperuser,len(allthenames),newdraftname,"",""))
+            #print(request.form.get(f'pyinsert#{insertnum}'))
+            insertnum+=1 '''
+       
         print(songnum4user)
 
         print("Let see the time stamps:")
         print(allthenames)
         
+        checkbox= request.form["checkboxtrack"]
+        allcheckbox=json.loads(checkbox)
+        
+        for x in allcheckbox:
+            temp = int(x)
+           # cursor.execute(f"""UPDATE "{newdraftname}" SET SongURL='',Notes='' WHERE EntryNum={temp +1};""")
+            
+            print(f"""DELETE(Update) FROM "{newdraftname}" WHERE EntryNum ={temp+1};""")
         
         cursor.execute(f""";WITH CTE AS(SELECT "EntryNum",ROW_NUMBER() OVER (ORDER BY "EntryNum") AS "ReSeq" FROM "{newdraftname}")
-        UPDATE CTE SET "EntryNum" = "ReSeq" """) #Re listing Entry Num so that there are no gaps
-        
-        placement = 1
+        UPDATE CTE SET "EntryNum" = "ReSeq" """) #Re listing Entry Num so that there are no gaps'''
                 
+                
+        spuarray = []
+        counter=1
+        cursor.execute(f"""SELECT EntryNum FROM {newdraftname} ORDER BY EntryNum """) 
+        for row in cursor:
+            if counter <= int(len(allthenames)):
+                #print("Row Result",row[0])
+                spuarray.append(row[0])
+            counter+=1
+        
+        #print(spuarray)
+        
+        
+        cursor.execute(f"""UPDATE "{newdraftname}" SET SpecificUserSongNum=NULL""") #Need to clear it out first due to extras left over
+        placement = 0          
         for x in songnum4user: #Refreshing number of songs per user
-                cursor.execute(f"""UPDATE "{newdraftname}" SET SpecificUserSongNum={x} WHERE EntryNum={placement};""")              
-                #print(f"""UPDATE "{newdraftname}" SET SpecificUserSongNum={x} WHERE EntryNum={placement};""")
-                placement+=1  
+                cursor.execute(f"""UPDATE "{newdraftname}" SET SpecificUserSongNum={x} WHERE EntryNum={spuarray[placement]};""")              
+                placement+=1         
+                #Try selecting all UserNums, put it in a array and then update the first 4 specificusernum based off of first 4 UserNums (aka in WHERE UserNums="", the "" will 
+                # be an array value fromthe one we just created )'''
                   
                     
         cursor.commit()    
