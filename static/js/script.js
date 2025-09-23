@@ -988,7 +988,9 @@ for(let y=0; y<draftnumofusers[0];y++){
         //We need to now take draftnames[iterhelp4] and put each value of it into a hidden array list to then access it on the python side for line 343 in a where statement;
         //The issue is, 
 
-        totaloccurences[draftnames[iterhelp4]]+=1;
+        var moresongsneeded = navsongamount[y]-draftsong4user[y];
+
+        totaloccurences[draftnames[iterhelp4]]=totaloccurences[draftnames[iterhelp4]]+moresongsneeded;
         //var addsong = Number(navsongamount[y])-Number(draftsong4user[y]);        
     }
 
@@ -1022,6 +1024,9 @@ for(let x=0; x<navsongamount.length;x++){
         console.log("Index ",x);
         console.log(navsongamount[x]," vs ", totaloccurences[x]);
         console.log("Incorrect user removal; Please try again");
+
+        errorbox.innerHTML="Incorrect User Removal/Song Allocation";
+        errorbox.style.display="block";
     }
 }
 

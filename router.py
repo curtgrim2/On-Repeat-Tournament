@@ -316,28 +316,28 @@ def startgame():
                             temp2= songreference[x] - int(songsperuser) #Wpuldn't this always be skipping just 1?
                             #iterthrsongs=temp2+ int(songsperuser)
                             
-                            iterthrurls=iterthrurls+abs(temp2)
+                            iterthrurls=iterthrurls+1;#iterthrurls=iterthrurls+abs(temp2)
                             print("(Skipping URL)URL increased to ",iterthrurls)
-                            print("Skip ",temp2)
+                            print("Skip 1")#print("Skip ",temp2)
                             
                         if songreference[x]< int(songsperuser) and songreference[x]!="None": #gaining a song
                             print("ALTERNATE")
                             print("Old Song reference:",songreference[x],' ; New Song Total:',int(songsperuser))
                             print("Checkbox selected:",allcheckbox[0],"; iterthrsongs:",iterthrsongs,"; Current User Song",y )
                             
-                            temp2= songreference[x] - int(songsperuser) #Wpuldn't this always be skipping just 1?
+                            temp2= songreference[x] - int(songsperuser) #Wouldn't this always be skipping just 1?
                             
-                            iterthrurls=iterthrurls+abs(temp2) #temp2 will be a negative value
+                            iterthrurls=iterthrurls+1#iterthrurls=iterthrurls+abs(temp2) #temp2 will be a negative value
                             print("(Skipping URL)URL increased to ",iterthrurls)
-                            print("Skip ",temp2)
+                            print("Skip 1")#print("Skip ",temp2)
        
                         if songreference[x]==int(songsperuser):#if we are on the next user but the current itersongs has a song that nexts to be deleted from previous
                             print("")
-                            iterthrurls=iterthrurls+1 #temp2 will be a negative value
+                            iterthrurls=iterthrurls+1 
                             print("(Skipping URL)URL increased to ",iterthrurls)
                             print("Skip ",1)
                                              
-                if y== (int(songsperuser)-1) and ( "z" in locals() and iterthrurls != int(allcheckbox[z])): #if current song is the last song for current user x #The last song for user
+                if y>= songreference[x] and y<= (int(songsperuser)-1) and ( "z" in locals() and iterthrurls != int(allcheckbox[z])): #if current song is the last song for current user x #The last song for user
                     
                     #Protection potentially against putting in a song that the user actually wanted deleted but would we then have to turn the corresponding else statemnent into a 
                     #if to protect against it also? 
