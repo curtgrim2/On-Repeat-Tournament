@@ -13,6 +13,7 @@
   
 ### OTHER TASKS (Curtis)
 - Have a way to go backwards on a result (like leewufufu)
+- Color coordination on slide 3 for name navigation depending on if a user correctly filled out all of their slots
 - Create Phone app for voters
 - Use Raspberry Pi instead Google cloud console for cloud database and user connectivity?
 - IoT (Have program progress itself)
