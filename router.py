@@ -601,9 +601,9 @@ def showresults():
 
 if __name__ == "__main__":
     #Testing version
-    app.run(debug=True)
+    #app.run(debug=True)
     
     #Production version
-    '''from waitress import serve
+    from waitress import serve
     print("Running on http://localhost:8000/")
-    serve(app, host="localhost", port=8000)'''
+    serve(app, host="localhost", port=8000)

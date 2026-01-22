@@ -6,6 +6,8 @@ var dec = document.getElementById("decrease");
 let numofusers = document.getElementById("showusernum");
 var errorbox = document.getElementById("errorbox");
 var deletedraftbutton =  document.getElementById("deletedraft");
+    var firstsongindex = [];
+
 /*changingvalue = 2;
 numofusers.innerHTML=changingvalue;*/
 
@@ -185,6 +187,9 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         quickfind.style.fontWeight="bold";
        document.getElementById("navmenu").appendChild(quickfind);
 
+
+    firstsongindex.push(eacheverysong);
+
        for(y=0; y<songstocreate; y++){//for(y=0; y<songsperuser.value; y++){ //Each user gets a certain amount of songs. Here we display them.
 
         var newtotalsongs;
@@ -216,6 +221,8 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
         utubeURLs.placeholder="Enter the URL";
         utubeURLs.style.display ="block";
         utubeURLs.style.width="60%";
+        utubeURLs.className=x;
+
         document.getElementById(`namenumid2${iterhelp2}`).appendChild(utubeURLs); 
 
         var ordiv = document.createElement("div");
@@ -339,6 +346,8 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
             var fortitledisplay2=neednameid.substring(neednameid.length-1,neednameid.length);
             console.log(fortitledisplay2);
             showsongtitle(event.target.value,event.target.id,fortitledisplay2);
+            colorChange(event.target.id,event.target.className);
+
         });
 
         search4title.addEventListener('click',function (event){
@@ -346,8 +355,8 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
             var thetitle = document.getElementById(`titlenum${event.target.id}`);
             console.log(thetitle);
             var fortitledisplay2=neednameid.substring(neednameid.length-1,neednameid.length);
-            console.log("This is the title ",thetitle.value);
             getVideoTitle(thetitle.value,event.target.id,fortitledisplay2);
+            colorChange(event.target.id);
         });
 
         
@@ -360,6 +369,8 @@ function toslide3(showusernum,enternames){ /*For Youtube URLs */
 }
 
 }
+
+
 
 
 var currentpage = 1;
@@ -401,7 +412,28 @@ function changenumofusers(addorsubtract){
     }
 }
 
+function colorChange(thesong,thename){
+    console.log("I hope it reached here:"+ thesong);
+    //console.log( document.getElementById(`#namenumid${classof${x}}`));
+        var songtmp = firstsongindex[thename];
 
+        console.log(firstsongindex)
+
+    for(var y=0; y<draftsong4user[thename];y++){
+        console.log(document.getElementById(`namenum${songtmp}`).value);
+         if(document.getElementById(`namenum${songtmp++}`).value!=""){//if(drafturls[y]!= "") {
+            document.getElementById(`#namenumid${thename}`).style.backgroundColor="white";
+            console.log("Good to go");
+        }
+        else{
+             document.getElementById(`#namenumid${thename}`).style.backgroundColor="red";
+            console.log("RED!!!");
+            break;
+   
+        }
+    }
+   
+}
 
 iterhelp2=0;
 function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
@@ -468,6 +500,8 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         draftsong4user=draftsong4user5;
         draftstarttime=draftstarttime5;
     }
+        console.log(draftsongsperuser);
+
 
    /* console.log(whichdraft);
     console.log(draftnames1);
@@ -484,8 +518,6 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
             //document.querySelector("input[name='checkboxtrack']").value= jsonstring;
 
 
-
-
     var gothrnames=0;
     totalsongs = parseInt(draftnumofusers) * parseInt(draftsongsperuser); //CHANGE THIS?!!?!?
     //console.log(totalsongs," = ",draftnumofusers,"*",draftsongsperuser);
@@ -497,6 +529,8 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
     }
 
     console.log(totalsongs);
+
+    //var firstsongindex = [];
 
     for(x=0; x<draftnumofusers[0]; x++){ 
         var node  = document.createElement("input");
@@ -513,8 +547,9 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         document.getElementById("enternames").appendChild(node);
 
        
-        var quickfind = document.createElement("a");
+        var quickfind = document.createElement("a"); //Names on the side
         quickfind.href=`#namenumid${x}`;
+        quickfind.id=`#namenumid${x}`;
         quickfind.innerHTML= draftnames[gothrnames];
         quickfind.style.display="inline-block";
         quickfind.style.textDecoration="none";
@@ -522,7 +557,7 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
        document.getElementById("navmenu").appendChild(quickfind);
 
         var songnum4user = document.createElement('input'); //Inputs for potentially changing song number
-        songnum4user.type="text";///song4thisuser.type="hidden";
+        songnum4user.type="text";
         songnum4user.id=`user${x}songtotal`;
         songnum4user.name=`user${x}songtotal`;
         songnum4user.value=draftsong4user[x];
@@ -539,6 +574,17 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
 
 
     } 
+
+    /*var changecolor=0;
+    while(changecolor<draftnames.length){
+
+        for(xx=0; xx<draftsong4user[changecolor];xx++){
+            if(drafturls[]){ //url==null
+            document.getElementById(`#namenumid${changecolor}`).style.backgroundColor="red";
+                break;
+    }
+        }
+    }*/
 
     gothrnames=0;
 
@@ -619,7 +665,15 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
 
        gothrnames+=draftsong4user[x];
 
+        firstsongindex.push(eacheverysong);
+
        for(y=0; y<draftsong4user[x]; y++){ 
+
+        //document.getElementById(`#namenumid${x}`).style.backgroundColor="green";
+       
+        if(drafturls[iterhelp]== "") {
+            document.getElementById(`#namenumid${x}`).style.backgroundColor="red";
+        }
 
        var songcontain = document.createElement("div"); //Song Container
        songcontain.id=`namenumid2${iterhelp2}`;
@@ -642,6 +696,7 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
         utubeURLs.type = "text";
         utubeURLs.name = `namenum${eacheverysong}`; 
         utubeURLs.id = `namenum${eacheverysong}`; 
+        utubeURLs.className=x;
         utubeURLs.placeholder="Enter the URL";
         utubeURLs.style.backgroundColor="black";
         utubeURLs.style.color="white";
@@ -822,6 +877,9 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
             var neednameid = event.target.id;
             var fortitledisplay2=neednameid.substring(neednameid.length-1,neednameid.length);
             showsongtitle(event.target.value,event.target.id,fortitledisplay2);
+            console.log(event.target.value,event.target.id,fortitledisplay2);
+            console.log(event.target.className);
+            colorChange(event.target.id,event.target.className);
         });
 
          search4title.addEventListener('click',function (event){
@@ -916,7 +974,6 @@ document.addEventListener("DOMContentLoaded", function () {
       Getting the songs on the sides total by using applicable draftnumofusers to then go through each song amount input to create new list to compare with */
 
 
-//checkboxtrack
 console.log("checkboxtrack");
 console.log(checkboxtrack);
 
@@ -971,8 +1028,6 @@ console.log(totaloccurences);
 totaloccurences = Object.values(totaloccurences);
 console.log(totaloccurences); */
 
-
-//event.preventDefault(); //Delete this
 
 
 var iterhelp4=0;
@@ -1102,9 +1157,10 @@ otherthing1.addEventListener('click',(event)=>{
 
 function showsongtitle(theurl,usethisid,fortitledisplay,urlvideoid){
             //console.log("theurl:",theurl,";  usethisid: ",usethisid ,"; fortitledisplay:",fortitledisplay );
-    //Right here is where we need to have utube values and maybe a for loop with it
-            
-        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/; 
+
+            //colorChange();
+
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/; 
         if(theurl==undefined){
            theurl="";
         }
@@ -1152,6 +1208,8 @@ async function getVideoDetails(videoId,usethisid,fortitledisplay,urlvideoid){
     const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet,contentDetails,statistics&key=${apiKey}`;
 
     try{
+
+        //colorChange(videoId);
         const response = await fetch(apiUrl);
         if(!response.ok){
             throw new Error("Network status isn't ok:" + response.statusText);
@@ -1161,14 +1219,6 @@ async function getVideoDetails(videoId,usethisid,fortitledisplay,urlvideoid){
        document.getElementsByClassName(usethisid)[0].innerHTML=data.items[0].snippet.title;
 
        document.getElementById(`video${fortitledisplay}`).src ="https://www.youtube.com/embed/" +  videoId;//www.youtube.com/embed/zm6gHJ3SQIM";
-     
-
-      /* var titledisplayed = document.createElement("span");
-       titledisplayed.innerHTML=data.items[0].snippet.title;
-       titledisplayed.id="";
-        document.getElementById(usethisid).insertAdjacentElement('afterend',titledisplayed);
-        */
-
     
     }
     catch(error){
