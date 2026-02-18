@@ -12,7 +12,7 @@
 - Wanted to have a GUI that allows users to go to Spotify page and pull songs from On Repeat playlist BUT web scraping is prohibited.
   
 ### OTHER TASKS (Curtis)
-- When creating draft, display the date when created
+- When creating draft, display the date when created + last updated
 - Have a way to go backwards on a result (like leewufufu)
 - Create Phone app for voters
 - Use Raspberry Pi instead Google cloud console for cloud database and user connectivity?
