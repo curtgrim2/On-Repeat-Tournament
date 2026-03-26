@@ -3,11 +3,11 @@
 
 ### BIG NEW TASK
 - Github allows dynamic pages!
-      - Use Socket IO to have everybody connect remmotely
-      - Have a random number generator to generate code for users to join rooms (like Kahoot)
-          - If using a draft do we already have a preordained code that we just hold on to OR is the code+room generated once the game starts
-      - Have users pick their answer and potentially auto iterate through once all users voted
-      - Still have a commander that can kick out users who left (and might need to still press play on songs)
+      1. Use Socket IO to have everybody connect remmotely
+      2. Have a random number generator to generate code for users to join rooms (like Kahoot)
+          * If using a draft do we already have a preordained code that we just hold on to OR is the code+room generated once the game starts
+      3. Have users pick their answer and potentially auto iterate through once all users voted
+          * Still have a commander that can kick out users who left (and might need to still press play on songs)
 
 ###  CSS Tasks (Assigned to Uriah):
 - Arrows (animation) pointing at video when video is playing
