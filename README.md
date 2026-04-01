@@ -3,7 +3,7 @@
 
 ### BIG NEW TASK
 Github allows dynamic pages!
-1. Use Socket IO to have everybody connect remmotely
+1. Use Socket IO to have everybody connect remotely
 2. Have a random number generator to generate code for users to join rooms (like Kahoot)
    * If using a draft do we already have a preordained code that we just hold on to OR is the code+room generated once the game starts
 3. Have users pick their answer and potentially auto iterate through once all users voted
