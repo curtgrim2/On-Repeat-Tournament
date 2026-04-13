@@ -85,14 +85,19 @@ videoDetails(listoftiers);
          }
     var tierlength = listoftiers[x].length;
     var y=0;
-    if (listoftiers && listoftiers[x] && listoftiers[x][y]) {
-
+if (Array.isArray(listoftiers[x]) && listoftiers[x].length > 0){
         while(y<tierlength){
 
 
     var url =listoftiers[x][y];
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/; 
     var vid_id = url.match(regExp);
+
+    if (!vid_id || !vid_id[2]) {
+    console.error("Invalid YouTube URL:", url);
+    y++;
+    continue;
+}
 
     const apiCall = `https://www.googleapis.com/youtube/v3/videos?id=${vid_id[2]}&part=snippet,contentDetails,statistics&key=${apiKey}`;
     
@@ -105,6 +110,12 @@ videoDetails(listoftiers);
       throw new Error("Network status isn't okay " + response.statusText);
         }
         const video = await response.json();
+
+        if (!video.items || video.items.length === 0) {
+    console.error("No video data returned for ID:", vid_id[2]);
+    y++;
+    continue;
+}
 
         var newtieritem = document.createElement("div");
 
@@ -406,8 +417,6 @@ everynote[x].remove();
 }
 
 }
-
-
 
 
 var getindex=listoftiers.length-1;

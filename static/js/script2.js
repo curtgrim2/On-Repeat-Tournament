@@ -19,7 +19,8 @@ var testusernum = 3;
             
 
             var tiers=[];
-            var allnames=[];                
+            var allnames=[];   
+            var alllosenames=[];             
             var tiercounter=0;
 
             //Because of 10 hard coded arrays, Application will have no more than 10 users who can play
@@ -33,20 +34,31 @@ var testusernum = 3;
             var user8songs =[];
             var user9songs =[];
             var user10songs =[];
+
             var allusers = [user1songs,user2songs,user3songs,user4songs,user5songs,user6songs,user7songs,user8songs,user9songs,user10songs];
-
-
-            //export const totalusers2 = {totalusernum:totalusers}
-
-
             var usersnotes =[[],[],[],[],[],[],[],[],[],[]];
 
+            //{name: "user1", songs: user1songs, notes: usersnotes[0]},
+
+            var users =[
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []}
+            ];
 
             //Setting the amount of users that are playing the game (Maximum of 10)
             var setlength = allusers.length;
             for(x=totalusers; x<setlength; x++){
-                allusers.pop();
-                usersnotes.pop();
+                //allusers.pop();
+                //usersnotes.pop();
+                users.pop();
             }
 
             var z=0;
@@ -57,51 +69,50 @@ var testusernum = 3;
 
                 var y=0;
                     while(y<songnum4user[x]){
-                        usersnotes[x][y]= thenotes[z];
-                        //console.log( thenotes[z]);
+                        //usersnotes[x][y]= thenotes[z];
+                        users[x].notes[y]= thenotes[z];
                         y++;
                         z++;
                     }
             }
-
 
             console.log(usersnotes);
                 var usersnotes2 = usersnotes;
 
             //Placing all the users songs into the arrays
             var songiter = 0;
-            var users_name=[];
+            var users_name=[]; //Names to match song (?)
             var orderusernames=[];
             var users_namessongs=[]
             var totalsongs = allusers.length;
             var onlyone=18;
 
-            for(x=0;x<allusers.length;x++){ //Each array
+            for(x=0;x<allusers.length;x++){ 
                 var usersongnum=0; 
                 while(usersongnum<songnum4user[x]){
-                    allusers[x][usersongnum]= utubeurls[songiter++];
+                    //allusers[x][usersongnum]= utubeurls[songiter++];
                     users_name[x]=testnames[x].innerHTML; //Will use to display the name underneath video
                     orderusernames[x]=testnames[x].innerHTML;
+
+
+                    users[x].songs.push(utubeurls[songiter++]);
+                    users[x].name=testnames[x].innerHTML;
 
                     usersongnum++;
                 }
             }
 
             
-          //console.log(users_name[0] + " vs " + users_name[1]);  //console.log(allusers[0][0] + "vs" + allusers[1][0]); //How we will display the names per the last comment
-
-
-            //users_name.sort();
+          //console.log(users_name[0] + " vs " + users_name[1]);  
             console.log( allusers);
             console.log(users_name);
-            //const orderusernames=users_name;
             console.log(orderusernames);
 
 
             var eliminated;
             var winners=[];
             var winnernotes=[];
-
+            var winnames =[];
             var losers=[];
             var losernames=[];
             //var keepwinnernotes=usersnotes;
@@ -119,40 +130,43 @@ var testusernum = 3;
             //Start of Round of 64
 
             var allusers2 = allusers;
-            console.log(allusers2);
+
+            var users2 =users;
+
+            console.log(users2);
 
             document.getElementById("displayround").innerHTML = "Round of " + currround + " (" + counter2 +"/"+currround/2 + ")";
 
             //Set up initial First Matchup
 
-            var usersongs1 = Math.floor(Math.random()*allusers2.length); //"usersongs1" will always be left video; This determines the user 
-            var usersongs2 = Math.floor(Math.random()*allusers2.length);//Will always be right video;
+            var usersongs1 = Math.floor(Math.random()*users2.length); //"usersongs1" will always be left video; This determines the user 
+            var usersongs2 = Math.floor(Math.random()*users2.length);//Will always be right video;
     
             while(usersongs2 == usersongs1 ){ //Makes sure the same user isn't going against themselves //&& usersongs1!=-1 && usersongs2 !=-1
-                usersongs1 = Math.floor(Math.random()*allusers2.length);
-                usersongs2 = Math.floor(Math.random()*allusers2.length);
+                usersongs1 = Math.floor(Math.random()*users2.length);
+                usersongs2 = Math.floor(Math.random()*users2.length);
                 }
 
-                var songselector1=Math.floor(Math.random()*allusers2[usersongs1].length)//songselector1 selects the song for usersongs1
-                var songselector2=Math.floor(Math.random() * allusers2[usersongs2].length);
+                var songselector1=Math.floor(Math.random()*users2[usersongs1].songs.length)//songselector1 selects the song for usersongs1
+                var songselector2=Math.floor(Math.random() * users2[usersongs2].songs.length);
 
 
                 //Test: User 2, song 1 per 4 songs (Song 5 of a list of 8) would mean we can add the usersong to the songper to get notes placement
 
 
 
-                document.getElementById("leftnotes").innerHTML= usersnotes2[usersongs1][songselector1];
-                document.getElementById("rightnotes").innerHTML= usersnotes2[usersongs2][songselector2];
-                console.log(usersnotes2[usersongs1][songselector1] ,"vs", usersnotes2[usersongs2][songselector2]);
+                document.getElementById("leftnotes").innerHTML= users2[usersongs1].notes[songselector1];
+                document.getElementById("rightnotes").innerHTML= users2[usersongs2].notes[songselector2];
+                console.log(users2[usersongs1].notes[songselector1] ,"vs", users2[usersongs2].notes[songselector2]);
 
 
                 setSong1(songselector1);
                 setSong2(songselector2);//Will be needed throughout so program can have updated numbers
 
-                console.log(allusers2[usersongs1][songselector1] + " vs " + allusers2[usersongs2][songselector2]);
+                console.log(users2[usersongs1].songs[songselector1] + " vs " + users2[usersongs2].songs[songselector2]);
 
-                var leftvidID=createvideoID(String(allusers2[usersongs1][songselector1]));
-                var rightvidID=createvideoID(String(allusers2[usersongs2][songselector2]));
+                var leftvidID=createvideoID(String(users2[usersongs1].songs[songselector1]));
+                var rightvidID=createvideoID(String(users2[usersongs2].songs[songselector2]));
                
                 document.getElementById("leftvid").src = "//www.youtube.com/embed/" + leftvidID;
                 document.getElementById("rightvid").src = "//www.youtube.com/embed/" + rightvidID;
@@ -192,7 +206,7 @@ var testusernum = 3;
                 counter=counter+2; //Keeping track of how many songs we went through in the round
                 counter2++;
                 console.log("AllUsers");
-                console.log(allusers2);
+                console.log(users2);
             console.log("Counter:" + counter + ", Current Round:" +currround);
                 if(counter<=currround) { //Going through each round
                     
@@ -200,14 +214,16 @@ var testusernum = 3;
                     //console.log(allusers2[usersongs1]);
                     console.log("LEFT");
                     console.log("songselector1:" + songselector1 +"; songselector2:" + songselector2);
-                    var eliminated = allusers2[usersongs2][songselector2];//var eliminated = allusers2[usersongs2][songselector2].shift(); // Remove the first element
-                    var tempwinner = allusers2[usersongs1][songselector1];
-                    var elimnotes =usersnotes2[usersongs2][songselector2];
-                    var tempnoteswin = usersnotes2[usersongs1][songselector1];
+                    var eliminated = users2[usersongs2].songs[songselector2];//var eliminated = allusers2[usersongs2][songselector2].shift(); // Remove the first element
+                    var tempwinner = users2[usersongs1].songs[songselector1];
+                    var elimnotes =users2[usersongs2].notes[songselector2];
+                    var tempnoteswin = users2[usersongs1].notes[songselector1];
 
                     winners.push(tempwinner); /*winners.push(allusers2[usersongs1][songselector1].shift()); */
+                    winnames.push(users2[usersongs1].name);
                     losers.push(eliminated);
-                    losernames.push(users_name[usersongs2]);
+                    losernames.push(users2[usersongs2].name);
+                    console.log(users2[usersongs2].name);
 
                     winnernotes.push(tempnoteswin);
                     losernotes.push(elimnotes);
@@ -216,65 +232,76 @@ var testusernum = 3;
 
 
 
-                    var winindex =allusers2[usersongs1].indexOf(tempwinner);
-                    var elimindex = allusers2[usersongs2].indexOf(eliminated);
+                    var winindex =users2[usersongs1].songs.indexOf(tempwinner);
+                    var elimindex = users2[usersongs2].songs.indexOf(eliminated);
 
 
-                    allusers2[usersongs1].splice(allusers2[usersongs1].indexOf(tempwinner),1); //Get rid of both songs from current round selection pool but saves winner in "winners" array
-                    allusers2[usersongs2].splice(allusers2[usersongs2].indexOf(eliminated),1); //Song locations change so use indexOf function to always pick right index
-                   
+                    users2[usersongs1].songs.splice(users2[usersongs1].songs.indexOf(tempwinner),1);
+                    users2[usersongs2].songs.splice(users2[usersongs2].songs.indexOf(eliminated),1);
+                    //allusers2[usersongs1].splice(allusers2[usersongs1].indexOf(tempwinner),1); //Get rid of both songs from current round selection pool but saves winner in "winners" array
+                    //allusers2[usersongs2].splice(allusers2[usersongs2].indexOf(eliminated),1); //Song locations change so use indexOf function to always pick right index
 
+                    users2[usersongs1].notes.splice(winindex,1);
+                    users2[usersongs2].notes.splice(elimindex,1);
+                    //usersnotes2[usersongs1].splice(winindex,1);
+                    //usersnotes2[usersongs2].splice(elimindex,1); 
 
-                    usersnotes2[usersongs1].splice(winindex,1);
-                    usersnotes2[usersongs2].splice(elimindex,1); 
+                    //users2[usersongs1].songs[winindex]="";
+                    users2 = users2.filter(users=>users.songs.length>0); //Gets rid of users remaining with no songs remaining
 
-                    console.log(allusers2);
-                    console.log(usersnotes2);
+                    console.log(users2);
+                    console.log(users2.notes);
 
                     //allusers2 = allusers2.filter(arr => arr.length > 0);
 
                 console.log( "Winner: " +  tempwinner + ", Eliminated: " + eliminated);
                 console.log(winners);
                 console.log("AllUsers");
-                console.log(allusers2);
+                console.log(users2);
                 }
 
 
                 else if (theanswer == "right"){
                     console.log("RIGHT");
-                    console.log(allusers2[usersongs2]);
+                    console.log(users2[usersongs2]);
                     console.log("songselector1:" + songselector1 +"; songselector2:" + songselector2);
-                    var eliminated = allusers2[usersongs1][songselector1]; // Remove the first element
-                    var tempwinner = allusers2[usersongs2][songselector2];
-                    var elimnotes =usersnotes2[usersongs1][songselector1];
-                    var tempnoteswin = usersnotes2[usersongs2][songselector2];
+                    var eliminated = users2[usersongs1].songs[songselector1]; // Remove the first element
+                    var tempwinner = users2[usersongs2].songs[songselector2];
+                    var elimnotes =users2[usersongs1].notes[songselector1];
+                    var tempnoteswin = users2[usersongs2].notes[songselector2];
 
 
                     winners.push(tempwinner);
+                    winnames.push(users2[usersongs2].name);
                     losers.push(eliminated);
-                    losernames.push(users_name[usersongs1]);
-                    console.log(usersnotes2[usersongs2][songselector2]);
+                    //losernames.push(users_name[usersongs1]);
+                    losernames.push(users2[usersongs1].name);
+                    console.log(users2[usersongs2].notes[songselector2]);
                     winnernotes.push(tempnoteswin);//winnernotes.push(usersnotes2[usersongs2][songselector2]);
                     losernotes.push(elimnotes);//losernotes.push(usersnotes2[usersongs1][songselector1]);
 
 
-                    var winindex = allusers2[usersongs2].indexOf(tempwinner);
-                    var elimindex  = allusers2[usersongs1].indexOf(eliminated);     
+                    var winindex = users2[usersongs2].songs.indexOf(tempwinner);
+                    var elimindex  = users2[usersongs1].songs.indexOf(eliminated);     
 
-                    allusers2[usersongs2].splice(allusers2[usersongs2].indexOf(tempwinner),1);
-                    allusers2[usersongs1].splice(allusers2[usersongs1].indexOf(eliminated),1);
+                   // allusers2[usersongs2].splice(allusers2[usersongs2].indexOf(tempwinner),1);
+                   // allusers2[usersongs1].splice(allusers2[usersongs1].indexOf(eliminated),1);                    
+                    users2[usersongs2].songs.splice(winindex,1);
+                    users2[usersongs1].songs.splice(elimindex,1);
 
-                      
+                    //usersnotes2[usersongs2].splice(winindex,1);
+                    //usersnotes2[usersongs1].splice(elimindex,1);
+                    users2[usersongs2].notes.splice(winindex,1);
+                    users2[usersongs1].notes.splice(elimindex,1);
 
-                    usersnotes2[usersongs2].splice(winindex,1);
-                    usersnotes2[usersongs1].splice(elimindex,1);
-                    console.log(usersnotes2);
+                    users2 = users2.filter(users => users.songs.length>0);
+                    console.log(users2.notes);
 
                 console.log("Eliminated: " + eliminated + ", Winner: " +  tempwinner);
                 console.log("The winners are display below:");
                 console.log(winners);
                 console.log("AllUsers");
-                console.log(allusers2);
+                console.log(users2);
                     }
 
                 if(currround!=counter){ //To move on to the next round
@@ -285,23 +312,23 @@ var testusernum = 3;
                     console.log(allusers2);
                     console.log("Check length: " +allusers2.length);*/
                     
-             usersongs1 = Math.floor(Math.random()*allusers2.length);
-             usersongs2 = Math.floor(Math.random()*allusers2.length);
+             usersongs1 = Math.floor(Math.random()*users2.length);
+             usersongs2 = Math.floor(Math.random()*users2.length);
     
             while(usersongs2 == usersongs1 ){ //Makes sure the same user isn't going against themselves 
                 
-                if(allusers2.length<2){
+                if(users2.length<2){
                     console.log("ONLY ONE LEFT"); 
                     break;//Stop while loop;No need to randomize users with only one left
                 }
                 
-                usersongs1 = Math.floor(Math.random()*allusers2.length);
-                usersongs2 = Math.floor(Math.random()*allusers2.length);
+                usersongs1 = Math.floor(Math.random()*users2.length);
+                usersongs2 = Math.floor(Math.random()*users2.length);
                 }
 
                
                 //Checking the user arrays that has no more songs in them
-                var toeliminate =[];
+               /* var toeliminate =[];
                 var elimcount =0;
                 for(x=0;x<allusers2.length;x++){
                     if(allusers2[x].length==0 ){ 
@@ -318,75 +345,69 @@ var testusernum = 3;
 
                     }
                 } 
-
+*/
                 users_name = users_name.filter(arr => arr.length > 0);
 
 
 
-              /*  for(){
-                    users_name.replace(toeliminate[x],)
-
-                }*/
                 
 
 
-           if(allusers2.length>1){
+           if(users2.length>1){
             //(Normal Activities) Setting up new versus as long as theres still multiple users 
-            allusers2 = allusers2.filter(arr => arr.length > 0);
-            
+
+                        console.log(users2);
+
+
+            //users2 = users2.filter(arr => arr.length > 0);
             usersnotes2 = usersnotes2.filter(arr  => arr.length>0);
             console.log("AllUsers");
-            console.log(allusers2);
+            console.log(users2);
 
 
-            usersongs1 = Math.floor(Math.random()*allusers2.length);
-            usersongs2 = Math.floor(Math.random()*allusers2.length);
+            usersongs1 = Math.floor(Math.random()*users2.length);
+            usersongs2 = Math.floor(Math.random()*users2.length);
             while(usersongs2 == usersongs1 ){ //Makes sure the same user isn't going against themselves //&& usersongs1!=-1 && usersongs2 !=-1
                 
-                if(allusers2.length<2){
+                if(users2.length<2){
                     console.log("ONLY ONE LEFT");
                     break;
                     //Isn't this redundent due to "if(allusers2.length>1)" If statement? Might not be due to possibilty of last versus forcibily being the same user
                 }
                 
-                usersongs1 = Math.floor(Math.random()*allusers2.length);
-                usersongs2 = Math.floor(Math.random()*allusers2.length);
+                usersongs1 = Math.floor(Math.random()*users2.length);
+                usersongs2 = Math.floor(Math.random()*users2.length);
                 }
 
-            var songselector1=Math.floor(Math.random()*allusers2[usersongs1].length)
-             var songselector2=Math.floor(Math.random() * allusers2[usersongs2].length);
+            var songselector1=Math.floor(Math.random()*users2[usersongs1].songs.length)
+             var songselector2=Math.floor(Math.random() * users2[usersongs2].songs.length);
                 
-             if(allusers2.length<2){
+             if(users2.length<2){
                 while(songselector1==songselector2){
-                    var songselector1=Math.floor(Math.random()*allusers2[usersongs1].length)
-                    var songselector2=Math.floor(Math.random() * allusers2[usersongs2].length);                  
+                    var songselector1=Math.floor(Math.random()*users2[usersongs1].songs.length)
+                    var songselector2=Math.floor(Math.random() * users2[usersongs2].songs.length);                  
                 }
 
-                document.getElementById("leftnotes").innerHTML= usersnotes2[usersongs1][songselector1];
-                document.getElementById("rightnotes").innerHTML= usersnotes2[usersongs2][songselector2];
-                console.log(usersnotes2[usersongs1][songselector1] ,"vs", usersnotes2[usersongs2][songselector2]);
-
-                
-
+                document.getElementById("leftnotes").innerHTML= users2[usersongs1].notes[songselector1];
+                document.getElementById("rightnotes").innerHTML= users2[usersongs2].notes[songselector2];
+                console.log(users2[usersongs1].songs[songselector1] ,"vs", users2[usersongs2].songs[songselector2]);
 
                 setSong1(songselector1);
                 setSong2(songselector2);
             }
-             
-
            }
                 
                 
 
-           else if(allusers2.length==1){
+           else if(users2.length==1){
             //BUT if there's only one user left...
 
-             songselector1=Math.floor(Math.random()*allusers2[0].length);
-             songselector2=Math.floor(Math.random() * allusers2[0].length); //"allusers2[0].length);" is the main reason why we have this Else If statement
+             songselector1=Math.floor(Math.random()*users2[0].songs.length);
+             songselector2=Math.floor(Math.random() * users2[0].songs.length); //"users2[0].songs.length);" is the main reason why we have this Else If statement
 
                 while(songselector1==songselector2){
-                     songselector1=Math.floor(Math.random()*allusers2[0].length)
-                     songselector2=Math.floor(Math.random() * allusers2[0].length);
+                     songselector1=Math.floor(Math.random()*users2[0].songs.length)
+                     songselector2=Math.floor(Math.random() * users2[0].songs.length);
                      setSong1(songselector1);
                      setSong2(songselector2);
                    }
@@ -398,25 +419,25 @@ var testusernum = 3;
                  }
 
 
-                console.log("usersongs1:" + usersongs1 +"; usersongs2:" + usersongs2 + "; allusers2.length:" + allusers2.length);
+                console.log("usersongs1:" + usersongs1 +"; usersongs2:" + usersongs2 + "; users2.length:" + users2.length);
                 console.log("songselector1:" + songselector1 +"; songselector2:" + songselector2);
                /* console.log("AllUsers");
                 console.log(allusers2);*/
                
-                console.log(allusers2[usersongs1][songselector1] + " vs " + allusers2[usersongs2][songselector2]);
+                console.log(users2[usersongs1].songs[songselector1] + " vs " + users2[usersongs2].songs[songselector2]);
 
-                console.log(usersnotes2)
+                //console.log(usersnotes2)
 
                 setSong1(songselector1);
                 setSong2(songselector2);
 
-                document.getElementById("leftnotes").innerHTML= usersnotes2[usersongs1][songselector1];
-                document.getElementById("rightnotes").innerHTML= usersnotes2[usersongs2][songselector2];
-                console.log(usersnotes2[usersongs1][songselector1] ,"vs", usersnotes2[usersongs2][songselector2]);
+                document.getElementById("leftnotes").innerHTML= users2[usersongs1].notes[songselector1];
+                document.getElementById("rightnotes").innerHTML= users2[usersongs2].notes[songselector2];
+                console.log(users2[usersongs1].songs[songselector1] ,"vs", users2[usersongs2].songs[songselector2]);
 
 
-                var leftvidID=createvideoID(String(allusers2[usersongs1][songselector1]));
-                var rightvidID=createvideoID(String(allusers2[usersongs2][songselector2]));
+                var leftvidID=createvideoID(String(users2[usersongs1].songs[songselector1]));
+                var rightvidID=createvideoID(String(users2[usersongs2].songs[songselector2]));
 
                
                 document.getElementById("leftvid").src = "//www.youtube.com/embed/" + leftvidID;
@@ -438,8 +459,10 @@ var testusernum = 3;
                 console.log("usersongs1:" + usersongs1 + "; usersongs2: " + usersongs2);
 
 
-                document.getElementById("leftname").innerHTML =users_name[usersongs1];
-                document.getElementById("rightname").innerHTML = users_name[usersongs2];
+                document.getElementById("leftname").innerHTML =users2[usersongs1].name;
+                document.getElementById("rightname").innerHTML = users2[usersongs2].name;
+                //document.getElementById("leftname").innerHTML =users_name[usersongs1];
+                //document.getElementById("rightname").innerHTML = users_name[usersongs2];
    
             }
 
@@ -472,112 +495,90 @@ var testusernum = 3;
 
                     //Preperation; Needed for next batch that will be insert (Makes sure the array stays an array)
 
-                    for(x=0;x<allusers.length;x++){  
+                  //  for(x=0;x<allusers.length;x++){  
                         //Need allusers2 to have the amount of original users so songs can be place with their respective person
-                        allusers2[x]=[];
+                     /*   allusers2[x]=[];
                         usersnotes2[x]=[];
                         
-                    }
+                    }*/
 
                     console.log(usersnotes2);
-                    console.log(allusers2);
+                    //console.log(allusers2);
+
                     console.log(winners.length);
 
 
-                    for(x=0;x<winners.length;x++){ 
-                        var finduser=0;
-                        theuser=0;
-                        findsong=0; //Song iterator for original list
-                        findsonghelp=0;   
+                users2 =[
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []},
+                {name: "", songs: [], notes: []}
+            ];
 
+            for(x=0;x<winners.length;x++){
+                var finduser = users2.some(user => user.name===winnames[x]);
+                if (!finduser){
+                    users2[x].name=winnames[x];
+                    users2[x].songs.push(winners[x]);
+                    users2[x].notes.push(winnernotes[x]);
+                    console.log(x);
 
-                        while(findsong <forcurrround){//while(findsong <totalsongs2){ //Assign winning song to winning user 
+                }
+                else{
+                    users2.forEach(user => {
+                        if(user.name===winnames[x]){
+                            user.songs.push(winners[x]);
+                            user.notes.push(winnernotes[x]);
+                        }
+                    })
+                    
+                    console.log(x);
+                }               
+            }
 
-                            if(winners[x]==utubeurls[findsong]){                    
-                                if(allusers2.length<=1){ //Put in the first song of allusers2
-                                    allusers2[0].push(winners[x]);
-                                    newusernames.push(orderusernames[theuser]);
-                                    usersnotes2[0].push(winnernotes[x]);
+            users2 = users2.filter(users => users.songs.length>0);
 
-                                    console.log("Winners Name:" + orderusernames[theuser] + "----- Winners Song:" + winners[x]);
-                                console.log("Song Order on the list: " + findsong);
-                                console.log("theuser Num:" + theuser + " Winner iter:" + x);
-                                console.log(newusernames);
-
-                                finduser=0;
-                                }
-                               else{
-                                console.log("AllUsers");
-                                console.log(allusers2);
-                                console.log("Winners Name:" + orderusernames[theuser] + "----- Winners Song:" + winners[x]);
-                                console.log("Song Order on the list: " + findsong);
-                                console.log("theuser Num:" + theuser + " Winner iter:" + x);
-
-                                allusers2[theuser].push(winners[x]);
-                                usersnotes2[theuser].push(winnernotes[x]);
-
-                                finduser=0;
-
-
-                                if (!Array.isArray(allusers2[theuser])) {
-                                    allusers2[theuser] = []; // Initialize as an empty array if it isn’t
-                                }
-                                
-                                //Lets put the winner names here
-                                if (!Array.isArray(allnames[tiercounter])) {
-                                    allnames[tiercounter] = [];
-                                }
-      
-                                
-                                console.log(orderusernames[theuser]);
-                                allnames[tiercounter][x]=orderusernames[theuser];
-
-                                if(newusernames.includes(orderusernames[theuser])){
-                                    /*The Else statement adds the name of the user to the names list only if it isn't already in there;
-                                    Purpose is for the userssong1/userssong2 and names to match
-                                    */
-                                }
-                                else{
-                                   newusernames.push(orderusernames[theuser]);
-                                }
-                                console.log(winners);
-                               }
-                            }                       
-                            findsong++;
-                            findsonghelp++;
-                            if(findsonghelp==songnum4user[finduser]){ //For initial reapplication, every (songperuser) is dedicated to a person
-
-                                //Meaning go onto next user according to in utubeurls  
-                                //console.log(findsonghelp);                            
-                                theuser++;
-                                findsonghelp=0;   
-                                finduser++; //Limit should be totalusers
-                            }
-                           }                                                      
-                    }
+            console.log(users2);
 
                     console.log(usersnotes2);
 
                     
                     tiers[tiercounter]=winners; //Saving results via tiers that will be displayed on Results page
-                    tiercounter++;
                     document.getElementById("tiers").value = JSON.stringify(tiers);
+                    allnames[tiercounter]=winnames;
+                    document.getElementById("allnames").value = JSON.stringify(allnames); //This should solve the results page problem.
+
+
+                     document.getElementById("losers").value = JSON.stringify(losers);
+
+                     //alllosenames[tiercounter]=losernames;
+                     document.getElementById("losernames").value= JSON.stringify(losernames);
+                     
+                    document.getElementById("notesforresults").value = JSON.stringify(keepwinnernotes);
+                    document.getElementById("losernotes").value = JSON.stringify(losernotes);
+
+                    tiercounter++;
                     console.log(tiers);
 
 
 
                     winners=[]; //Need to store/record old winners before clearing this out (long term)
+                    winnames=[];
+                    alllosenames=[];
                     counter=0;
-                   // counter2=1;
-
-                //users_name=newusernames  //Change this?
                 
-                allusers2 = allusers2.filter(item => !(Array.isArray(item) && item.length === 0));
+                users2 = users2.filter(item => !(Array.isArray(item) && item.length === 0));
                 usersnotes2 = usersnotes2.filter(item => !(Array.isArray(item) && item.length === 0));
 
-                console.log("Adding the winners to the next evaluated crop(allusers2)");
-                console.log("AllUsers " + allusers2.length);
-                console.log(allusers2);
+                console.log("Adding the winners to the next evaluated crop(users2)");
+                console.log("Users2 " + users2.length);
+                console.log(users2);
 
 
            //Ordering the user names so that  songs allign with the users
@@ -594,15 +595,11 @@ var testusernum = 3;
            }
 
            console.log(allnames);
-           document.getElementById("allnames").value = JSON.stringify(allnames);
-           document.getElementById("losers").value = JSON.stringify(losers);
-           document.getElementById("losernames").value= JSON.stringify(losernames);
-           document.getElementById("notesforresults").value = JSON.stringify(keepwinnernotes);
-           document.getElementById("losernotes").value = JSON.stringify(losernotes);
+         
 
-          /* allnames[tiercounter++]=newusernames;//Save names for results
-           console.log(allnames);
-           document.getElementById("allnames").value = JSON.stringify(allnames);*/
+          
+
+      
 
 
           /* if (!Array.isArray(keepwinnernotes[tiercounter])) {
@@ -662,8 +659,8 @@ while(winnernotes.length>0){
                     document.getElementById("vs").style.textDecoration="underline";
                     document.getElementById("vs").style.fontSize="3vw";
 
-
-                    console.log(     losers                );
+                    console.log(winnames);
+                    console.log(losers);
                     console.log(losernames);
 
 
@@ -677,11 +674,11 @@ while(winnernotes.length>0){
                     console.log("Reapply winners");
 
                 console.log("ALL USERS");
-                console.log(allusers2);
+                console.log(users2);
                 //Getting rid of the empty arrays/users that don't have any songs in them
-                for(x=0;x<allusers2.length;x++){
-                    if(allusers2[x].length==0 ){ 
-                        allusers2.splice(x,1);                       
+                for(x=0;x<users2.length;x++){
+                    if(users2[x].songs.length==0 ){ 
+                        users2.splice(x,1);                       
                     }
                 } 
                 
@@ -689,44 +686,44 @@ while(winnernotes.length>0){
            //Where the ordered names used to be
         
 
-           if(allusers2.length>1){
+           if(users2.length>1){
             //Normal Activities
 
-            usersongs1 = Math.floor(Math.random()*allusers2.length);
-            usersongs2 = Math.floor(Math.random()*allusers2.length);
+            usersongs1 = Math.floor(Math.random()*users2.length);
+            usersongs2 = Math.floor(Math.random()*users2.length);
     
             while(usersongs2 == usersongs1 ){  
-                if(allusers2.length<2){
+                if(users2.length<2){
                     console.log("ONLY ONE LEFT");
                     break;
                 }    
-                usersongs1 = Math.floor(Math.random()*allusers2.length);
-                usersongs2 = Math.floor(Math.random()*allusers2.length);  
+                usersongs1 = Math.floor(Math.random()*users2.length);
+                usersongs2 = Math.floor(Math.random()*users2.length);  
                 }
 
-           console.log("usersongs1:" + usersongs1 +"; usersongs2:" + usersongs2 + "; allusers2.length:" );
-           var songselector1=Math.floor(Math.random()*allusers2[usersongs1].length)
-            var songselector2=Math.floor(Math.random() * allusers2[usersongs2].length);
+           console.log("usersongs1:" + usersongs1 +"; usersongs2:" + usersongs2);
+           var songselector1=Math.floor(Math.random()*users2[usersongs1].songs.length)
+            var songselector2=Math.floor(Math.random() * users2[usersongs2].songs.length);
 
             setSong1(songselector1);
             setSong2(songselector2);
 
             console.log(usersnotes2);
-            document.getElementById("leftnotes").innerHTML= usersnotes2[usersongs1][songselector1];
-            document.getElementById("rightnotes").innerHTML= usersnotes2[usersongs2][songselector2];
-            console.log(usersnotes2[usersongs1][songselector1] ,"vs", usersnotes2[usersongs2][songselector2]);
+            document.getElementById("leftnotes").innerHTML= users2[usersongs1].notes[songselector1];
+            document.getElementById("rightnotes").innerHTML= users2[usersongs2].notes[songselector2];
+            console.log(users2[usersongs1].notes[songselector1] ,"vs", users2[usersongs2].notes[songselector2]);
 
 
            }         
 
-           else if(allusers2.length==1){
+           else if(users2.length==1){
             //BUT if there's only one user left...
-            console.log("AllUsers");
-            console.log(allusers2);
+            console.log("Users2");
+            console.log(users2);
 
                 while(songselector1==songselector2){
-                     var songselector1=Math.floor(Math.random()*allusers2[0].length)
-                     var songselector2=Math.floor(Math.random() * allusers2[0].length);
+                     var songselector1=Math.floor(Math.random()*users2[0].songs.length)
+                     var songselector2=Math.floor(Math.random() * users2[0].songs.length);
 
                      setSong1(songselector1);
                     setSong2(songselector2);
@@ -735,22 +732,22 @@ while(winnernotes.length>0){
                     usersongs2=0;
                  }
 
-                 document.getElementById("leftnotes").innerHTML= usersnotes2[usersongs1][songselector1];
-                 document.getElementById("rightnotes").innerHTML= usersnotes2[usersongs2][songselector2];
-                 console.log(usersnotes2[usersongs1][songselector1] ,"vs", usersnotes2[usersongs2][songselector2]);
+                 document.getElementById("leftnotes").innerHTML= users2[usersongs1].notes[songselector1];
+                 document.getElementById("rightnotes").innerHTML= users2[usersongs2].notes[songselector2];
+                 console.log(users2[usersongs1].notes[songselector1] ,"vs", users2[usersongs2].notes[songselector2]);
 
 
 
                  
 
-                console.log("usersongs1:" + usersongs1 +"; usersongs2:" + usersongs2 + "; allusers2.length:",allusers2.length );
+                console.log("usersongs1:" + usersongs1 +"; usersongs2:" + usersongs2 + "; users2.length:",users2.length );
                 console.log("songselector1:" + songselector1 +"; songselector2:" + songselector2);
                
                
-                console.log(allusers2[usersongs1][songselector1] + " vs " + allusers2[usersongs2][songselector2]);
+                console.log(users2[usersongs1].songs[songselector1] + " vs " + users2[usersongs2].songs[songselector2]);
 
-                var leftvidID=createvideoID(String(allusers2[usersongs1][songselector1]));
-                var rightvidID=createvideoID(String(allusers2[usersongs2][songselector2]));
+                var leftvidID=createvideoID(String(users2[usersongs1].songs[songselector1]));
+                var rightvidID=createvideoID(String(users2[usersongs2].songs[songselector2]));
                
                 document.getElementById("leftvid").src = "//www.youtube.com/embed/" + leftvidID;
                 document.getElementById("rightvid").src = "//www.youtube.com/embed/" + rightvidID;
@@ -765,8 +762,8 @@ while(winnernotes.length>0){
                 getVideoDetails("left",leftvidID2);
                 getVideoDetails("right",rightvidID2);
                 console.log("usersongs1: " + usersongs1 + ";usersongs2: " + usersongs2);
-                document.getElementById("leftname").innerHTML = users_name[usersongs1];
-                document.getElementById("rightname").innerHTML = users_name[usersongs2];
+                document.getElementById("leftname").innerHTML = users2[usersongs1].name;
+                document.getElementById("rightname").innerHTML = users2[usersongs2].name;
 
                 }
             }
@@ -827,10 +824,17 @@ while(winnernotes.length>0){
 
             try{
                 const response = await fetch(apiUrl);
-                if(!response.ok){
-                    throw new Error("Network status isn't ok:" + response.statusText);
-                }
                 const data = await response.json();
+
+               /* if(!response.ok){
+                    throw new Error("Network status isn't ok:" + response.statusText);
+                }*/
+
+                 if (!response.ok) {
+                    console.error("Full API error:", data);
+                    throw new Error(`Network status isn't ok: ${response.status}`);
+    }
+
                 getVideoDetails2(whichside,data);
 
             }
