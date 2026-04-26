@@ -13,12 +13,7 @@ dbsetup = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};"
                          "Database=o_r_tournament;"
                          "Trusted_Connection=yes;") #Format must be exactly like this, down to the spacing and new lines
 
-
-#print(notes1)
-
 # Loop through tables and execute queries
-
-
 
 @app.route("/")
 def home():
@@ -293,6 +288,8 @@ def startgame():
             
         info4delete =[]
         print(allthenames)
+        
+        #Comparing Old song amounts to the new total
         for x in range(len(allthenames)):#for each user
             songsperuser =  songnum4user[x] # Double /:To prevent float TypeError
             print("")
@@ -453,61 +450,7 @@ def startgame():
                     iterthrsongs+=1
                     iterthrurls+=1
                     print("(Main Update)URL increased to ",iterthrurls)
-
                 
-                
-            '''if songreference[x]< int(songsperuser): #Conversely, When user gains a song
-                query = f"""
-                UPDATE [{newdraftname}] 
-                SET 
-                Name = ?, 
-                SongURL = ?, 
-                Notes = ?, 
-                EntryNum = ?, 
-                SongsperUser = ?, 
-                NumofUsers = ?, 
-                DraftTitle = ?,
-                StartTime =?
-                WHERE EntryNum = ?
-    """#.format(newdraftname)
-                #print(str(allthenames[x]) + "; Song number: "+ str(y))
-            #Parameterized values > f-strings due to possible SQL injection attack
-                cursor.execute(query, (
-                allthenames[x], #
-                "", ##
-                "", ##
-                int(iterthrsongs + 1), 
-                songsperuser, 
-                len(allthenames), 
-                newdraftname, 
-                "", ##
-                int(iterthrsongs + 1)
-            ))
-                
-                print(f"""Blank Song for {allthenames[x]}""")
-                
-                iterthrsongs+=1
-                #iterthrurls-=1'''
-                    
-                    
-                    
-                    
-                    
-
-            '''if songreference[x]> int(songsperuser) and songreference[x]!="None":
-                
-                print(songreference[x],'>',int(songsperuser))
-                print(songreference[x], " - ", int(songsperuser))
-                temp2= songreference[x] - int(songsperuser)
-                #iterthrsongs=temp2+ int(songsperuser)
-                iterthrsongs=iterthrsongs+temp2
-                print("Skip ",temp2)'''
-
-            #else:            
-                #iterthrsongs+=1
-
-                
-                    
   
         insertnum=0      
         print("")
@@ -519,26 +462,7 @@ def startgame():
             print(addnewrow[0])
         
         
-        
-        
-        ''' checkbox= request.form["checkboxtrack"]
-            allcheckbox=json.loads(checkbox)'''
-        
-        '''for x in allcheckbox:
-            temp = int(x)
-            cursor.execute(f"""DELETE FROM "{newdraftname}" WHERE EntryNum ={temp+1};""")
-            print(f"""DELETE FROM "{newdraftname}" WHERE EntryNum ={temp+1};""")'''
-        
-        
-        '''for x in addnewrow: #        while f'pyinsert#{insertnum}' in request.form:
-            cursor.execute(f"""INSERT INTO "{newdraftname}"(Name,SongURL,Notes,EntryNum,SongsperUser,NumofUsers,DraftTitle,SpecificUserSongNum,StartTime) 
-                           VALUES( ?, ?, ?, ?,?,?,?,?,?)   """, #VALUES(?, ?, ?, ?, ?,?,?,?,?) WHERE Name="{request.form.get(f'pyinsert#{insertnum}')}"   """,
-                            (x,"","","",songsperuser,len(allthenames),newdraftname,"",""))
-            #print(request.form.get(f'pyinsert#{insertnum}'))
-            insertnum+=1 '''
        
-        print(songnum4user)
-
         print("Let see the time stamps:")
         print(allthenames)
         

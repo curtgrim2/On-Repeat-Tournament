@@ -7,10 +7,6 @@ listoftiers.unshift(bottomtier); //Makes all the losers the last/bottom tier
 namesintiers.unshift(lowtiernames);
 allnotes.unshift(losernotes);
 
-/*for(var x=losernotes.length-1; x>=0;x--){
-    //console.log(losernotes[x]);
-    allnotes.unshift(losernotes[x]);
-}*/
 
 console.log(listoftiers);
 console.log(namesintiers);
@@ -26,10 +22,12 @@ console.log(allnotes);
     createtier.style.borderRight="white 2px solid";
     createtier.style.borderBottom="white 2px solid";
     createtier.style.paddingLeft="1%";
+    
+    createtier.style.paddingLeft="4%";
 
 
     if(x==1){
-        createtier.style.backgroundImage="linear-gradient(blue,#242323)";//createtier.style.backgroundImage="linear-gradient( grey,blue)";
+        createtier.style.backgroundImage="linear-gradient(blue,#242323)";
         createtier.style.borderTop="white 2px solid";
         createtier.style.borderTopLeftRadius="20%";
         createtier.style.borderTopRightRadius="20%";
@@ -37,6 +35,7 @@ console.log(allnotes);
         createtier.style.borderTopRight="white 2px solid";
         createtier.style.paddingTop="6%";
 
+        createtier.style.paddingLeft="4%";
 
     }
     else if(x==listoftiers.length){
@@ -44,6 +43,8 @@ console.log(allnotes);
         createtier.style.borderBottomLeftRadius="8%";
         createtier.style.borderBottomRightRadius="8%";
         createtier.style.paddingBottom="2%";
+
+        createtier.style.paddingLeft="4%";
 
     }
     else{
@@ -75,7 +76,8 @@ videoDetails(listoftiers);
            console.log(listoftiers);
            var tiernumber=1;
 
-    for(let x=listoftiers.length-1; x>=0; --x){ //Must declare x via let or variable
+    for(let x=listoftiers.length-1; x>=0; --x){ // For each tier (Note the "last tier" index 0 is the list of songs that lost at some point)
+        //Must declare x via let or variable
         if (listoftiers[x]) {
              //console.log("Tier at index: "+ x);
         } 
@@ -84,10 +86,11 @@ videoDetails(listoftiers);
             continue; // Skip this iteration
          }
     var tierlength = listoftiers[x].length;
-    var y=0;
-if (Array.isArray(listoftiers[x]) && listoftiers[x].length > 0){
-        while(y<tierlength){
+    var y=0; //y = Index for songs within tier
 
+if (Array.isArray(listoftiers[x]) && listoftiers[x].length > 0){ //"listoftiers[x].length" = Songs per Tier
+    
+    while(y<tierlength){
 
     var url =listoftiers[x][y];
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/; 
@@ -100,9 +103,7 @@ if (Array.isArray(listoftiers[x]) && listoftiers[x].length > 0){
 }
 
     const apiCall = `https://www.googleapis.com/youtube/v3/videos?id=${vid_id[2]}&part=snippet,contentDetails,statistics&key=${apiKey}`;
-    
-    //var urlindex =0;
-    
+        
     try{
 
         var response = await fetch(apiCall);
@@ -112,12 +113,17 @@ if (Array.isArray(listoftiers[x]) && listoftiers[x].length > 0){
         const video = await response.json();
 
         if (!video.items || video.items.length === 0) {
-    console.error("No video data returned for ID:", vid_id[2]);
-    y++;
-    continue;
+             console.error("No video data returned for ID:", vid_id[2]);
+                y++;
+                continue;
 }
 
         var newtieritem = document.createElement("div");
+
+
+        //Categorizing which songs goes in what tier...Determined by overarching "for" loop
+        //Iterator starts from winner down (tiernumber++)
+
 
         //urltitles[urlindex++] =video.items[0].snippet.title; //This won't work with API call; "Returns only once"
         if(y==0 && tierlength==1 &&  x==listoftiers.length-1){//Winning tier
@@ -133,7 +139,10 @@ if (Array.isArray(listoftiers[x]) && listoftiers[x].length > 0){
             //newtieritem.style.textDecoration="underline";
             newtieritem.style.textDecorationColor = "red";
             newtieritem.id=video.items[0].snippet.title + x;
-            console.log(newtieritem.id);
+
+            //console.log(newtieritem.id);
+            //Displaying song titles in console slows down page
+
             newtieritem.className="SongsDiv"; 
             //newtieritem.style.backgroundColor="pink";
             newtieritem.style.width="75%";
@@ -156,33 +165,29 @@ if (Array.isArray(listoftiers[x]) && listoftiers[x].length > 0){
             var thumbnail = document.createElement("img");
             thumbnail.crossOrigin="anonymous";
             thumbnail.src= video.items[0].snippet.thumbnails.high.url;
-            console.log(video.items[0].snippet.thumbnails.high.url);
+            //console.log(video.items[0].snippet.thumbnails.high.url);
 
             thumbnail.style.aspectRatio="1";
             thumbnail.style.height = "30%";
             thumbnail.style.display="block";
             //thumbnail.style.margin="0 auto";
-            document.getElementById(newtieritem.id).appendChild(thumbnail);//document.getElementById(`Tier_${tiernumber}`).appendChild(thumbnail);
+            document.getElementById(newtieritem.id).appendChild(thumbnail);
             y++;
 
 
         }
         else if(y==0){ //Start of a new tier (Not Winning tier)
 
+            console.log("Reading for new Tier");
+
             var tiertitle = document.createElement("div");
             tiertitle.style.fontSize="2.7vh";
-            tiertitle.style.maxWidth = "50%";
-
-            //tiertitle.style.fontSize="100%";
-            
+            tiertitle.style.maxWidth = "50%";            
             if(x==0){
                 tiertitle.innerHTML = "COMPLETE LOSERS";
-                //tiertitle.style.width="30%";
             }
             else{
                 tiertitle.innerHTML = "Tier "+ tiernumber;
-               // tiertitle.style.width="10%";
-
             }
             tiertitle.style.color="black";
             //tiertitle.style.textShadow ="2px 2px 5px gold";
@@ -191,24 +196,19 @@ if (Array.isArray(listoftiers[x]) && listoftiers[x].length > 0){
             document.getElementById(`Tier_${tiernumber}`).appendChild(tiertitle);
 
             newtieritem.innerHTML = video.items[0].snippet.title;// + " ["+ namesintiers[x][y] +"]";
-           // newtieritem.style.backgroundColor="pink";
             newtieritem.style.width="75%";
             newtieritem.style.marginTop="2%";
             //newtieritem.style.textDecoration="underline";
-            newtieritem.style.display="inline-block";
-
-            
-
+            newtieritem.style.display="inline-block";  
 
             if(x==0){
                 newtieritem.style.textDecorationColor = "blue";
-
             }                
             else{
                 newtieritem.style.textDecorationColor = "red";
-
             }
             newtieritem.id=video.items[0].snippet.title + x;
+            //console.log(newtieritem.id);
             newtieritem.style.position="relative";
             newtieritem.style.textAlign="center";
             newtieritem.className="SongsDiv";
@@ -243,17 +243,15 @@ if (Array.isArray(listoftiers[x]) && listoftiers[x].length > 0){
             //newtieritem.style.textDecoration="underline";
             if(x==0){
                 newtieritem.style.textDecorationColor = "blue";
-
             }  
             else{
                 newtieritem.style.textDecorationColor = "red";
-
             }
             newtieritem.id=video.items[0].snippet.title + x;
+            //console.log(newtieritem.id);
             newtieritem.style.display="block";
             newtieritem.style.position="relative";
             newtieritem.style.textAlign="center";
-            //newtieritem.style.backgroundColor="pink";
             newtieritem.style.width="75%";
             newtieritem.style.marginTop="2%";
             newtieritem.style.display="inline-block";
@@ -267,10 +265,8 @@ if (Array.isArray(listoftiers[x]) && listoftiers[x].length > 0){
             nametag.style.padding=".5% 2%";
             nametag.style.margin="0 2%";
             nametag.style.fontSize="2.5vh";
-
             //nametag.style.textDecoration="none";
             document.getElementById(newtieritem.id).appendChild(nametag);
-            //document.getElementById(`Tier_${tiernumber}`).appendChild(nametag);
 
             var thumbnail = document.createElement("img");
             thumbnail.crossOrigin="anonymous";
@@ -282,21 +278,17 @@ if (Array.isArray(listoftiers[x]) && listoftiers[x].length > 0){
             thumbnail.style.display="block";
             thumbnail.style.position="relative";
 
-            document.getElementById(newtieritem.id).appendChild(thumbnail);//document.getElementById(`Tier_${tiernumber}`).appendChild(thumbnail);
+            document.getElementById(newtieritem.id).appendChild(thumbnail);
             y++;
-
-
         }           
-// return video.items[0].snippet.title;
 
 }   
     catch(error){
      console.error("Fetch error:",error);
 }   
-    //y++;
-    console.log("Y checker: ",y);
+    //console.log("Iterating through...",y);
 }
-console.log("Y Final: ",y);
+//console.log("Total Songs Read/Accounted for: ",y);
 
 }
 
@@ -363,7 +355,7 @@ var songdivs = document.getElementsByClassName("SongsDiv");
 var songdivindex=0
 const songdivlength =songdivs.length;
 
-console.log(songdivlength);
+//console.log(songdivlength);
 for(var x=0; x<songdivs.length;x++){ //for(var x=0; x<songdivs.length;x++){//for(var x=listoftiers.length-1; x>=0;x--){//Covers total amount of songs
 //Make songdivs.length the total amount of songs (thats why we have 8)
 
@@ -424,9 +416,9 @@ var titlecounter=0;
 var getsong = listoftiers[getindex].length-1;
 iterhelp=1;
 var tmp=0
+
 //Added defeatedby additions here because it won't work within API calls
 for(var x=1; x<everydiv.length; x++){  //skip x=0 because the winner didn't lose to anybody
-
 
 
 
@@ -443,12 +435,10 @@ defeatedby.className="thedefeated";
 document.getElementsByClassName("NoteNum")[x].insertAdjacentElement('afterend',defeatedby); //document.getElementById(everydiv[x].id).insertAdjacentElement('afterend',defeatedby); 
 //Have to put it AFTER parent element so we dont inherit text decoration
 
-if(getsong==listoftiers[getindex].length){ //if(getsong==0){ 
+if(getsong==listoftiers[getindex].length){ 
 
-   /* titlecounter=tmp + listoftiers[--getindex].length; //Go to the next tier
-    tmp=titlecounter;*/
     getindex--;
-    getsong=0;//getsong = listoftiers[getindex].length-1;
+    getsong=0;
     console.log(titlecounter);
 }
 else{
@@ -460,12 +450,6 @@ getsong++;
 
 }
 
-/*
-var removeunderline = document.querySelectorAll(".thedefeated");
-removeunderline.forEach(element => {
-//element.style.color="red";
-element.classList.add('thedefeated2');
-});*/
 
 
 //Finally remove splash screen and reveal results
@@ -479,9 +463,8 @@ mainContent.style.display = 'block'; // Show the main content
 
 }
 
+
 //Screenshot section
-
-
 function screenshot(){
 //document.getElementById("screenshot").
 var resultstitle = prompt("Screenshot Title?","fullresults");
