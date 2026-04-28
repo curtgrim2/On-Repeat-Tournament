@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import Flask,render_template,request,jsonify,session,redirect
 import pyodbc
 import json
@@ -31,6 +33,7 @@ def home():
     drafttitle1=[]
     draftsong4user1=[]
     draftstarttime1 =[]
+    createddate1 = []
     
     names2=[]
     url2=[]
@@ -41,7 +44,7 @@ def home():
     drafttitle2=[]
     draftsong4user2=[]
     draftstarttime2 = []
-
+    createddate2 = []
 
     
     names3=[]
@@ -53,7 +56,7 @@ def home():
     drafttitle3=[]
     draftsong4user3=[]
     draftstarttime3 =[]
-    
+    createddate3 = []
     
     names4=[]
     url4=[]
@@ -64,7 +67,7 @@ def home():
     drafttitle4=[]
     draftsong4user4=[]
     draftstarttime4 =[]
-    
+    createddate4 = []
     
     names5=[]
     url5=[]
@@ -75,7 +78,7 @@ def home():
     drafttitle5=[]
     draftsong4user5=[]
     draftstarttime5 =[]
-
+    createddate5 = []
     
     alltables=[]
     tablenum = 1
@@ -84,7 +87,7 @@ def home():
     for table in tables:
         table_name = table[0]
         alltables.append(table_name)
-        #print(table_name)
+        print(table_name)
         cursor.execute(f"SELECT * FROM {table_name} ORDER BY EntryNum;")
         if tablenum==1:
             for row in cursor:
@@ -98,7 +101,7 @@ def home():
                  drafttitle1.append(row[7]) 
                  draftsong4user1.append(row[8])
                  draftstarttime1.append(row[9])
-
+                 createddate1.append(row[10])
     
         elif tablenum==2:
              for row in cursor:
@@ -112,7 +115,7 @@ def home():
                 drafttitle2.append(row[7])     
                 draftsong4user2.append(row[8])
                 draftstarttime2.append(row[9])
-
+                createddate2.append(row[10])
 
         elif tablenum==3:
              for row in cursor:
@@ -125,6 +128,7 @@ def home():
                 drafttitle3.append(row[7])     
                 draftsong4user3.append(row[8])
                 draftstarttime3.append(row[9])
+                createddate3.append(row[10])
                 
         elif tablenum==4:
              for row in cursor:
@@ -137,6 +141,7 @@ def home():
                 drafttitle4.append(row[7])     
                 draftsong4user4.append(row[8])
                 draftstarttime4.append(row[9])
+                createddate4.append(row[10])
                 
         elif tablenum==5:
              for row in cursor:
@@ -149,16 +154,19 @@ def home():
                 drafttitle5.append(row[7])     
                 draftsong4user5.append(row[8])
                 draftstarttime5.append(row[9])
+                createddate5.append(row[10])
    
         tablenum+=1  
     #print(names1)
     #print(names5)
+    print("Date")
+    print(datetime.now().strftime("%x"))
 
-    return render_template('gameprep.html',draftnames=names1,drafturls=url1,draftnotes=json.dumps(notes1),songsperuser=songsperuser1,numofusers=numofusers1,drafttitle1=drafttitle1,draftsong4user1=draftsong4user1,draftstarttime1=draftstarttime1,
-                           draftnames2=names2,drafturls2=url2,draftnotes2=json.dumps(notes2),songsperuser2=songsperuser2,numofusers2=numofusers2,drafttitle2=drafttitle2,draftsong4user2=draftsong4user2,draftstarttime2=draftstarttime2,
-                            draftnames3=names3,drafturls3=url3,draftnotes3=json.dumps(notes3),songsperuser3=songsperuser3,numofusers3=numofusers3,drafttitle3=drafttitle3,draftsong4user3=draftsong4user3,draftstarttime3=draftstarttime3,
-                            draftnames4=names4,drafturls4=url4,draftnotes4=json.dumps(notes4),songsperuser4=songsperuser4,numofusers4=numofusers4,drafttitle4=drafttitle4,draftsong4user4=draftsong4user4,draftstarttime4=draftstarttime4,
-                            draftnames5=names5,drafturls5=url5,draftnotes5=json.dumps(notes5),songsperuser5=songsperuser5,numofusers5=numofusers5,drafttitle5=drafttitle5,draftsong4user5=draftsong4user5,draftstarttime5=draftstarttime5)
+    return render_template('gameprep.html',draftnames=names1,drafturls=url1,draftnotes=json.dumps(notes1),songsperuser=songsperuser1,numofusers=numofusers1,drafttitle1=drafttitle1,draftsong4user1=draftsong4user1,draftstarttime1=draftstarttime1,createddate1=createddate1,
+                           draftnames2=names2,drafturls2=url2,draftnotes2=json.dumps(notes2),songsperuser2=songsperuser2,numofusers2=numofusers2,drafttitle2=drafttitle2,draftsong4user2=draftsong4user2,draftstarttime2=draftstarttime2,createddate2=createddate2,
+                            draftnames3=names3,drafturls3=url3,draftnotes3=json.dumps(notes3),songsperuser3=songsperuser3,numofusers3=numofusers3,drafttitle3=drafttitle3,draftsong4user3=draftsong4user3,draftstarttime3=draftstarttime3,createddate3=createddate3,
+                            draftnames4=names4,drafturls4=url4,draftnotes4=json.dumps(notes4),songsperuser4=songsperuser4,numofusers4=numofusers4,drafttitle4=drafttitle4,draftsong4user4=draftsong4user4,draftstarttime4=draftstarttime4,createddate4=createddate4,
+                            draftnames5=names5,drafturls5=url5,draftnotes5=json.dumps(notes5),songsperuser5=songsperuser5,numofusers5=numofusers5,drafttitle5=drafttitle5,draftsong4user5=draftsong4user5,draftstarttime5=draftstarttime5,createddate5=createddate5)
 
 
 
@@ -222,15 +230,15 @@ def startgame():
             #Create an alert to get the drafts name 
             newdraftname = request.form.get("newdraftname").replace(" ","_")
             print(newdraftname)
-            
-            cursor.execute(f"""CREATE TABLE "{newdraftname}"(UserNum int IDENTITY(1,1) PRIMARY KEY,Name nvarchar(50) NOT NULL,SongURL nvarchar(255),Notes nvarchar(255),EntryNum int,SongsperUser int,NumofUsers int,DraftTitle nvarchar(255),SpecificUserSongNum int,StartTime nvarchar(255));""")
+            print(datetime)
+            cursor.execute(f"""CREATE TABLE "{newdraftname}"(UserNum int IDENTITY(1,1) PRIMARY KEY,Name nvarchar(50) NOT NULL,SongURL nvarchar(255),Notes nvarchar(255),EntryNum int,SongsperUser int,NumofUsers int,DraftTitle nvarchar(255),SpecificUserSongNum int,StartTime nvarchar(255),CreatedDate datetime);""")
             cursor.commit()
             
             for x in range(int(request.form.get("numofusers"))):
                           songsperuser = songnum4user[x]#totalsongs//len(allthenames) # Double /:To prevent float TypeError
                           for y in range(int(songsperuser)):
-                              cursor.execute(f"""INSERT INTO "{newdraftname}"(Name,SongURL,Notes,EntryNum,SongsperUser,NumofUsers,DraftTitle,StartTime)VALUES(?, ?, ?, ?, ?, ?,?,?)""",
-                                             (allthenames[x], allurls[iterthrsongs], thenotes[iterthrsongs],int(iterthrsongs+1), songsperuser, len(allthenames),newdraftname,optstarttime[iterthrsongs]))
+                              cursor.execute(f"""INSERT INTO "{newdraftname}"(Name,SongURL,Notes,EntryNum,SongsperUser,NumofUsers,DraftTitle,StartTime,CreatedDate)VALUES(?, ?, ?, ?, ?, ?,?,?,?)""",
+                                             (allthenames[x], allurls[iterthrsongs], thenotes[iterthrsongs],int(iterthrsongs+1), songsperuser, len(allthenames),newdraftname,optstarttime[iterthrsongs], datetime.now())) #datetime.now().strftime("%x")
                               iterthrsongs+=1
 
             placement=1
@@ -471,7 +479,6 @@ def startgame():
         
         for x in allcheckbox:
             temp = int(x)
-           # cursor.execute(f"""UPDATE "{newdraftname}" SET SongURL='',Notes='' WHERE EntryNum={temp +1};""")
             
             print(f"""DELETE(Update) FROM "{newdraftname}" WHERE EntryNum ={temp+1};""")
         

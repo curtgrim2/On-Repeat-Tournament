@@ -35,7 +35,6 @@
                         <option value="32">Dirty 32</option>
                         <option value="64">Sexy 64</option>                       
                      </select>
-                 <!--<input type = "button" value="START GAME" onclick="startgame()"/>-->
                  <br/>
                  <br/>
                  <div class="next1" onclick="toslide2(showusernum)">Next</div>
@@ -117,7 +116,9 @@
             var drafttitle1 =JSON.parse('{{drafttitle1 | tojson | safe}}');
             var draftsong4user1 = JSON.parse('{{draftsong4user1 | tojson | safe}}');
             var draftstarttime1 = JSON.parse('{{draftstarttime1 | tojson | safe}}');
-            //console.log(draftstarttime1);
+            var createddate1 = JSON.parse('{{createddate1 | tojson | safe}}');
+
+            console.log(createddate1);
 
 
             
@@ -131,7 +132,7 @@
             var drafttitle2 =JSON.parse('{{drafttitle2 | tojson | safe}}');
             var draftsong4user2 = JSON.parse('{{draftsong4user2| tojson | safe}}');
             var draftstarttime2 = JSON.parse('{{draftstarttime2 | tojson | safe}}');
-
+            var createddate2 = JSON.parse('{{createddate2 | tojson | safe}}');
 
             /*var foroldsongsperuser = JSON.stringify(draftsong4user2);
             document.querySelector("input[name=oldsongsperuser]").value=foroldsongsperuser; //Probab;y going to have to put this in script.js when user selects the draft
@@ -148,6 +149,7 @@
             var drafttitle3 =JSON.parse('{{drafttitle3 | tojson | safe}}');
             var draftsong4user3 = JSON.parse('{{draftsong4user3 | tojson | safe}}');
             var draftstarttime3 = JSON.parse('{{draftstarttime3 | tojson | safe}}');
+            var createddate3 = JSON.parse('{{createddate3 | tojson | safe}}');
 
             var draftnames4 = JSON.parse('{{draftnames4 | tojson | safe}}');
             var drafturls4= JSON.parse('{{drafturls4 | tojson | safe}}');
@@ -157,6 +159,7 @@
             var drafttitle4 =JSON.parse('{{drafttitle4 | tojson | safe}}');
             var draftsong4user4 = JSON.parse('{{draftsong4user4 | tojson | safe}}');
             var draftstarttime4 = JSON.parse('{{draftstarttime4 | tojson | safe}}');
+            var createddate4 = JSON.parse('{{createddate4 | tojson | safe}}');
 
             var draftnames5 = JSON.parse('{{draftnames5 | tojson | safe}}');
             var drafturls5= JSON.parse('{{drafturls5 | tojson | safe}}');
@@ -166,6 +169,7 @@
             var drafttitle5 =JSON.parse('{{drafttitle5 | tojson | safe}}');
             var draftsong4user5 = JSON.parse('{{draftsong4user5 | tojson | safe}}');
             var draftstarttime5 = JSON.parse('{{draftstarttime5 | tojson | safe}}');
+            var createddate5 = JSON.parse('{{createddate5 | tojson | safe}}');
 
              
             
@@ -174,12 +178,20 @@
             }*/
 
            const draftslots = {
-            drafttitle1:drafttitle1[0],
-            drafttitle2:drafttitle2[0],
-            drafttitle3:drafttitle3[0],
-            drafttitle4:drafttitle4[0],
-            drafttitle5:drafttitle5[0],
+            draft1:drafttitle1[0],
+            draft2:drafttitle2[0],
+            draft3:drafttitle3[0],
+            draft4:drafttitle4[0],
+            draft5:drafttitle5[0],
 
+           }
+
+           const draftcreateddates ={
+            draft1:createddate1[0],
+            draft2:createddate2[0],
+            draft3:createddate3[0],
+            draft4:createddate4[0],
+            draft5:createddate5[0],
            }
 
             //For Draft Slots           
@@ -203,7 +215,7 @@
                 draft.style.zIndex="2";
                 //draft.style.boxShadow="0 0 5px 1px white";
                 //draft.style.className= "slide1drafts";
-                var draftnum = "drafttitle"+x;
+                var draftnum = "draft"+x;
                 draft.id=x;
                 draft.className="selectdrafts";
                 draft.style.width="14%";
@@ -220,7 +232,7 @@
                 else{
                     //draft.style.border="white 1px solid";
                     draft.style.borderTop="white 4px solid";
-                    draft.innerHTML=draftslots[draftnum];
+                    draft.innerHTML=draftslots[draftnum] + "<br/> <br/> <div style='font-size: 0.7em; color: #ccc;'> Created: " +  draftcreateddates[draftnum] +"</div>";
                     totaltitles++;
                 }
 
