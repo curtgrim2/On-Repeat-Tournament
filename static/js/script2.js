@@ -502,11 +502,13 @@ var num =0;
 
             for(x=0;x<winners.length;x++){
                 var finduser = users2.some(user => user.name===winnames[x]);
-                if (!finduser){
-                    users2[x].name=winnames[x];
-                    users2[x].songs.push(winners[x]);
-                    users2[x].notes.push(winnernotes[x]);
-                    console.log(x);
+                if (!finduser){ //if user hasn't already been added
+
+                let emptyin = users2.findIndex(user => user.name ==="");
+
+                    users2[emptyin].name=winnames[x];
+                    users2[emptyin].songs.push(winners[x]);
+                    users2[emptyin].notes.push(winnernotes[x]);
 
                 }
                 else{
@@ -517,7 +519,6 @@ var num =0;
                         }
                     })
                     
-                    console.log(x);
                 }               
             }
 

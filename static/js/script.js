@@ -17,7 +17,10 @@ var slide2 = document.getElementById("slide2");
 slide2.style.display = "none";
 var slide1 = document.getElementById("slide1");
 var slide3 = document.getElementById("slide3");
+var slide4 = document.getElementById("slide4");
+
 slide3.style.display ="none";
+slide4.style.display="none";
 
 var olddrafts = document.getElementById("olddrafts");
 var draftscontainer = document.getElementById("draftscontainer");
@@ -1228,22 +1231,37 @@ async function getVideoDetails(videoId,usethisid,fortitledisplay,urlvideoid){
   }
 
   function b4send(){
+    var isthisauto = document.getElementById("autooption").checked;
+    if(isthisauto==true){
+        toslide4();
+    }
+
+    else{
     errorbox.style.display="none";
     document.getElementById("isthesavebuttonclicked").value="notclicked";
+    }
+  }
+
+  function  toslide4(){
+    slide4.style.display="block"; //Have this be a popup instead of a whole new page?
+
+    var joincode = Math.floor(100000 + Math.random() * 900000);
+    document.getElementById("groupcode").value=joincode;
+
+   /* 
+   errorbox.style.display="none";
+    document.getElementById("isthesavebuttonclicked").value="notclicked";
+   
+   slide3.style.display="none";
+    document.getElementById("form").submit(); */
+  
+    //Remember we'll have to set isthisauto to false
     
   }
 
-  function cleareverything(){
-    //To clear values in drafts to potentially create a new one
-  }
 
-  function tester(){
-    console.log("Tesret");
-  }
 
-  function removesongs(){
 
-  }
 
 
 
