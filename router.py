@@ -277,7 +277,11 @@ def startgame():
         iterthrurls=0
         entrynum=1
         print("Draft save button Clicked")
+        
         newdraftname = request.form.get("newdraftname").replace(" ","_")
+        newdraftname = newdraftname.replace("-","_")
+        #Editing draft/table name to avoid server syntax errors
+        
         cursor = dbsetup.cursor()
         
         songreference = request.form["oldsongsperuser"]
