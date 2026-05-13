@@ -1,5 +1,7 @@
  const apiKey =  'AIzaSyBc9Y9VMDPAaILM7erb5kwBhJ_B8knnKQk'
 
+
+
 var checkboxtrack = [];
 var inc = document.getElementById("increase");
 var dec = document.getElementById("decrease");
@@ -910,6 +912,12 @@ function inputdraft(whichdraft){  //REMEMBER: Changes in here apply to slide3()
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form"); // Select the form
     form.addEventListener("submit", function (event) {
+
+    var isthisauto = document.getElementById("autooption").checked;
+        if(isthisauto==true){
+            event.preventDefault();
+            toslide4();
+    }
         
         //Starting the game
         if(document.getElementById("isthesavebuttonclicked").value!="createnewdraft" && document.getElementById("isthesavebuttonclicked").value!="clicked"){
@@ -1231,22 +1239,65 @@ async function getVideoDetails(videoId,usethisid,fortitledisplay,urlvideoid){
   }
 
   function b4send(){
-    var isthisauto = document.getElementById("autooption").checked;
-    if(isthisauto==true){
-        toslide4();
-    }
-
-    else{
     errorbox.style.display="none";
     document.getElementById("isthesavebuttonclicked").value="notclicked";
-    }
+  }
+
+  function toslide4_1(){
+    var joingame = document.getElementById("joingame");
+    joingame.style.display="block";
+    console.log("enter code");
+  }
+
+  function toslide4_2(){
+    var creategame = document.getElementById("creategame");
+    creategame.style.display="block";
+    console.log("create code");
+  }
+
+  function matchcode(){
+     var socket = io('http://localhost:3000');
+    var checkcode =document.getElementById("entercode").value;
+    console.log(checkcode);
+    socket.emit("check code",checkcode);
+
+    socket.on("code checked",function(status){
+        console.log(status);
+    });
+
+    socket.on("connect_error", (err) => {
+    console.log("Connection failed:", err.message);
+});
+
+
+
+    
+   /* socket.on("code status",function(status){
+        console.log(status);*/
+     /*   if(status=="ok"){
+            console.log("Code is correct");
+            //Redirect to game page
+        }*/
+   /* }); */
+   //Remember to also send the user name and then have the server send back the applicable draft based on the code and then redirect to game page with that draft
+   //We can also have the server send back an error if the code is wrong and then display that error on the page
+   //Also remember to set isthisauto to false here as well
+   //We can also have a timer for the code so that it expires after a certain amount of time or after it's been used a certain amount of times
+   //We can also have the option to have a password for the code as well for added security
+   //Remember to also have the server emit an event when the game starts so that all players can be redirected to the game page at the same time
   }
 
   function  toslide4(){
+    var socket = io('http://localhost:3000');
     slide4.style.display="block"; //Have this be a popup instead of a whole new page?
+    slide4.style.zIndex="100";
 
     var joincode = Math.floor(100000 + Math.random() * 900000);
-    document.getElementById("groupcode").value=joincode;
+    console.log(joincode);
+    document.getElementById("groupcode").innerHTML=joincode;
+
+    socket.emit("create code", joincode);
+    
 
    /* 
    errorbox.style.display="none";

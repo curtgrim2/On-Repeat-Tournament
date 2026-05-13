@@ -12,6 +12,21 @@
         <div id="startup">
           <form method="post" id="form" action="{{ url_for("startgame")}}" > 
             <!-- <form method="post" action="{{ url_for("startgame")}}" onsubmit="event.preventDefault(); urlscantbeempty()">    -->
+                
+                <div id="joingamelink" onclick="toslide4_1()">JOIN EXISTING GAME</div>
+                <div id="creategamelink" onclick="toslide4_2()">CREATE NEW GAME</div>
+
+                <div id="joingame" style="display:none;">
+                    <br/>
+                    <div>Enter Game Code:</div>
+                    <input id="entercode" type="text" name="entercode">
+                    <div onclick="matchcode()" style="color:white;cursor:pointer;">Check 4 Game</div>
+                </div>
+
+                <div id="creategame">
+                    <div id="displaycode" style="color:white"></div>
+                </div>
+
                 <div id = "slide1"> 
                     <br/>
                     <div>How many users are participating? </div>
@@ -83,8 +98,11 @@
 
 
             <div id="slide4">
-                <div>Group Code: <span id="groupcode"></span></div>
+                <div>Group Code: <span id="groupcode" style="color: white;"></span></div>
                 <div id="joinedusers"></div>
+                <div onclick="toslide4()" style="color:white;">Send code</div>
+                <button type="submit" onclick="b4send()" id="startbutton">START GAME</button> </div>
+
             </div>
 
                 <div id="errorbox"></div>
@@ -113,7 +131,7 @@
 
 
 
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
         <script src="{{ url_for('static', filename='js/script.js') }}"></script></script>
         <script>
             draftnames1 = JSON.parse('{{draftnames | tojson | safe}}');
@@ -430,6 +448,18 @@
             });*/
 
             console.log(totaltitles);
+
+            /*
+              function  toslide4(){
+                slide4.style.display="block";
+                slide4.style.zIndex="100";
+
+    var joincode = Math.floor(100000 + Math.random() * 900000);
+    console.log(joincode);
+    document.getElementById("groupcode").innerHTML=joincode;
+
+    
+  } */
             
         </script>
     </body>

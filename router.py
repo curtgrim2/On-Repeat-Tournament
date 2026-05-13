@@ -4,6 +4,9 @@ from flask import Flask,render_template,request,jsonify,session,redirect
 import pyodbc
 import json
 
+import pyodbc
+print(pyodbc.drivers())
+
 #It all starts here...
 
 app = Flask(__name__)
