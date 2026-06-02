@@ -16,10 +16,18 @@ var io = new Server(server,{
     }
 
 });
+
+
+app.use('/',(req,res)=>{
+    res.send('Backend is working');
+});
+
+
 var path = require('path');
 app.use(express.static(path.join(__dirname,'./static'))); //serves static files from the static folder
 
-const sql = require("mssql/msnodesqlv8");
+const sql = require("mssql");
+//const sql = require("mssql/msnodesqlv8");
 
 const odbc = require('odbc');
 
@@ -28,16 +36,17 @@ connectionString: 'Driver={ODBC Driver 17 for SQL Server};Server=localhost\\SQLE
 connectionTimeout: 10,
 loginTimeout: 10,
 };
-/*
+
 const config = {
   server: "localhost\\SQLEXPRESS2",
   database: "o_r_tournament",
   driver: "msnodesqlv8",
   options: {
+    encrypt:true,
     trustedConnection: true
   }
 };
-
+/*
 sql.connect(config).then(()=>{
 console.log('connected to database');
 })
