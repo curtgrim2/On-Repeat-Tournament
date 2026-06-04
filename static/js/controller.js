@@ -38,6 +38,18 @@ loginTimeout: 10,
 };
 
 const config = {
+  server: process.env.DB_SERVER,
+  database: process.env.DB_NAME,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  port:1433,
+  options: {
+    encrypt:true,
+    trustServerCertificate: false
+  }
+};
+
+/*const config = {
   server: "localhost\\SQLEXPRESS2",
   database: "o_r_tournament",
   driver: "msnodesqlv8",
@@ -45,7 +57,10 @@ const config = {
     encrypt:true,
     trustedConnection: true
   }
-};
+}; */
+
+
+
 /*
 sql.connect(config).then(()=>{
 console.log('connected to database');
