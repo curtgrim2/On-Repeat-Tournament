@@ -3,6 +3,7 @@ from datetime import datetime
 from flask import Flask,render_template,request,jsonify,session,redirect
 import pyodbc
 import json
+import os
 
 import pyodbc
 print(pyodbc.drivers())
@@ -13,10 +14,29 @@ app = Flask(__name__)
 app.secret_key = 'supersecretkey'  # Required for session management
 app.config['SESSION_TYPE'] = 'filesystem'  # Store session data on the server's filesystem
 
-dbsetup = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};" 
-                         "Server=localhost\SQLEXPRESS2;"  #"Server=LAPTIZZY\SQLEXPRESS;" 
-                         "Database=o_r_tournament;"
-                         "Trusted_Connection=yes;") #Format must be exactly like this, down to the spacing and new lines
+#Goes to local settings for variables (just in case)
+server = os.getenv("DB_SERVER", r"localhost\SQLEXPRESS2")
+database = os.getenv("DB_NAME", "o_r_tournament")
+username = os.getenv("DB-USER")
+password = os.getenv("DB_PASSWORD")
+
+if username and password:
+  #Docker uses the following if condition
+  dbsetup = pyodbc.connect(f'"Driver={{ODBC Driver 17 for SQL Server}};" 
+                         f'"Server={server}" 
+                         f'"Database={database}"
+                         f"Uid={username};"
+                         f"Pwd={password};"
+                         "Encrypt=yes;"
+                         "TrustServerCertificate=no;"
+
+else:
+#When I just run it on my system
+      dbsetup = pyodbc.connect(
+                         f'"Driver={{ODBC Driver 17 for SQL Server}};" 
+                         f'"Server={server};"  #localhost\SQLEXPRESS2;
+                         f'"Database=o_r_tournament;"
+                         f'"Trusted_Connection=yes;") #Format must be exactly like this, down to the spacing and new lines
 
 # Loop through tables and execute queries
 
