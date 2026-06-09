@@ -29,6 +29,7 @@ if username and password:
                          f"Pwd={password};"
                          "Encrypt=yes;"
                          "TrustServerCertificate=no;"
+                          )
 
 else:
 #When I just run it on my system
@@ -36,7 +37,9 @@ else:
                          f"Driver={{ODBC Driver 17 for SQL Server}};" 
                          f"Server={server};"  #localhost\SQLEXPRESS2;
                          f"Database=o_r_tournament;"
-                         f"Trusted_Connection=yes;") #Format must be exactly like this, down to the spacing and new lines
+                         f"Trusted_Connection=yes;"
+      ) 
+  
 
 # Loop through tables and execute queries
 
