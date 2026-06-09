@@ -12,6 +12,8 @@ RUN curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor
 
 RUN apt-get update && ACCEPT_EULA=Y apt-get install -y msodbcsql17
 
+RUN echo "[ODBC Driver 17 for SQL Server]\nDescription=Microsoft ODBC Driver 17 for SQL Server\nDriver=/opt/microsoft/msodbcsql17/lib64/libmsodbcsql-17.10.so.2.1\nUsageCount=1" >> /etc/odbcinst.ini
+
 WORKDIR /app
 
 COPY requirements.txt .
