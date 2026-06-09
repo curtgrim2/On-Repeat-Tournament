@@ -22,7 +22,7 @@ password = os.getenv("DB_PASSWORD")
 
 if username and password:
   #Docker uses the following if condition
-  dbsetup = pyodbc.connect(f'"Driver={{ODBC Driver 17 for SQL Server}};" 
+  dbsetup = pyodbc.connect(f"Driver={{ODBC Driver 17 for SQL Server}};" 
                          f"Server={server};" 
                          f"Database={database};"
                          f"Uid={username};"
