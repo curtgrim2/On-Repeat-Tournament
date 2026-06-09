@@ -1,7 +1,6 @@
 FROM python:3.10
 
 RUN apt-get update && apt-get install -y \
-    git \
     curl \
     gnupg2 \
     unixodbc \
@@ -15,8 +14,10 @@ RUN apt-get update && ACCEPT_EULA=Y apt-get install -y msodbcsql17
 
 WORKDIR /app
 
-RUN git clone https://github.com/curtgrim2/On-Repeat-Tournament .
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
 
 EXPOSE 10000
 
